@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\KGA\\Documents\\GitHub\\GenshinFury\\",
+  "WorkspaceRootPath": "C:\\Users\\MSKim\\GenshinFury\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|c:\\users\\kga\\documents\\github\\genshinfury\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|c:\\users\\mskim\\genshinfury\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|C:\\Users\\KGA\\Documents\\GitHub\\GenshinFury\\assets\\scripts\\playerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|C:\\Users\\MSKim\\GenshinFury\\assets\\scripts\\playerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|c:\\users\\kga\\documents\\github\\genshinfury\\assets\\scripts\\gamedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|C:\\Users\\MSKim\\GenshinFury\\assets\\scripts\\gamedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|C:\\Users\\KGA\\Documents\\GitHub\\GenshinFury\\assets\\scripts\\camerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|C:\\Users\\MSKim\\GenshinFury\\assets\\scripts\\camerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\camerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,47 +26,49 @@
       "DocumentGroups": [
         {
           "DockedWidth": 234,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{75d09b86-471e-4b30-8720-362d13ad0a45}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "GameData.cs",
-              "DocumentMoniker": "C:\\Users\\KGA\\Documents\\GitHub\\GenshinFury\\Assets\\Scripts\\GameData.cs",
+              "DocumentMoniker": "C:\\Users\\MSKim\\GenshinFury\\Assets\\Scripts\\GameData.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameData.cs",
-              "ToolTip": "C:\\Users\\KGA\\Documents\\GitHub\\GenshinFury\\Assets\\Scripts\\GameData.cs",
+              "ToolTip": "C:\\Users\\MSKim\\GenshinFury\\Assets\\Scripts\\GameData.cs",
               "RelativeToolTip": "Assets\\Scripts\\GameData.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T08:51:20.797Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-12T08:51:20.797Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "PlayerData.cs",
-              "DocumentMoniker": "C:\\Users\\KGA\\Documents\\GitHub\\GenshinFury\\Assets\\Scripts\\PlayerData.cs",
+              "DocumentMoniker": "C:\\Users\\MSKim\\GenshinFury\\Assets\\Scripts\\PlayerData.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerData.cs",
-              "ToolTip": "C:\\Users\\KGA\\Documents\\GitHub\\GenshinFury\\Assets\\Scripts\\PlayerData.cs",
+              "ToolTip": "C:\\Users\\MSKim\\GenshinFury\\Assets\\Scripts\\PlayerData.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerData.cs",
               "ViewState": "AQIAACoAAAAAAAAAAAA4wKgAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T07:18:16.501Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-12T07:18:16.501Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "PlayerController.cs",
-              "DocumentMoniker": "C:\\Users\\KGA\\Documents\\GitHub\\GenshinFury\\Assets\\Scripts\\PlayerController.cs",
+              "DocumentMoniker": "C:\\Users\\MSKim\\GenshinFury\\Assets\\Scripts\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerController.cs",
-              "ToolTip": "C:\\Users\\KGA\\Documents\\GitHub\\GenshinFury\\Assets\\Scripts\\PlayerController.cs",
+              "ToolTip": "C:\\Users\\MSKim\\GenshinFury\\Assets\\Scripts\\PlayerController.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerController.cs",
-              "ViewState": "AQIAADAAAAAAAAAAAADwv1MAAAAAAAAA",
+              "ViewState": "AQIAABwAAAAAAAAAAAAnwCYAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-12T06:14:16.396Z",
               "EditorCaption": ""
@@ -75,9 +77,9 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "CameraFollow.cs",
-              "DocumentMoniker": "C:\\Users\\KGA\\Documents\\GitHub\\GenshinFury\\Assets\\Scripts\\CameraFollow.cs",
+              "DocumentMoniker": "C:\\Users\\MSKim\\GenshinFury\\Assets\\Scripts\\CameraFollow.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\CameraFollow.cs",
-              "ToolTip": "C:\\Users\\KGA\\Documents\\GitHub\\GenshinFury\\Assets\\Scripts\\CameraFollow.cs",
+              "ToolTip": "C:\\Users\\MSKim\\GenshinFury\\Assets\\Scripts\\CameraFollow.cs",
               "RelativeToolTip": "Assets\\Scripts\\CameraFollow.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
