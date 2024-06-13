@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,6 +8,14 @@ public class PlayerController : MonoBehaviour
 
     private bool isRunning = true; // 기본값은 Run
     private bool isSprinting = false;
+
+    private float targetSpeed = 0f;
+    private float currentSpeed = 0f;
+    private float smoothTime = 0.1f;
+    private float speedSmoothVelocity = 0f;
+
+    private bool sprintCooldown = false;
+    private float sprintCooldownTime = 5f;
 
     Vector3 moveVector = Vector3.zero;
 
@@ -27,7 +36,7 @@ public class PlayerController : MonoBehaviour
             playerData.CurrentSpeed = isRunning ? playerData.RunSpeed : playerData.WalkSpeed;
         }
 
-        if (Input.GetMouseButton(1) && playerData.Stamina > 0)
+        if (!sprintCooldown && Input.GetMouseButton(1) && playerData.Stamina > 0)
         {
             isSprinting = true;
         }
@@ -48,15 +57,16 @@ public class PlayerController : MonoBehaviour
         moveVector = new Vector3(horizontal, 0, vertical).normalized;
 
         // 이동 속도 설정
-        float speed = playerData.CurrentSpeed;
+        targetSpeed = playerData.CurrentSpeed;
         if (isSprinting)
         {
-            speed = playerData.SprintSpeed;
+            targetSpeed = playerData.SprintSpeed;
         }
 
-        transform.position += moveVector * speed * Time.deltaTime;
+        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, smoothTime);
+        transform.position += moveVector * currentSpeed * Time.deltaTime;
 
-        animator.SetFloat("Speed", moveVector.magnitude * speed / playerData.SprintSpeed);
+        animator.SetFloat("Speed", moveVector.magnitude * currentSpeed / playerData.SprintSpeed);
 
         if (moveVector != Vector3.zero)
         {
@@ -69,15 +79,25 @@ public class PlayerController : MonoBehaviour
     {
         if (isSprinting)
         {
-            playerData.Stamina -= playerData.StaminaDecreaseRate * Time.deltaTime;
+            playerData.DecreaseStamina(playerData.StaminaDecreaseRate * Time.deltaTime);
             if (playerData.Stamina == 0)
             {
                 isSprinting = false;
+                isRunning = true;
+                playerData.CurrentSpeed = playerData.RunSpeed;
+                StartCoroutine(SprintCooldown());
             }
         }
         else
         {
-            playerData.Stamina += playerData.StaminaRecoveryRate * Time.deltaTime;
+            playerData.RecoverStamina(playerData.StaminaRecoveryRate * Time.deltaTime);
         }
+    }
+
+    private IEnumerator SprintCooldown()
+    {
+        sprintCooldown = true;
+        yield return new WaitForSeconds(sprintCooldownTime);
+        sprintCooldown = false;
     }
 }

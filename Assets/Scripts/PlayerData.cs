@@ -8,6 +8,7 @@ public class PlayerData : MonoBehaviour
     [SerializeField] private float maxStamina = 100f;
     [SerializeField] private float staminaDecreaseRate = 10f; // 초당 감소량
     [SerializeField] private float staminaRecoveryRate = 5f; // 초당 회복량
+    [SerializeField] private float sprintThreshold = 20f;
     private float stamina;
 
     [SerializeField] private float walkSpeed = 2f;
@@ -41,6 +42,12 @@ public class PlayerData : MonoBehaviour
     {
         get => staminaRecoveryRate;
         set => staminaRecoveryRate = value;
+    }
+
+    public float SprintThreshold
+    {
+        get => sprintThreshold;
+        set => sprintThreshold = value;
     }
 
     public float Stamina
@@ -103,6 +110,16 @@ public class PlayerData : MonoBehaviour
     {
         get => experienceToNextLevel;
         set => experienceToNextLevel = value;
+    }
+
+    public void DecreaseStamina(float amount)
+    {
+        Stamina -= amount;
+    }
+
+    public void RecoverStamina(float amount)
+    {
+        Stamina += amount;
     }
 
     private void LevelUp()
