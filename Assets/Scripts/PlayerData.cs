@@ -11,6 +11,7 @@ public class PlayerData : MonoBehaviour
     [SerializeField] private float sprintThreshold = 20f;
     private float stamina;
 
+    [SerializeField] private float idleSpeed = 0f;
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float runSpeed = 5f;
     [SerializeField] private float sprintSpeed = 8f;
@@ -61,6 +62,12 @@ public class PlayerData : MonoBehaviour
             if (stamina > maxStamina)
                 stamina = maxStamina;
         }
+    }
+
+    public float IdleSpeed
+    {
+        get => idleSpeed;
+        set => idleSpeed = value;
     }
 
     public float WalkSpeed

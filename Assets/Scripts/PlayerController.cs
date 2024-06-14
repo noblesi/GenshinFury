@@ -6,7 +6,9 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     private float vertical;
 
+    private bool isMoving = false;
     private bool isRunning = true; // 기본값은 Run
+    private bool sprintOnce = false;
     private bool isSprinting = false;
 
     private float targetSpeed = 0f;
@@ -36,17 +38,23 @@ public class PlayerController : MonoBehaviour
             playerData.CurrentSpeed = isRunning ? playerData.RunSpeed : playerData.WalkSpeed;
         }
 
+        if(!sprintCooldown && Input.GetMouseButtonDown(1))
+        {
+            animator.SetTrigger("SprintOnce");
+        }
+
         if (!sprintCooldown && Input.GetMouseButton(1) && playerData.Stamina > 0)
         {
             isSprinting = true;
         }
-        else
+        else if(!Input.GetMouseButton(1))
         {
             isSprinting = false;
         }
 
         Move();
         HandleStamina();
+        UpdateAnimator();
     }
 
     private void Move()
@@ -56,19 +64,23 @@ public class PlayerController : MonoBehaviour
 
         moveVector = new Vector3(horizontal, 0, vertical).normalized;
 
+        isMoving = moveVector != Vector3.zero;
+
         // 이동 속도 설정
         targetSpeed = playerData.CurrentSpeed;
         if (isSprinting)
         {
             targetSpeed = playerData.SprintSpeed;
         }
+        else if (!isMoving)
+        {
+            targetSpeed = playerData.IdleSpeed;
+        }
 
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, smoothTime);
         transform.position += moveVector * currentSpeed * Time.deltaTime;
 
-        animator.SetFloat("Speed", moveVector.magnitude * currentSpeed / playerData.SprintSpeed);
-
-        if (moveVector != Vector3.zero)
+        if (isMoving)
         {
             Quaternion toRotation = Quaternion.LookRotation(moveVector, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * 10f);
@@ -92,6 +104,13 @@ public class PlayerController : MonoBehaviour
         {
             playerData.RecoverStamina(playerData.StaminaRecoveryRate * Time.deltaTime);
         }
+    }
+
+    private void UpdateAnimator()
+    {
+        //float speedPercent = currentSpeed / playerData.SprintSpeed;
+        animator.SetFloat("Speed", currentSpeed);
+        animator.SetBool("isMove", isMoving);
     }
 
     private IEnumerator SprintCooldown()

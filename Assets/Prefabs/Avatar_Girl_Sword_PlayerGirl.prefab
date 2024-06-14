@@ -4059,6 +4059,7 @@ GameObject:
   - component: {fileID: 5949809201353200739}
   - component: {fileID: 5048690939118789514}
   - component: {fileID: 7012863144952725974}
+  - component: {fileID: 616028262175439753}
   - component: {fileID: 5866666019907369707}
   m_Layer: 0
   m_Name: Avatar_Girl_Sword_PlayerGirl
@@ -4105,8 +4106,8 @@ Animator:
     'Bip001 R Finger0'\n\tTransform 'Bip001 R Finger02'\n\tTransform 'Bip001 L Finger02'\n\tTransform
     'Bip001 L Finger0'\n\tTransform 'Bip001 L Finger01'\n\tTransform 'Bip001 R Finger01'\n\tTransform
     'Bip001 R Finger0'\n\tTransform 'Bip001 R Finger02'\n\tand more ...\n\tFrom animation
-    clip 'Ani_Avatar_Girl_Standby'\n\tFrom animation clip 'Ani_Avatar_Girl_WalkCycle'\n\tFrom
-    animation clip 'Ani_Avatar_Girl_RunCycle'\n\tFrom animation clip 'Ani_Avatar_Girl_SprintCycle'"
+    clip 'Ani_Avatar_Girl_Standby'\n\tFrom animation clip 'Ani_Avatar_Girl_RunCycle'\n\tFrom
+    animation clip 'Ani_Avatar_Girl_WalkCycle'\n\tFrom animation clip 'Ani_Avatar_Girl_SprintCycle'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -4153,6 +4154,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f47fafdf15da749a37c8ecd841b3e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &616028262175439753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5561072391278676977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584eec1735e6d204191f433a8ad2eeb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5866666019907369707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4168,6 +4181,8 @@ MonoBehaviour:
   maxStamina: 100
   staminaDecreaseRate: 10
   staminaRecoveryRate: 5
+  sprintThreshold: 20
+  idleSpeed: 0
   walkSpeed: 2
   runSpeed: 5
   sprintSpeed: 8

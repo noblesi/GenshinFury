@@ -60,9 +60,22 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\AnimationHierarchyEditor.cs" />
     <Compile Include="Assets\Scripts\GameData.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\AnimationHierarchyEditor.cs" />
+    <Compile Include="Assets\Scripts\PlayerControllerTest.cs" />
+    <Compile Include="Assets\Multistory Dungeons 2\Scripts\DisableMeshAtRuntime.cs" />
+    <Compile Include="Assets\Multistory Dungeons 2\Scripts\PointAndClickManager.cs" />
+    <Compile Include="Assets\Multistory Dungeons 2\Scripts\FpsCounter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Multistory Dungeons 2\Prefabs\FIRST-PERSON\FP ROOMS\Nested Prefabs Info.txt" />
+    <None Include="Assets\Multistory Dungeons 2\DunGen Presets\First-Person Rooms\Nested Prefabs Info.txt" />
+    <None Include="Assets\Multistory Dungeons 2\Scenes\ReadMe (1-s person demo).txt" />
+    <None Include="Assets\Multistory Dungeons 2\Prefabs\TD TILES\Nested Prefabs Info.txt" />
+    <None Include="Assets\Multistory Dungeons 2\DunGen Presets\ReadMe DunGen.txt" />
+    <None Include="Assets\Multistory Dungeons 2\Dungeon Architect Presets\ReadMe.txt" />
+    <None Include="Assets\Multistory Dungeons 2\DunGen Presets\Top-Down Tiles\Nested Prefabs Info.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
