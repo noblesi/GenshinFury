@@ -10,10 +10,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{F6F0F879-9E70-EC25-307B-5E8A78DCD68B}</ProjectGuid>
+    <ProjectGuid>{AECF26E9-D7EE-C6F2-3767-D1A93E5DF7DD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>DungeonArchitect.Builders</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -58,33 +58,90 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Character\Character.cs" />
-    <Compile Include="Assets\Multistory Dungeons 2\Scripts\DisableMeshAtRuntime.cs" />
-    <Compile Include="Assets\Multistory Dungeons 2\Scripts\FpsCounter.cs" />
-    <Compile Include="Assets\Scripts\Character\Player.cs" />
-    <Compile Include="Assets\Scripts\Character\Enemy.cs" />
-    <Compile Include="Assets\Scripts\GameData.cs" />
-    <Compile Include="Assets\Scripts\Skill\Skill.cs" />
-    <Compile Include="Assets\Scripts\Manager\MonoSingleton.cs" />
-    <Compile Include="Assets\Scripts\Manager\SystemManager.cs" />
-    <Compile Include="Assets\Scripts\Manager\UIManager.cs" />
-    <Compile Include="Assets\Scripts\PlayerData.cs" />
-    <Compile Include="Assets\Multistory Dungeons 2\Scripts\PointAndClickManager.cs" />
-    <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Manager\DungeonManager.cs" />
-    <Compile Include="Assets\Scripts\Object\Object.cs" />
-    <Compile Include="Assets\Scripts\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\Manager\CharacterManager.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SpatialPartition\BSPDungeonBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\SpatialConstraints\SpatialConstraintProcessorGrid3D.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\Query\GridDungeonQuery.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Snap\SnapConfig.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\Metadata\GridItemDoorMetadata.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SnapGridFlow\SnapGridFlowVisibilityGraph.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SpatialPartition\BSPDungeonModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Maze\MazeDungeonModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SimpleCity\Navigation_SN\CityLayoutTriangleProvider.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\InfinityCaves\InfinityCaveChunkBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Snap\SnapModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SimpleCity\Landscape\LandscapeTransformerCity.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SimpleCity\Utils\RoadBeautifier.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Isaac\RoomLayout\StylizedIsaacRoomLayoutBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Isaac\SpatialConstraints\SpatialConstraintProcessorIsaac.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Common\DungeonBuilderDefaultMarkers.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\CircularCity\CircularCityDungeonModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\InfinityCaves\InfinityCaveChunkConfig.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Snap\SnapQuery.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Mario\MarioDungeonBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Mario\MarioDungeonConfig.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\GridFlow\SpatialConstraints\SpatialConstraintProcessorGridFlow2D.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\Metadata\GridItemMetadataHandler.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SimpleCity\SpatialConstraintProcessorSimpleCity3D.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\MarkerEmitters\MarkerEmitterFindLowestPoint.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\GridDungeonBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SnapGridFlow\SnapGridFlowQuery.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\Mirroring\GridDungeonMirror.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SimpleCity\SimpleCityDungeonBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\GridFlow\GridFlowDungeonBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Mario\MarioDungeonSpatialConstraints.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Isaac\RoomLayout\IsaacRoomLayoutBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SnapGridFlow\SnapGridFlowModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\GridDungeonConfig.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Isaac\IsaacDungeonConfig.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\GridFlow\GridFlowDungeonModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\FloorPlanner\Tooling\FloorPlanCorridorTool.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Isaac\Utils\IsaacBuilderUtils.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\GridFlow\Minimap\GridFlowMinimap.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SpatialPartition\BSPDungeonConfig.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SimpleCity\Utils\StrongholdWallEmitter.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Snap\SnapBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Isaac\IsaacDungeonBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\GridFlow\GridFlowDungeonQuery.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\Navigation_SN\LayoutFloorTriangleProvider.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Maze\MazeDungeonConfig.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\PaintTool\DungeonPaintModeGrid.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SnapGridFlow\SnapGridFlowDebugVisualizer.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\Utils\GridDebugDrawUtils.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SnapGridFlow\SnapGridFlowDebugComponent.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SimpleCity\SimpleCityDungeonConfig.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\CircularCity\Landscape\LandscapeTransformerCircularCity.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\MarkerEmitters\MarkerEmitterEmptySpace.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\GridFlow\GridFlowDungeonConfig.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\GridFlow\Minimap\GridFlowMinimapTrackedObject.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\SpatialConstraints\SpatialConstraintProcessorGrid2D.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\GridDungeonModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Snap_SideScroller\SnapSideScrollerBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\SpatialConstraints\Rules\ConstraintRuleIsHigherThan.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\MarkerEmitters\MarkerEmitterCornerBeautifier.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Isaac\IsaacDungeonModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\FloorPlanner\FloorPlanBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\FloorPlanner\FloorPlanConfig.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\MarkerEmitters\MarkerEmitterFreeSpaceDecorator.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SnapGridFlow\SnapGridFlowBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\GridFlow\SpatialConstraints\SpatialConstraintProcessorGridFlow3D.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\FloorPlanner\FloorPlanSpatialConstraintProcessor.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\Landscape\LandscapeTransformerGrid.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\InfinityCaves\InfinityCaveChunkModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SimpleCity\SimpleCityDungeonModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\GridDungeonToolData.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Mario\MarioDungeonModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\MarkerEmitters\MarkerEmitterGridWall2D.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\Utils\GridBuilderUtils.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\Volumes\PlatformVolume.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\CircularCity\CircularCityDungeonBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\FloorPlanner\FloorPlanModel.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Maze\MazeDungeonBuilder.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\CircularCity\CircularCityDungeonConfig.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\Grid\LevelStreaming\GridDungeonItemGroup.cs" />
+    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\SnapGridFlow\SnapGridFlowConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Multistory Dungeons 2\Prefabs\FIRST-PERSON\FP ROOMS\Nested Prefabs Info.txt" />
-    <None Include="Assets\Multistory Dungeons 2\DunGen Presets\First-Person Rooms\Nested Prefabs Info.txt" />
-    <None Include="Assets\Multistory Dungeons 2\Scenes\ReadMe (1-s person demo).txt" />
-    <None Include="Assets\Multistory Dungeons 2\Prefabs\TD TILES\Nested Prefabs Info.txt" />
-    <None Include="Assets\Multistory Dungeons 2\DunGen Presets\ReadMe DunGen.txt" />
-    <None Include="Assets\Multistory Dungeons 2\Dungeon Architect Presets\ReadMe.txt" />
-    <None Include="Assets\Multistory Dungeons 2\DunGen Presets\Top-Down Tiles\Nested Prefabs Info.txt" />
+    <None Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Builders\DungeonArchitect.Builders.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -415,8 +472,52 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.36f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.36f1\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.36f1\Editor\Data\PlaybackEngines\AndroidPlayer\UnityEditor.Android.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.36f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.UWP.Extensions">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.36f1\Editor\Data\PlaybackEngines\MetroSupport\UnityEditor.UWP.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Plastic.Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Plastic.Antlr3.Runtime">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.YamlDotNet">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.TextureAssets">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEditorInternals">
       <HintPath>Library\PackageCache\com.solidalloy.util@1.40.0\UnityEditorInternals.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="unityplastic">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.IonicZip">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4netPlastic">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
@@ -923,168 +1024,56 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.36f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Flow.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="SolidUtilities.Editor">
-      <HintPath>Library\ScriptAssemblies\SolidUtilities.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualStudio.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="PPv2URPConverters">
-      <HintPath>Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Timeline">
-      <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Core.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.State.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Burst.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Searcher.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Flow">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Core">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Mathematics">
-      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.ShaderGraph.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Cinemachine">
-      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Burst">
-      <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Shared.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Timeline.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="SolidUtilities">
-      <HintPath>Library\ScriptAssemblies\SolidUtilities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Mathematics.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MissingScriptType.Editor">
-      <HintPath>Library\ScriptAssemblies\MissingScriptType.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.State">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="DungeonArchitect.Core.csproj">
+      <Project>{EE2DF978-D7FD-DFBD-70C0-77BFCFD53174}</Project>
+      <Name>DungeonArchitect.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="DungeonArchitect.ThirdParty.csproj">
+      <Project>{4AB7F33C-65F9-D04B-0DB5-08AD4E23AB0C}</Project>
+      <Name>DungeonArchitect.ThirdParty</Name>
+    </ProjectReference>
+    <ProjectReference Include="DungeonArchitect.Modules.Graph.csproj">
+      <Project>{232A5068-B2EF-D797-29F6-9370F945A44A}</Project>
+      <Name>DungeonArchitect.Modules.Graph</Name>
+    </ProjectReference>
+    <ProjectReference Include="DungeonArchitect.Modules.Common.csproj">
+      <Project>{0E44063D-58B6-907A-7505-2F8D20F1761B}</Project>
+      <Name>DungeonArchitect.Modules.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="DungeonArchitect.Modules.Flow.csproj">
+      <Project>{35504659-D63A-35AC-D7AD-B3DA3292B80F}</Project>
+      <Name>DungeonArchitect.Modules.Flow</Name>
+    </ProjectReference>
+    <ProjectReference Include="DungeonArchitect.Modules.Flow.Implementations.csproj">
+      <Project>{0B645420-50D3-82F3-D036-0567FF0A97BF}</Project>
+      <Name>DungeonArchitect.Modules.Flow.Implementations</Name>
+    </ProjectReference>
+    <ProjectReference Include="DungeonArchitect.Modules.Grammar.csproj">
+      <Project>{15D38B70-E91F-1BD6-B40F-10D7381BB7AB}</Project>
+      <Name>DungeonArchitect.Modules.Grammar</Name>
+    </ProjectReference>
+    <ProjectReference Include="DungeonArchitect.Modules.Navigation2D.csproj">
+      <Project>{7371386B-666E-234B-5103-9268386A9E6A}</Project>
+      <Name>DungeonArchitect.Modules.Navigation2D</Name>
+    </ProjectReference>
+    <ProjectReference Include="DungeonArchitect.Modules.SxEngine.csproj">
+      <Project>{09AA66FC-91DA-24CB-5F2C-3AAF56B11161}</Project>
+      <Name>DungeonArchitect.Modules.SxEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="DungeonArchitect.Modules.VisibilityGraph.csproj">
+      <Project>{AD085B64-7A02-5104-ED7A-725B4109E303}</Project>
+      <Name>DungeonArchitect.Modules.VisibilityGraph</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

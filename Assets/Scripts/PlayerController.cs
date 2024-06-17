@@ -1,122 +1,67 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
-    private float horizontal;
-    private float vertical;
+    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private Animator animator;
+    [SerializeField] private bool isDead = false;
 
-    private bool isMoving = false;
-    private bool isRunning = true; // 기본값은 Run
-    private bool sprintOnce = false;
-    private bool isSprinting = false;
-
-    private float targetSpeed = 0f;
-    private float currentSpeed = 0f;
-    private float smoothTime = 0.1f;
-    private float speedSmoothVelocity = 0f;
-
-    private bool sprintCooldown = false;
-    private float sprintCooldownTime = 5f;
-
-    Vector3 moveVector = Vector3.zero;
-
-    private Animator animator;
-    private PlayerData playerData;
-
-    private void Awake()
+    void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
         animator = GetComponent<Animator>();
-        playerData = GetComponent<PlayerData>();
     }
 
-    private void Update()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (!isDead)
         {
-            isRunning = !isRunning; // Run과 Walk 상태를 토글
-            playerData.CurrentSpeed = isRunning ? playerData.RunSpeed : playerData.WalkSpeed;
-        }
-
-        if(!sprintCooldown && Input.GetMouseButtonDown(1))
-        {
-            animator.SetTrigger("SprintOnce");
-        }
-
-        if (!sprintCooldown && Input.GetMouseButton(1) && playerData.Stamina > 0)
-        {
-            isSprinting = true;
-        }
-        else if(!Input.GetMouseButton(1))
-        {
-            isSprinting = false;
-        }
-
-        Move();
-        HandleStamina();
-        UpdateAnimator();
-    }
-
-    private void Move()
-    {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
-
-        moveVector = new Vector3(horizontal, 0, vertical).normalized;
-
-        isMoving = moveVector != Vector3.zero;
-
-        // 이동 속도 설정
-        targetSpeed = playerData.CurrentSpeed;
-        if (isSprinting)
-        {
-            targetSpeed = playerData.SprintSpeed;
-        }
-        else if (!isMoving)
-        {
-            targetSpeed = playerData.IdleSpeed;
-        }
-
-        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, smoothTime);
-        transform.position += moveVector * currentSpeed * Time.deltaTime;
-
-        if (isMoving)
-        {
-            Quaternion toRotation = Quaternion.LookRotation(moveVector, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * 10f);
+            HandleMouseInput();
+            UpdateAnimation();
+            SmoothRotate();
         }
     }
 
-    private void HandleStamina()
+    void HandleMouseInput()
     {
-        if (isSprinting)
+        if (Input.GetMouseButtonDown(1)) // 마우스 우클릭 감지
         {
-            playerData.DecreaseStamina(playerData.StaminaDecreaseRate * Time.deltaTime);
-            if (playerData.Stamina == 0)
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
-                isSprinting = false;
-                isRunning = true;
-                playerData.CurrentSpeed = playerData.RunSpeed;
-                StartCoroutine(SprintCooldown());
+                agent.SetDestination(hitInfo.point);
             }
         }
-        else
+    }
+
+    void SmoothRotate()
+    {
+        if (agent.remainingDistance > agent.stoppingDistance)
         {
-            playerData.RecoverStamina(playerData.StaminaRecoveryRate * Time.deltaTime);
+            Vector3 direction = agent.steeringTarget - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * agent.angularSpeed / 10);
         }
     }
 
-    private void UpdateAnimator()
+    void UpdateAnimation()
     {
-        //float speedPercent = currentSpeed / playerData.SprintSpeed;
-        animator.SetFloat("Speed", currentSpeed);
-        animator.SetBool("isMove", isMoving);
+        float speed = agent.velocity.magnitude;
+        animator.SetFloat("Speed", speed);
     }
 
-    private IEnumerator SprintCooldown()
+    public void TakeDamage()
     {
-        sprintCooldown = true;
-        yield return new WaitForSeconds(sprintCooldownTime);
-        sprintCooldown = false;
+        animator.SetTrigger("Hit");
+    }
+
+    public void Die()
+    {
+        isDead = true;
+        agent.isStopped = true;
+        animator.SetTrigger("Dead");
     }
 }
+
