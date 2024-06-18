@@ -51,10 +51,16 @@ MonoBehaviour:
   nicknamePopup: {fileID: 0}
   nicknameInputField: {fileID: 0}
   nicknameErrorText: {fileID: 0}
+  registerPopup: {fileID: 0}
+  registerUsernameInput: {fileID: 0}
+  registerPasswordInput: {fileID: 0}
+  registerNotifiedText: {fileID: 0}
   loginMenu: {fileID: 0}
   mainMenu: {fileID: 0}
   gameSlotMenu: {fileID: 0}
   gameSettingsMenu: {fileID: 0}
+  loginUsernameInput: {fileID: 0}
+  loginPasswordInput: {fileID: 0}
   gameSlotButtons:
   - {fileID: 0}
   - {fileID: 0}

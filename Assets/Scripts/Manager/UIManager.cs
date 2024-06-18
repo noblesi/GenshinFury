@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIManager : MonoSingleton<UIManager>
+public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+
     [Header("===UI Elements for popups===")]
     [SerializeField] private GameObject notificationPopup;
     [SerializeField] private Text notificationText;
@@ -30,10 +32,26 @@ public class UIManager : MonoSingleton<UIManager>
     [Header("===Game Slot UI Elements===")]
     [SerializeField] private List<Button> gameSlotButtons;
     [SerializeField] private List<Text> gameSlotTexts;
+    [SerializeField] private Button startGameButton;
+    [SerializeField] private Button cancelButton;
 
     [Header("===Game Slot Data===")]
     [SerializeField] private List<GameSlot> gameSlots = new List<GameSlot>();
-    [SerializeField] private int selectedSlotIndex;
+    [SerializeField] private int selectedSlotIndex = -1;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            InitializeGameSlots();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void InitializeGameSlots()
     {
@@ -42,6 +60,7 @@ public class UIManager : MonoSingleton<UIManager>
             gameSlots.Add(new GameSlot());
             UpdateGameSlotUI(i);
         }
+        UpdateStartGameButtonState();
     }
 
     private void UpdateGameSlotUI(int slotIndex)
@@ -93,6 +112,19 @@ public class UIManager : MonoSingleton<UIManager>
         nicknamePopup.SetActive(false);
     }
 
+    public void ShowRegisterPopup()
+    {
+        registerUsernameInput.text = "";
+        registerPasswordInput.text = "";
+        registerNotifiedText.text = "";
+        registerPopup.SetActive(true);
+    }
+
+    public void HideRegisterPopup()
+    {
+        registerPopup.SetActive(false);
+    }
+
     public void ShowLoginSuccess()
     {
         ShowNotification("로그인 성공.");
@@ -105,14 +137,16 @@ public class UIManager : MonoSingleton<UIManager>
         ShowNotification("로그인 실패.\n아이디 또는 비밀번호를 다시 확인해주세요.");
     }
 
-    public void ShowRegistrationSuccess()
+    public void ShowRegistrationSuccessMessage()
     {
-        ShowNotification("사용자정보 등록 성공.");
+        registerNotifiedText.text = "User Registration Successful";
+        registerNotifiedText.color = Color.green;
     }
 
-    public void ShowRegistrationFailure()
+    public void ShowRegistrationFailureMessage()
     {
-        ShowNotification("사용자정보 등록 실패.\n아이디 또는 비밀번호를 다시 확인해주세요.");
+        registerNotifiedText.text = "User Registration Failed. User already exists.";
+        registerNotifiedText.color = Color.red;
     }
 
     public void ShowGameSlotMenu()
@@ -136,12 +170,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void OnNewGameClicked()
     {
-        ShowGameSlotMenu();
-
-        for(int i = 0; i < gameSlots.Count; i++)
-        {
-            UpdateGameSlotUI(i);
-        }
+        SceneManager.LoadScene("GameScene");
     }
 
     public void OnLoadGameClicked()
@@ -163,6 +192,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         gameSlotMenu.SetActive(false);
         mainMenu.SetActive(true);
+        DeselectGameSlot();
     }
 
     public void BackToMainMenuFromGameSettings()
@@ -173,15 +203,31 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void OnGameSlotClicked(int slotIndex)
     {
-        selectedSlotIndex = slotIndex;
-        if (gameSlots[slotIndex].isEmpty)
+        if(selectedSlotIndex == slotIndex)
         {
-            ShowNicknamePopup();
+            DeselectGameSlot();
         }
         else
         {
-            ShowWarning("This slot contains saved data. Starting a new game will overwrite it. Do you want to continue?");
+            SelectGameSlot(slotIndex);
         }
+    }
+
+    private void SelectGameSlot(int slotIndex)
+    {
+        selectedSlotIndex = slotIndex;
+        UpdateStartGameButtonState();
+    }
+
+    private void DeselectGameSlot()
+    {
+        selectedSlotIndex = -1;
+        UpdateStartGameButtonState();
+    }
+
+    private void UpdateStartGameButtonState()
+    {
+        startGameButton.interactable = selectedSlotIndex != -1;
     }
 
     public void ConfirmOverwrite()
@@ -221,5 +267,40 @@ public class UIManager : MonoSingleton<UIManager>
     public void LoadGame()
     {
         SceneManager.LoadScene("GameScene");
+    }
+
+    public void OnRegisterButtonClicked()
+    {
+        ShowRegisterPopup();
+    }
+
+    public void RegisterUser()
+    {
+        string username = registerUsernameInput.text;
+        string password = registerPasswordInput.text;
+
+        if(UserManager.RegisterUser(username, password))
+        {
+            ShowRegistrationSuccessMessage();
+        }
+        else
+        {
+            ShowRegistrationFailureMessage();
+        }
+    }
+
+    public void OnLoginClicked()
+    {
+        string username = loginUsernameInput.text;
+        string password = loginPasswordInput.text;
+
+        if(UserManager.ValidateUser(username, password))
+        {
+            ShowLoginSuccess();
+        }
+        else
+        {
+            ShowLoginFailure();
+        }
     }
 }
