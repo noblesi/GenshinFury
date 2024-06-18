@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Manager\CharacterManager.cs" />
     <Compile Include="Assets\Scripts\GameSlot.cs" />
+    <Compile Include="Assets\Scripts\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\GothicUI\Shaders\FluidDouble.shader" />

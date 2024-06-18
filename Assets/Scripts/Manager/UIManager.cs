@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,18 +13,25 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private Text warningText;
     [SerializeField] private GameObject nicknamePopup;
     [SerializeField] private InputField nicknameInputField;
+    [SerializeField] private Text nicknameErrorText;
+    [SerializeField] private GameObject registerPopup;
+    [SerializeField] private InputField registerUsernameInput;
+    [SerializeField] private InputField registerPasswordInput;
+    [SerializeField] private Text registerNotifiedText;
 
     [Header("===UI Elements for menus===")]
     [SerializeField] private GameObject loginMenu;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject gameSlotMenu;
     [SerializeField] private GameObject gameSettingsMenu;
+    [SerializeField] private InputField loginUsernameInput;
+    [SerializeField] private InputField loginPasswordInput;
 
     [Header("===Game Slot UI Elements===")]
     [SerializeField] private List<Button> gameSlotButtons;
     [SerializeField] private List<Text> gameSlotTexts;
 
-    [Header("===Game Slot Data")]
+    [Header("===Game Slot Data===")]
     [SerializeField] private List<GameSlot> gameSlots = new List<GameSlot>();
     [SerializeField] private int selectedSlotIndex;
 
@@ -78,6 +84,7 @@ public class UIManager : MonoSingleton<UIManager>
     public void ShowNicknamePopup()
     {
         nicknameInputField.text = "";
+        nicknameErrorText.text = "";
         nicknamePopup.SetActive(true);
     }
 
@@ -191,7 +198,7 @@ public class UIManager : MonoSingleton<UIManager>
     public void ConfirmNickname()
     {
         string nickname = nicknameInputField.text;
-        if (!string.IsNullOrEmpty(nickname))
+        if (Utility.IsValidNickname(nickname))
         {
             gameSlots[selectedSlotIndex].isEmpty = false;
             gameSlots[selectedSlotIndex].savedTime = DateTime.Now;
@@ -201,8 +208,11 @@ public class UIManager : MonoSingleton<UIManager>
             HideNicknamePopup();
             SceneManager.LoadScene("GameScene"); // Replace with actual game scene name
         }
+        else
+        {
+            nicknameErrorText.text = $"Invalid nickname. Please enter a nickname between {Utility.MinNicknameLength} and {Utility.MaxNicknameLength} characters long, containing only letters and numbers.";
+        }
     }
-
     public void CancelNickname()
     {
         HideNicknamePopup();
