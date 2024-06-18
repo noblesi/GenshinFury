@@ -249,13 +249,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d827188f06825746b41c7a966ae6186, type: 3}
+  m_Script: {fileID: 11500000, guid: d34146b78cf0f4e42a2db494d71854b7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: PointAndClickManager, Assembly-CSharp
-  target: {fileID: 692461273}
-  cameraDistance: 8
+  m_EditorClassIdentifier: CameraFollow, Assembly-CSharp
+  target: {fileID: 692461278}
+  offset: {x: 0, y: 10, z: -10}
+  smoothSpeed: 0.125
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,25 +379,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1190948768626264881, guid: 9eebf132c59a9ce459ce58cb2ac3c47a, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 86fa1e70a481d6347a1870ad4c5e2799, type: 2}
-    - target: {fileID: 1190948768626264881, guid: 9eebf132c59a9ce459ce58cb2ac3c47a, type: 3}
-      propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Bip001 L Finger01'\n\tTransform 'Bip001
-        R Finger01'\n\tTransform 'Bip001 R Finger0'\n\tTransform 'Bip001 R Finger02'\n\tTransform
-        'Bip001 L Finger02'\n\tTransform 'Bip001 L Finger0'\n\tTransform 'Bip001
-        L Finger01'\n\tTransform 'Bip001 R Finger01'\n\tTransform 'Bip001 R Finger0'\n\tTransform
-        'Bip001 R Finger02'\n\tand more ...\n\tFrom animation clip 'Ani_Avatar_Girl_Standby'\n\tFrom
-        animation clip 'Ani_Avatar_Girl_RunCycle'"
-      objectReference: {fileID: 0}
-    - target: {fileID: 1190948768626264881, guid: 9eebf132c59a9ce459ce58cb2ac3c47a, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5073082109528478027, guid: 9eebf132c59a9ce459ce58cb2ac3c47a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -443,25 +425,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5561072391278676977, guid: 9eebf132c59a9ce459ce58cb2ac3c47a, type: 3}
       propertyPath: m_Name
-      value: Avatar_Girl_Sword_PlayerGirl
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666019907369707, guid: 9eebf132c59a9ce459ce58cb2ac3c47a, type: 3}
-      propertyPath: m_EditorClassIdentifier
-      value: PlayerData, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 7012863144952725974, guid: 9eebf132c59a9ce459ce58cb2ac3c47a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7012863144952725974, guid: 9eebf132c59a9ce459ce58cb2ac3c47a, type: 3}
-      propertyPath: m_EditorClassIdentifier
-      value: PlayerController, Assembly-CSharp
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9eebf132c59a9ce459ce58cb2ac3c47a, type: 3}
---- !u!1 &692461273 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5561072391278676977, guid: 9eebf132c59a9ce459ce58cb2ac3c47a, type: 3}
+--- !u!4 &692461278 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5073082109528478027, guid: 9eebf132c59a9ce459ce58cb2ac3c47a, type: 3}
   m_PrefabInstance: {fileID: 518599784}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &832575517

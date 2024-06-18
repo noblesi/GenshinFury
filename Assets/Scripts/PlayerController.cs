@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private bool isDead = false;
 
+    [SerializeField] private ParticleSystem clickEffect;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -32,7 +34,18 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
                 agent.SetDestination(hitInfo.point);
+                ShowClickEffect(hitInfo.point);
             }
+        }
+    }
+
+    void ShowClickEffect(Vector3 position)
+    {
+        if(clickEffect != null)
+        {
+            ParticleSystem effect = Instantiate(clickEffect, position, Quaternion.identity);
+            effect.Play();
+            Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
         }
     }
 

@@ -4092,13 +4092,19 @@ Animator:
   m_GameObject: {fileID: 5561072391278676977}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: c649bdc0e8844f24e907f19d808ab2ba, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5769d3df60d48bc41b0508a07a9b6de4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 86fa1e70a481d6347a1870ad4c5e2799, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Bip001 L Finger01'\n\tTransform 'Bip001 R Finger01'\n\tTransform
+    'Bip001 R Finger0'\n\tTransform 'Bip001 R Finger02'\n\tTransform 'Bip001 L Finger02'\n\tTransform
+    'Bip001 L Finger0'\n\tTransform 'Bip001 L Finger01'\n\tTransform 'Bip001 R Finger01'\n\tTransform
+    'Bip001 R Finger0'\n\tTransform 'Bip001 R Finger02'\n\tand more ...\n\tFrom animation
+    clip 'Ani_Avatar_Girl_Standby'\n\tFrom animation clip 'Ani_Avatar_Girl_RunCycle'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -4115,6 +4121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f47fafdf15da749a37c8ecd841b3e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: PlayerController, Assembly-CSharp
+  agent: {fileID: 0}
+  animator: {fileID: 0}
+  isDead: 0
+  clickEffect: {fileID: 1074647795051532279, guid: 5e47a555fb7962345bfdfcd69aea02d7, type: 3}
 --- !u!114 &5866666019907369707
 MonoBehaviour:
   m_ObjectHideFlags: 0
