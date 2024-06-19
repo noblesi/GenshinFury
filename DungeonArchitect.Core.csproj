@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>UNITY_2021_3_36;UNITY_2021_3;UNITY_2021;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;NET_STANDARD_2_1;NETSTANDARD;NETSTANDARD2_1;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;UNITY_POST_PROCESSING_STACK_V2;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>UNITY_2021_3_36;UNITY_2021_3;UNITY_2021;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;PLATFORM_STANDALONE;TEXTCORE_1_0_OR_NEWER;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;NET_STANDARD_2_1;NETSTANDARD;NETSTANDARD2_1;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169;USG0001</NoWarn>
@@ -58,93 +58,93 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Utils\LevelMarkerList.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\Visualization\DungeonMarkerVisualizerComponent.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoomDesigner\DungeonRoomMarkerEmitter.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\SpatialConstraintAsset.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\LevelStreaming\DungeonItemGroup.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\LevelStreaming\DungeonItemGroupInfo.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\DungeonThemeData.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Rules\SelectorRule.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoomDesigner\DungeonRoomDesigner.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\DungeonSceneObjectInstantiator.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Volumes\NegationVolume.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Infinity\InfinityDungeonEditorUpdate.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\ExclusionRule.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\MarkerNode.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\MeshMerge\MeshMerger.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Navigation\DungeonRuntimeNavigation.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\MarkerEmitterNode.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Rules\TransformationRule.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Terrain\Filter\Filter.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\VisualNode.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Volumes\Volume.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Infinity\InfinityDungeonConfig.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonModel.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Markers\PlaceableMarker.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\DungeonSplatmap.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\Impl\NonPooledDungeonSceneProvider.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\SpriteNode.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoadNetworks\RoadGraph.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\Geometry\Point.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Infinity\InfinityDungeon.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Terrain\Filter\BlurFilter.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\DungeonSplatAsset.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\Debug\DungeonSplatmapVisualizer.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\Data\SplatData.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoomDesigner\DungeonRoomVoxel.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonEventListener.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Dungeon.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\GameObjectNode.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\ThemeGraphSchema.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Terrain\TerrainTexture.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Volumes\MarkerReplaceVolume.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\Graph\Nodes\SCReferenceNode.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\PlaceableNode.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Landscape\DungeonLandscapeRestorationCache.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Terrain\LandscapeDataRasterizer.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonMarkerEmitter.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\Geometry\PointN.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Infinity\InfinityDungeonCameraTracker.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\CommonRules\ConstraintRuleHeightDifference.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\MiniMap\DungeonMiniMap.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Utils\DungeonUtils.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\ConstraintRule.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Landscape\LandscapeTransformerBase.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\Geometry\Edge.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\DelauneyV2.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\Delauney.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoadNetworks\RoadLayoutBuilder.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonBuilder.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\DungeonSceneProviderData.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\DungeonThemeEngine.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonPaintMode.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\DungeonSceneProvider.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\Data\SplatRasterizer.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\Graph\SpatialConstraintGraph.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Volumes\ThemeOverrideVolume.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonConfig.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoomDesigner\DungeonRoomDesignerHook.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\Impl\PooledDungeonSceneProvider.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\SpatialConstraintProcessor.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Navigation\DungeonNavMeshSourceCollector.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\Graph\Nodes\SCRuleNode.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonToolData.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\Geometry\Triangle.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\CommonRules\ConstraintRuleMarkerExists.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Snap\SnapConnection.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoadNetworks\RoadGraphBuilder.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Snap\SnapUtils.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\Graph\Nodes\SCBaseDomainNode.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\DungeonThemeItems.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\GameObjectArrayNode.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Volumes\MirrorVolume.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\DungeonSceneObjectSpawner.cs" />
-    <Compile Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\Impl\DungeonItemSpawnListener.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\Data\SplatRasterizer.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonModel.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Utils\LevelMarkerList.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\GameObjectNode.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\Visualization\DungeonMarkerVisualizerComponent.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\ThemeGraphSchema.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoomDesigner\DungeonRoomMarkerEmitter.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Terrain\TerrainTexture.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\Graph\SpatialConstraintGraph.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Volumes\MarkerReplaceVolume.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Markers\PlaceableMarker.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\SpatialConstraintAsset.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Volumes\ThemeOverrideVolume.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\LevelStreaming\DungeonItemGroup.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\LevelStreaming\DungeonItemGroupInfo.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\Graph\Nodes\SCReferenceNode.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\PlaceableNode.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\DungeonThemeData.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Landscape\DungeonLandscapeRestorationCache.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Rules\SelectorRule.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Terrain\LandscapeDataRasterizer.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoomDesigner\DungeonRoomDesigner.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\DungeonSceneObjectInstantiator.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Volumes\NegationVolume.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\DungeonSplatmap.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonConfig.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Infinity\InfinityDungeonEditorUpdate.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\Impl\NonPooledDungeonSceneProvider.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonMarkerEmitter.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\ExclusionRule.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoomDesigner\DungeonRoomDesignerHook.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\Impl\PooledDungeonSceneProvider.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\SpriteNode.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\MarkerNode.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoadNetworks\RoadGraph.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\SpatialConstraintProcessor.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\Geometry\Point.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Navigation\DungeonNavMeshSourceCollector.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\Geometry\PointN.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\Graph\Nodes\SCRuleNode.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Infinity\InfinityDungeon.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\MeshMerge\MeshMerger.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Terrain\Filter\BlurFilter.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonToolData.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\Geometry\Triangle.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\DungeonSplatAsset.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Infinity\InfinityDungeonCameraTracker.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\CommonRules\ConstraintRuleHeightDifference.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\MiniMap\DungeonMiniMap.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\CommonRules\ConstraintRuleMarkerExists.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Snap\SnapConnection.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Navigation\DungeonRuntimeNavigation.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Utils\DungeonUtils.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoadNetworks\RoadGraphBuilder.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Snap\SnapUtils.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\ConstraintRule.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\SpatialConstraints\Graph\Nodes\SCBaseDomainNode.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Landscape\LandscapeTransformerBase.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\Geometry\Edge.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\Debug\DungeonSplatmapVisualizer.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\DelauneyV2.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\MarkerEmitterNode.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\Data\SplatData.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Rules\TransformationRule.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\DungeonThemeItems.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Triangulator\Delauney.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\GameObjectArrayNode.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoomDesigner\DungeonRoomVoxel.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonEventListener.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\RoadNetworks\RoadLayoutBuilder.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonBuilder.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Volumes\MirrorVolume.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\DungeonSceneProviderData.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Terrain\Filter\Filter.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\GraphNodes\VisualNode.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\DungeonSceneObjectSpawner.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Volumes\Volume.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Infinity\InfinityDungeonConfig.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\Impl\DungeonItemSpawnListener.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\DungeonThemeEngine.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\DungeonPaintMode.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Dungeon\Dungeon.cs" />
+    <Compile Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\ThemeEngine\SceneProvider\DungeonSceneProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\Debug\SplatmapVisualizerShader.shader" />
-    <None Include="Assets\Resources\CodeRespawn\DungeonArchitect\Scripts\Core\DungeonArchitect.Core.asmdef" />
+    <None Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\Frameworks\Splatmaps\Debug\SplatmapVisualizerShader.shader" />
+    <None Include="Assets\Dungeon\CodeRespawn\DungeonArchitect\Scripts\Core\DungeonArchitect.Core.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -479,6 +479,10 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.36f1\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEditor.WebGL.Extensions">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.36f1\Editor\Data\PlaybackEngines\WebGLSupport\UnityEditor.WebGL.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.36f1\Editor\Data\PlaybackEngines\AndroidPlayer\UnityEditor.Android.Extensions.dll</HintPath>
       <Private>False</Private>
@@ -507,16 +511,12 @@
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEditorInternals">
-      <HintPath>Library\PackageCache\com.solidalloy.util@1.40.0\UnityEditorInternals.dll</HintPath>
+    <Reference Include="Unity.VisualScripting.IonicZip">
+      <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.IonicZip">
-      <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="log4netPlastic">
@@ -525,10 +525,6 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngineInternals">
-      <HintPath>Library\PackageCache\com.solidalloy.util@1.40.0\UnityEngineInternals.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Android.Types">
