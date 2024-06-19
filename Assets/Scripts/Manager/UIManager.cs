@@ -11,8 +11,6 @@ public class UIManager : MonoBehaviour
     [Header("===UI Elements for popups===")]
     [SerializeField] private GameObject notificationPopup;
     [SerializeField] private Text notificationText;
-    [SerializeField] private GameObject warningPopup;
-    [SerializeField] private Text warningText;
     [SerializeField] private GameObject nicknamePopup;
     [SerializeField] private InputField nicknameInputField;
     [SerializeField] private Text nicknameErrorText;
@@ -28,6 +26,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameSettingsMenu;
     [SerializeField] private InputField loginUsernameInput;
     [SerializeField] private InputField loginPasswordInput;
+    [SerializeField] private Text loggedInUsernameText;
+
+    [Header("===Game Settings for UI===")]
+    [SerializeField] private Dropdown resolutionDropdown;
+    [SerializeField] private Toggle fullscreenToggle;
+    [SerializeField] private Dropdown graphicsQualityDropdown;
+    [SerializeField] private Slider masterVolumeSlider;
+    [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private Slider sfxVolumeSlider;
 
     [Header("===Game Slot UI Elements===")]
     [SerializeField] private List<Button> gameSlotButtons;
@@ -45,7 +52,8 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            InitializeGameSlots();
+            //InitializeGameSlots();
+            //InitializeSettingsMenu();
         }
         else
         {
@@ -77,27 +85,21 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowNotification(string message, float duration = 2.0f)
+    private void UpdateStartGameButtonState()
+    {
+        startGameButton.interactable = selectedSlotIndex != -1;
+    }
+
+    private void ShowNotification(string message, float duration = 2.0f)
     {
         notificationText.text = message;
         notificationPopup.SetActive(true);
         Invoke(nameof(HideNotification), duration);
     }
 
-    public void HideNotification()
+    private void HideNotification()
     {
         notificationPopup.SetActive(false);
-    }
-
-    public void ShowWarning(string message)
-    {
-        warningText.text = message;
-        warningPopup.SetActive(true);
-    }
-
-    public void HideWarning()
-    {
-        warningPopup.SetActive(false);
     }
 
     public void ShowNicknamePopup()
@@ -112,12 +114,12 @@ public class UIManager : MonoBehaviour
         nicknamePopup.SetActive(false);
     }
 
-    public void ShowRegisterPopup()
+    private void ShowRegisterPopup()
     {
+        registerPopup.SetActive(true);
         registerUsernameInput.text = "";
         registerPasswordInput.text = "";
         registerNotifiedText.text = "";
-        registerPopup.SetActive(true);
     }
 
     public void HideRegisterPopup()
@@ -125,85 +127,9 @@ public class UIManager : MonoBehaviour
         registerPopup.SetActive(false);
     }
 
-    public void ShowLoginSuccess()
-    {
-        ShowNotification("로그인 성공.");
-        loginMenu.SetActive(false);
-        mainMenu.SetActive(true);
-    }
-
-    public void ShowLoginFailure()
-    {
-        ShowNotification("로그인 실패.\n아이디 또는 비밀번호를 다시 확인해주세요.");
-    }
-
-    public void ShowRegistrationSuccessMessage()
-    {
-        registerNotifiedText.text = "User Registration Successful";
-        registerNotifiedText.color = Color.green;
-    }
-
-    public void ShowRegistrationFailureMessage()
-    {
-        registerNotifiedText.text = "User Registration Failed. User already exists.";
-        registerNotifiedText.color = Color.red;
-    }
-
-    public void ShowGameSlotMenu()
-    {
-        mainMenu.SetActive(false);
-        gameSlotMenu.SetActive(true);
-    }
-
-    public void ShowGameSettingsMenu()
-    {
-        mainMenu.SetActive(false);
-        gameSettingsMenu.SetActive(true);
-    }
-
-    public void Logout()
-    {
-        mainMenu.SetActive(false);
-        loginMenu.SetActive(true);
-        ShowNotification("로그아웃 성공");
-    }
-
-    public void OnNewGameClicked()
-    {
-        SceneManager.LoadScene("GameScene");
-    }
-
-    public void OnLoadGameClicked()
-    {
-        ShowGameSlotMenu();
-
-        for (int i = 0; i < gameSlots.Count; i++)
-        {
-            UpdateGameSlotUI(i);
-        }
-    }
-
-    public void OnGameSettingsClicked()
-    {
-        ShowGameSettingsMenu(); 
-    }
-
-    public void BackToMainMenuFromGameSlot()
-    {
-        gameSlotMenu.SetActive(false);
-        mainMenu.SetActive(true);
-        DeselectGameSlot();
-    }
-
-    public void BackToMainMenuFromGameSettings()
-    {
-        gameSettingsMenu.SetActive(false);
-        mainMenu.SetActive(true);
-    }
-
     public void OnGameSlotClicked(int slotIndex)
     {
-        if(selectedSlotIndex == slotIndex)
+        if (selectedSlotIndex == slotIndex)
         {
             DeselectGameSlot();
         }
@@ -225,20 +151,48 @@ public class UIManager : MonoBehaviour
         UpdateStartGameButtonState();
     }
 
-    private void UpdateStartGameButtonState()
+    public void OnNewGameClicked()
     {
-        startGameButton.interactable = selectedSlotIndex != -1;
-    }
-
-    public void ConfirmOverwrite()
-    {
-        HideWarning();
         ShowNicknamePopup();
     }
 
-    public void CancelOverwrite()
+    public void OnLoadGameClicked()
     {
-        HideWarning();
+        ShowGameSlotMenu();
+
+        for (int i = 0; i < gameSlots.Count; i++)
+        {
+            UpdateGameSlotUI(i);
+        }
+    }
+
+    public void LoadGame()
+    {
+        if (selectedSlotIndex != -1)
+        {
+            if (gameSlots[selectedSlotIndex].isEmpty)
+            {
+                ShowNicknamePopup();
+            }
+            else
+            {
+                GameData gameData = new GameData(
+                    gameSlots[selectedSlotIndex].playerName,
+                    gameSlots[selectedSlotIndex].playerLevel,
+                    gameSlots[selectedSlotIndex].savedTime
+                );
+                LoadGameScene(gameData);
+            }
+        }
+    }
+
+    private void LoadGameScene(GameData gameData)
+    {
+        PlayerPrefs.SetString("PlayerName", gameData.name);
+        PlayerPrefs.SetInt("PlayerLevel", gameData.level);
+        PlayerPrefs.SetString("SavedTime", gameData.savedTime.ToString());
+
+        SceneManager.LoadScene("GameScene");
     }
 
     public void ConfirmNickname()
@@ -246,27 +200,19 @@ public class UIManager : MonoBehaviour
         string nickname = nicknameInputField.text;
         if (Utility.IsValidNickname(nickname))
         {
-            gameSlots[selectedSlotIndex].isEmpty = false;
-            gameSlots[selectedSlotIndex].savedTime = DateTime.Now;
-            gameSlots[selectedSlotIndex].playerName = nickname;
-            gameSlots[selectedSlotIndex].playerLevel = 1; // Initial level
-            UpdateGameSlotUI(selectedSlotIndex);
+            GameData newGameData = new GameData(nickname, 1, DateTime.Now);
             HideNicknamePopup();
-            SceneManager.LoadScene("GameScene"); // Replace with actual game scene name
+            LoadGameScene(newGameData);
         }
         else
         {
             nicknameErrorText.text = $"Invalid nickname. Please enter a nickname between {Utility.MinNicknameLength} and {Utility.MaxNicknameLength} characters long, containing only letters and numbers.";
         }
     }
+
     public void CancelNickname()
     {
         HideNicknamePopup();
-    }
-
-    public void LoadGame()
-    {
-        SceneManager.LoadScene("GameScene");
     }
 
     public void OnRegisterButtonClicked()
@@ -279,7 +225,7 @@ public class UIManager : MonoBehaviour
         string username = registerUsernameInput.text;
         string password = registerPasswordInput.text;
 
-        if(UserManager.RegisterUser(username, password))
+        if (UserManager.RegisterUser(username, password))
         {
             ShowRegistrationSuccessMessage();
         }
@@ -289,18 +235,121 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void ShowRegistrationSuccessMessage()
+    {
+        registerNotifiedText.text = "User Registration Successful";
+        registerNotifiedText.color = Color.green;
+    }
+
+    private void ShowRegistrationFailureMessage()
+    {
+        registerNotifiedText.text = "User Registration Failed. User already exists.";
+        registerNotifiedText.color = Color.red;
+    }
+
     public void OnLoginClicked()
     {
         string username = loginUsernameInput.text;
         string password = loginPasswordInput.text;
 
-        if(UserManager.ValidateUser(username, password))
+        if (UserManager.ValidateUser(username, password))
         {
-            ShowLoginSuccess();
+            ShowLoginSuccess(username);
         }
         else
         {
             ShowLoginFailure();
         }
+    }
+
+    private void ShowLoginSuccess(string username)
+    {
+        loggedInUsernameText.text = username;
+        loginMenu.SetActive(false);
+        mainMenu.SetActive(true);
+    }
+
+    private void ShowLoginFailure()
+    {
+        ShowNotification("로그인 실패.\n아이디 또는 비밀번호를 다시 확인해주세요.");
+    }
+
+    public void ShowGameSlotMenu()
+    {
+        mainMenu.SetActive(false);
+        gameSlotMenu.SetActive(true);
+    }
+
+    public void ShowGameSettingsMenu()
+    {
+        mainMenu.SetActive(false);
+        gameSettingsMenu.SetActive(true);
+    }
+
+    public void BackToMainMenuFromGameSlot()
+    {
+        gameSlotMenu.SetActive(false);
+        mainMenu.SetActive(true);
+        DeselectGameSlot();
+    }
+
+    public void BackToMainMenuFromGameSettings()
+    {
+        gameSettingsMenu.SetActive(false);
+        mainMenu.SetActive(true);
+    }
+
+    public void Logout()
+    {
+        mainMenu.SetActive(false);
+        loginMenu.SetActive(true);
+        ShowNotification("로그아웃 성공");
+    }
+
+    private void InitializeSettingsMenu()
+    {
+        resolutionDropdown.ClearOptions();
+        List<string> resolutions = new List<string>();
+        foreach(Resolution res in Screen.resolutions)
+        {
+            resolutions.Add(res.width + " x " + res.height);
+        }
+        resolutionDropdown.AddOptions(resolutions);
+
+        graphicsQualityDropdown.ClearOptions();
+        graphicsQualityDropdown.AddOptions(new List<string> { "Low", "Medium", "High", "Ultra" });
+    }
+
+    private void LoadSettingsUI()
+    {
+        GraphicSettings graphicSettings = GraphicManager.Instance.currentSettings;
+        resolutionDropdown.value = graphicSettings.resolutionIndex;
+        fullscreenToggle.isOn = graphicSettings.isFullscreen;
+        graphicsQualityDropdown.value = graphicSettings.graphicQuality;
+
+        SoundSettings soundSettings = SoundManager.Instance.currentSettings;
+        masterVolumeSlider.value = soundSettings.masterVolume;
+        musicVolumeSlider.value = soundSettings.musicVolume;
+        sfxVolumeSlider.value = soundSettings.sfxVolume;
+    }
+
+    public void SaveSettings()
+    {
+        GraphicSettings graphicsSettings = new GraphicSettings
+        {
+            resolutionIndex = resolutionDropdown.value,
+            isFullscreen = fullscreenToggle.isOn,
+            graphicQuality = graphicsQualityDropdown.value
+        };
+
+        SoundSettings soundSettings = new SoundSettings
+        {
+            masterVolume = masterVolumeSlider.value,
+            musicVolume = musicVolumeSlider.value,
+            sfxVolume = sfxVolumeSlider.value
+        };
+
+        GraphicManager.Instance.SaveSettings(graphicsSettings);
+        SoundManager.Instance.SaveSettings(soundSettings);
     }
 }
