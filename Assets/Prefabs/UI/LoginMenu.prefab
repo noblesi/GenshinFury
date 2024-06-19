@@ -1455,8 +1455,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1632768145910312532, guid: aecb1223d0cb7064e8931e64021d445b,
-          type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnRegisterButtonClicked
         m_Mode: 1

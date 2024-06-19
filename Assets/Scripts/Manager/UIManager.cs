@@ -351,5 +351,8 @@ public class UIManager : MonoBehaviour
 
         GraphicManager.Instance.SaveSettings(graphicsSettings);
         SoundManager.Instance.SaveSettings(soundSettings);
+
+        gameSettingsMenu.SetActive(false);
+        mainMenu.SetActive(true);
     }
 }
