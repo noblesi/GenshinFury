@@ -1,0 +1,8 @@
+Animation List
+
+Doors:
+
+frame 001-014 : open
+frame 014-020 : state open
+frame 020-034 : close
+frame 034-040 : state closed
