@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
             HandleMouseInput();
             UpdateAnimation();
             SmoothRotate();
+            HandleStopping();
         }
     }
 
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         if (agent.remainingDistance > agent.stoppingDistance)
         {
             Vector3 direction = agent.steeringTarget - transform.position;
+            direction.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * agent.angularSpeed / 10);
         }
@@ -63,6 +65,16 @@ public class PlayerController : MonoBehaviour
     {
         float speed = agent.velocity.magnitude;
         animator.SetFloat("Speed", speed);
+    }
+
+    void HandleStopping()
+    {
+        // Stop the agent when it is close enough to the destination
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            agent.velocity = Vector3.zero;
+            animator.SetFloat("Speed", 0);
+        }
     }
 
     public void TakeDamage()
