@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private ParticleSystem clickEffect;
 
+    private bool isAttacking = false;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -36,6 +38,15 @@ public class PlayerController : MonoBehaviour
             {
                 agent.SetDestination(hitInfo.point);
                 ShowClickEffect(hitInfo.point);
+            }
+        }
+
+        if (Input.GetMouseButtonDown(0)) // 마우스 좌클릭 감지
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            {
+                Attack(hitInfo.point);
             }
         }
     }
@@ -87,6 +98,27 @@ public class PlayerController : MonoBehaviour
         isDead = true;
         agent.isStopped = true;
         animator.SetTrigger("Dead");
+    }
+
+    void Attack(Vector3 targetPosition)
+    {
+        if (!isAttacking)
+        {
+            isAttacking = true;
+
+            Vector3 direction = targetPosition - transform.position;
+            direction.y = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f); // Rotate instantly to the target
+
+            animator.SetTrigger("Attack");
+            Invoke("ResetAttack", 1.0f); // Adjust the time to match the attack animation duration
+        }
+    }
+
+    void ResetAttack()
+    {
+        isAttacking = false;
     }
 }
 
