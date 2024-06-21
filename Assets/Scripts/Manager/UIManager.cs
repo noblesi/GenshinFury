@@ -14,6 +14,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject nicknamePopup;
     [SerializeField] private InputField nicknameInputField;
     [SerializeField] private Text nicknameErrorText;
+    [SerializeField] private ToggleGroup classToggleGroup;
+    [SerializeField] private Toggle warriorToggle;
+    [SerializeField] private Toggle archerToggle;
+    [SerializeField] private Toggle wizardToggle;
     [SerializeField] private GameObject registerPopup;
     [SerializeField] private InputField registerUsernameInput;
     [SerializeField] private InputField registerPasswordInput;
@@ -41,6 +45,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<Text> gameSlotTexts;
     [SerializeField] private Button startGameButton;
     [SerializeField] private Button cancelButton;
+    [SerializeField] private List<GameObject> defaultSlotObjects;
+    [SerializeField] private List<GameObject> selectedSlotObjects;
 
     [Header("===Game Slot Data===")]
     [SerializeField] private List<GameSlot> gameSlots = new List<GameSlot>();
@@ -52,8 +58,8 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            //InitializeGameSlots();
-            //InitializeSettingsMenu();
+            InitializeGameSlots();
+            InitializeSettingsMenu();
         }
         else
         {
@@ -106,6 +112,7 @@ public class UIManager : MonoBehaviour
     {
         nicknameInputField.text = "";
         nicknameErrorText.text = "";
+        classToggleGroup.SetAllTogglesOff();
         nicknamePopup.SetActive(true);
     }
 
@@ -141,12 +148,24 @@ public class UIManager : MonoBehaviour
 
     private void SelectGameSlot(int slotIndex)
     {
+        if(selectedSlotIndex != -1)
+        {
+            DeselectGameSlot();
+        }
+
         selectedSlotIndex = slotIndex;
+        defaultSlotObjects[slotIndex].SetActive(false);
+        selectedSlotObjects[slotIndex].SetActive(true);
         UpdateStartGameButtonState();
     }
 
     private void DeselectGameSlot()
     {
+        if (selectedSlotIndex != -1)
+        {
+            defaultSlotObjects[selectedSlotIndex].SetActive(true);
+            selectedSlotObjects[selectedSlotIndex].SetActive(false);
+        }
         selectedSlotIndex = -1;
         UpdateStartGameButtonState();
     }
@@ -170,39 +189,43 @@ public class UIManager : MonoBehaviour
     {
         if (selectedSlotIndex != -1)
         {
-            if (gameSlots[selectedSlotIndex].isEmpty)
+            GameData gameData = DataManager.Instance.LoadGameData(selectedSlotIndex);
+            if (gameData == null)
             {
                 ShowNicknamePopup();
             }
             else
             {
-                GameData gameData = new GameData(
-                    gameSlots[selectedSlotIndex].playerName,
-                    gameSlots[selectedSlotIndex].playerLevel,
-                    gameSlots[selectedSlotIndex].savedTime
-                );
-                LoadGameScene(gameData);
+                LoadGameScene(gameData, false);
             }
         }
     }
 
-    private void LoadGameScene(GameData gameData)
+    private void LoadGameScene(GameData gameData, bool isNewGame)
     {
-        PlayerPrefs.SetString("PlayerName", gameData.name);
-        PlayerPrefs.SetInt("PlayerLevel", gameData.level);
-        PlayerPrefs.SetString("SavedTime", gameData.savedTime.ToString());
-
+        GameManager.Instance.SetGameData(gameData, isNewGame);
         SceneManager.LoadScene("GameScene");
     }
 
     public void ConfirmNickname()
     {
         string nickname = nicknameInputField.text;
+        if (!classToggleGroup.AnyTogglesOn())
+        {
+            nicknameErrorText.text = "Please select a class.";
+            return;
+        }
+
+        PlayerClass selectedClass = PlayerClass.None;
+        if (warriorToggle.isOn) selectedClass = PlayerClass.Warrior;
+        if (archerToggle.isOn) selectedClass = PlayerClass.Archer;
+        if (wizardToggle.isOn) selectedClass = PlayerClass.Wizard;
+
         if (Utility.IsValidNickname(nickname))
         {
-            GameData newGameData = new GameData(nickname, 1, DateTime.Now);
+            GameData newGameData = new GameData(nickname, 1, DateTime.Now, selectedClass);
             HideNicknamePopup();
-            LoadGameScene(newGameData);
+            LoadGameScene(newGameData, true);
         }
         else
         {
@@ -299,6 +322,29 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(true);
     }
 
+    public void SaveAndExitSettings()
+    {
+        GraphicSettings graphicsSettings = new GraphicSettings
+        {
+            resolutionIndex = resolutionDropdown.value,
+            isFullscreen = fullscreenToggle.isOn,
+            graphicQuality = graphicsQualityDropdown.value
+        };
+
+        SoundSettings soundSettings = new SoundSettings
+        {
+            masterVolume = masterVolumeSlider.value,
+            musicVolume = musicVolumeSlider.value,
+            sfxVolume = sfxVolumeSlider.value
+        };
+
+        GraphicManager.Instance.SaveSettings(graphicsSettings);
+        SoundManager.Instance.SaveSettings(soundSettings);
+
+        gameSettingsMenu.SetActive(false);
+        mainMenu.SetActive(true);
+    }
+
     public void Logout()
     {
         mainMenu.SetActive(false);
@@ -333,26 +379,5 @@ public class UIManager : MonoBehaviour
         sfxVolumeSlider.value = soundSettings.sfxVolume;
     }
 
-    public void SaveSettings()
-    {
-        GraphicSettings graphicsSettings = new GraphicSettings
-        {
-            resolutionIndex = resolutionDropdown.value,
-            isFullscreen = fullscreenToggle.isOn,
-            graphicQuality = graphicsQualityDropdown.value
-        };
-
-        SoundSettings soundSettings = new SoundSettings
-        {
-            masterVolume = masterVolumeSlider.value,
-            musicVolume = musicVolumeSlider.value,
-            sfxVolume = sfxVolumeSlider.value
-        };
-
-        GraphicManager.Instance.SaveSettings(graphicsSettings);
-        SoundManager.Instance.SaveSettings(soundSettings);
-
-        gameSettingsMenu.SetActive(false);
-        mainMenu.SetActive(true);
-    }
+    
 }

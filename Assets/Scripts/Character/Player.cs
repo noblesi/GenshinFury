@@ -1,18 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private string playerName;
+    private int playerLevel;
+    private DateTime savedTime;
+    private PlayerClass playerClass;
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize(GameData gameData)
     {
-        
+        this.playerName = gameData.name;
+        this.playerLevel = gameData.level;
+        this.savedTime = gameData.savedTime;
+        this.playerClass = gameData.playerClass;
+
+        // Initialize player-specific settings here
+        Debug.Log($"Player {playerName} initialized with level {playerLevel} as {playerClass} at {savedTime}");
     }
 }

@@ -3,10 +3,10 @@ using System;
 [Serializable]
 public class GameSlot 
 {
-    public bool isEmpty;
+    public bool isEmpty = true;
+    public string playerName = "";
+    public int playerLevel = 0;
     public DateTime savedTime;
-    public string playerName;
-    public int playerLevel;
 
     public GameSlot()
     {

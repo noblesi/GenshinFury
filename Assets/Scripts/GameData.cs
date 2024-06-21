@@ -5,23 +5,17 @@ using System.Xml.Serialization;
 public class GameData
 {
     public string name;
-    public float stamina;
-    public float currentSpeed;
-    public float positionX;
-    public float positionY;
-    public float positionZ;
-    public float rotationX;
-    public float rotationY;
-    public float rotationZ;
-    public float rotationW;
     public int level;
-    public int experience;
     public DateTime savedTime;
+    public PlayerClass playerClass;
 
-    public GameData(string playerName, int playerLevel, DateTime savedTime)
+    public GameData() { }
+
+    public GameData(string name, int level, DateTime savedTime, PlayerClass playerClass)
     {
-        name = playerName;
-        level = playerLevel;
+        this.name = name;
+        this.level = level;
         this.savedTime = savedTime;
+        this.playerClass = playerClass;
     }
 }

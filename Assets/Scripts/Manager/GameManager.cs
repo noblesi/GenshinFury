@@ -1,87 +1,112 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
-public class GameManager : MonoSingleton<GameManager>
+public enum PlayerClass
 {
-    // 전투에 대해 관리.
+    None, Warrior, Archer, Wizard
+}
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance;
 
-    private int dungeon_level = 0;
+    [Header("===Player Settings===")]
+    [SerializeField] private GameObject warriorPrefab;
+    [SerializeField] private GameObject archerPrefab;
+    [SerializeField] private GameObject wizardPrefab;
+    [SerializeField] private Transform playerSpawnPoint;
 
-    public Character Player = null;
-    public List<Character> Enemy = null;
+    private GameData currentGameData;
+    private bool isNewGame;
 
-    public void Init()
+    private void Awake()
     {
-
-    }
-
-    public void Clear()
-    {
-
-    }
-
-    private void FixedUpdate()
-    {
-        
-    }
-
-    public void DungeonSetting()
-    {
-
-    }
-
-    public void DungeonStart()
-    {
-
-    }
-
-    public void DungeonEnd()
-    {
-
-    }
-
-    public GameObject GetEnemy()
-    {
-        return null;
-    }
-    /// <summary>
-    /// 가장 가까운 적을 얻기 위해
-    /// </summary>
-    /// <param name="dist">탐지 범위 값</param>
-    /// <returns></returns>
-    public Character GetClosestEnemy(float dist)
-    {
-        Character closestEnemy = null;
-
-        float tmpDist = 0f;
-        var playerPosition = Player.transform.position;
-        Enemy.ForEach(enemy =>
+        if(Instance == null)
         {
-            tmpDist = Vector3.Distance(playerPosition, enemy.transform.position);
-            if(dist > tmpDist)
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        InitializeGame();
+    }
+
+    private void InitializeGame()
+    {
+        if(currentGameData == null)
+        {
+            Debug.LogError("No game data found. Please start a new game or load an existing one.");
+            return;
+        }
+
+        if (isNewGame)
+        {
+            StartNewGame(currentGameData);
+        }
+        else
+        {
+            LoadExistingGame(currentGameData);
+        }
+
+        //InitializeGameSceneSettings();
+    }
+
+
+    private void StartNewGame(GameData gameData)
+    {
+        InitializePlayer(gameData);
+    }
+
+    private void LoadExistingGame(GameData gameData)
+    {
+        InitializePlayer(gameData);
+    }
+
+    private void InitializePlayer(GameData gameData)
+    {
+        GameObject playerPrefab = null;
+        switch (gameData.playerClass)
+        {
+            case PlayerClass.Warrior:
+                playerPrefab = warriorPrefab;
+                break;
+            case PlayerClass.Archer:
+                playerPrefab = archerPrefab;
+                break;
+            case PlayerClass.Wizard:
+                playerPrefab = wizardPrefab;
+                break;
+            default:
+                Debug.LogError("Invalid player class.");
+                return;
+        }
+
+        if (playerPrefab != null && playerSpawnPoint != null)
+        {
+            GameObject player = Instantiate(playerPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation);
+            Player playerComponent = player.GetComponent<Player>();
+
+            if (playerComponent != null)
             {
-                dist = tmpDist;
-                closestEnemy = enemy;
+                playerComponent.Initialize(gameData);
             }
-        });
-
-        return closestEnemy;
+        }
+        else
+        {
+            Debug.LogError("PlayerPrefab or PlayerSpawnPoint is not set in the GameManager.");
+        }
     }
 
-    public Character GetPlayer()
+    public void SetGameData(GameData gameData, bool isNewGame)
     {
-        return Player;
-    }
-
-    public void EnemyDie()
-    {
-
-    }
-
-    public void PlayerDie()
-    {
-
+        currentGameData = gameData;
+        this.isNewGame = isNewGame;
     }
 }
