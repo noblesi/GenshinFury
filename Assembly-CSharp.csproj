@@ -71,9 +71,11 @@
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Demo\Scripts\ETFXMouseOrbit.cs" />
     <Compile Include="Assets\Scripts\GameSlot.cs" />
     <Compile Include="Assets\Resources\Effect\Hovl Studio\Wizard spells pack\Scripts\AutoDestroyPS.cs" />
+    <Compile Include="Assets\Scripts\Skill\WizardSkill\MeteorShower.cs" />
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Demo\Scripts\ETFXEffectController.cs" />
     <Compile Include="Assets\Scripts\Object\Object.cs" />
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Demo\Scripts\ETFXFireProjectile.cs" />
+    <Compile Include="Assets\Scripts\Skill\WarriorSkill\BattleShout.cs" />
     <Compile Include="Assets\Scripts\GameData.cs" />
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Demo\Scripts\ETFXButtonScript.cs" />
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Demo\Scripts\ETFXEffectCycler.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Scripts\ETFXPitchRandomizer.cs" />
     <Compile Include="Assets\Scripts\Skill\ArcherSkill\RainOfArrows.cs" />
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Demo\Scripts\ETFXLoopScript.cs" />
+    <Compile Include="Assets\Scripts\Skill\WarriorSkill\Berserk.cs" />
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Scripts\ETFXRotation.cs" />
     <Compile Include="Assets\Resources\Effect\Archer Pack\AP_Demo\AP_Scripts\AP_CreateProjectiles.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="Assets\Resources\Map\L_FG_Assets_Pack1.0\Demo\cameraMove.cs" />
     <Compile Include="Assets\Scripts\Skill\WizardSkill\Inferno.cs" />
     <Compile Include="Assets\Scripts\GameSettings.cs" />
+    <Compile Include="Assets\Scripts\Skill\WizardSkill\Curse.cs" />
     <Compile Include="Assets\Resources\Effect\Hovl Studio\Epic toon VFX 3\Scripts\ObjectInstance.cs" />
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Demo\Scripts\VFX Library\UICanvasManager.cs" />
     <Compile Include="Assets\Resources\UI\Fantasy Wooden GUI  Package\Script\FontPressed.cs" />
@@ -112,8 +116,10 @@
     <Compile Include="Assets\Scripts\Skill\WarriorSkill\PowerSlash.cs" />
     <Compile Include="Assets\Resources\Effect\Hovl Studio\Wizard spells pack\Scripts\ParticleCollisionInstance.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Skill\ArcherSkill\Haste.cs" />
     <Compile Include="Assets\Resources\Effect\Hovl Studio\Sword slash VFX\Demo scene\CameraHolder.cs" />
     <Compile Include="Assets\Scripts\Skill\_Base\SkillData.cs" />
+    <Compile Include="Assets\Scripts\Skill\ArcherSkill\PiercingArrow.cs" />
     <Compile Include="Assets\Scripts\Skill\WarriorSkill\Whirlwind.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Skill\WizardSkill\Fireball.cs" />
