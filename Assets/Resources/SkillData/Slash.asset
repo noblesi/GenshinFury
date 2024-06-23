@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 182ce6568caab9241976f8bcf5d5902c, type: 3}
+  m_Name: Slash
+  m_EditorClassIdentifier: 
+  skillName: Slash
+  types: 0000000002000000
+  damageType: 0
+  cooldowns:
+  - 5
+  - 4.5
+  - 4
+  - 3.5
+  - 3
+  baseDamage: 1
+  damagePerLevel: 0.2
+  effect: {fileID: 0}
+  animationTrigger: Skill1
+  key: 113
+  level: 1
+  maxLevel: 5
+  evolvedSkill: {fileID: 11400000, guid: f6ea8ee58df1dcb459afdc7befb59fc8, type: 2}

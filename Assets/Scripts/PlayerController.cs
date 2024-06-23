@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Animator animator;
     [SerializeField] private bool isDead = false;
-
     [SerializeField] private ParticleSystem clickEffect;
+    [SerializeField] private PlayerSkills playerSkills;
 
     private bool isAttacking = false;
 
@@ -16,44 +16,56 @@ public class PlayerController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         animator = GetComponent<Animator>();
+        playerSkills = GetComponent<PlayerSkills>();
     }
 
     void Update()
     {
         if (!isDead)
         {
-            HandleMouseInput();
+            UpdateMouseInput();
             UpdateAnimation();
-            SmoothRotate();
-            HandleStopping();
+            UpdateRotation();
+            UpdateStopping();
+            playerSkills.HandleSkillInput();
         }
     }
 
-    void HandleMouseInput()
+    void UpdateMouseInput()
     {
-        if (Input.GetMouseButtonDown(1)) // 마우스 우클릭 감지
+        if (Input.GetMouseButtonDown(1))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo))
-            {
-                agent.SetDestination(hitInfo.point);
-                ShowClickEffect(hitInfo.point);
-            }
+            HandleRightClick();
         }
 
-        if (Input.GetMouseButtonDown(0)) // 마우스 좌클릭 감지
+        if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo))
-            {
-                Attack(hitInfo.point);
-            }
+            HandleLeftClick();
+        }
+    }
+
+    void HandleRightClick()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            agent.SetDestination(hitInfo.point);
+            ShowClickEffect(hitInfo.point);
+        }
+    }
+
+    void HandleLeftClick()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            Attack(hitInfo.point);
         }
     }
 
     void ShowClickEffect(Vector3 position)
     {
-        if(clickEffect != null)
+        if (clickEffect != null)
         {
             ParticleSystem effect = Instantiate(clickEffect, position, Quaternion.identity);
             effect.Play();
@@ -61,7 +73,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void SmoothRotate()
+    void UpdateRotation()
     {
         if (agent.remainingDistance > agent.stoppingDistance)
         {
@@ -78,9 +90,8 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed", speed);
     }
 
-    void HandleStopping()
+    void UpdateStopping()
     {
-        // Stop the agent when it is close enough to the destination
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             agent.velocity = Vector3.zero;
@@ -105,14 +116,12 @@ public class PlayerController : MonoBehaviour
         if (!isAttacking)
         {
             isAttacking = true;
-
             Vector3 direction = targetPosition - transform.position;
             direction.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f); // Rotate instantly to the target
-
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f);
             animator.SetTrigger("Attack");
-            Invoke("ResetAttack", 1.0f); // Adjust the time to match the attack animation duration
+            Invoke("ResetAttack", 1.0f);
         }
     }
 
@@ -121,4 +130,3 @@ public class PlayerController : MonoBehaviour
         isAttacking = false;
     }
 }
-
