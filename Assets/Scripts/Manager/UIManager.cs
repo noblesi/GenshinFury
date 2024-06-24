@@ -18,25 +18,16 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     [SerializeField] private GameObject UIRoot;
-    [SerializeField] private GameObject modalBackground;
 
     private Dictionary<UIType, GameObject> _createdUIDic = new Dictionary<UIType, GameObject>();
     private HashSet<UIType> _openedUIDic = new HashSet<UIType>();
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
 
-    public void OpenUI(UIType uiType, bool isModal = false)
+    public void OpenUI(UIType uiType)
     {
         if (_openedUIDic.Contains(uiType) == false)
         {
@@ -45,12 +36,6 @@ public class UIManager : MonoBehaviour
             {
                 uiObject.SetActive(true);
                 _openedUIDic.Add(uiType);
-                if (isModal)
-                {
-                    modalBackground.SetActive(true);
-                    modalBackground.transform.SetAsLastSibling();
-                    uiObject.transform.SetAsLastSibling();
-                }
             }
         }
     }
@@ -62,7 +47,6 @@ public class UIManager : MonoBehaviour
             var uiObject = _createdUIDic[uiType];
             uiObject.SetActive(false);
             _openedUIDic.Remove(uiType);
-            modalBackground.SetActive(false);
         }
     }
 

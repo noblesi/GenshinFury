@@ -89,7 +89,7 @@ public class GameSlotMenu : MonoBehaviour
             GameData gameData = DataManager.Instance.LoadGameData(selectedSlotIndex);
             if (gameData == null)
             {
-                UIManager.Instance.OpenUI(UIType.PlayerSettingsPopup, true);
+                UIManager.Instance.OpenUI(UIType.PlayerSettingsPopup);
             }
             else
             {

@@ -7,7 +7,6 @@ public class LoginMenu : MonoBehaviour
 {
     [SerializeField] private InputField loginUsernameInput;
     [SerializeField] private InputField loginPasswordInput;
-    [SerializeField] private Text loggedInUsernameText;
     [SerializeField] private Text loginErrorText;
 
     private void OnEnable()
@@ -39,7 +38,7 @@ public class LoginMenu : MonoBehaviour
 
     private void ShowLoginSuccess(string username)
     {
-        loggedInUsernameText.text = username;
+        EventManager.Instance.LoginSuccess(username);
         UIManager.Instance.CloseUI(UIType.LoginMenu);
         UIManager.Instance.OpenUI(UIType.MainMenu);
     }
@@ -51,6 +50,6 @@ public class LoginMenu : MonoBehaviour
 
     public void ClickRegisterBtn()
     {
-        UIManager.Instance.OpenUI(UIType.RegisterPopup, true);
+        UIManager.Instance.OpenUI(UIType.RegisterPopup);
     }
 }

@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Item\WeaponType.cs" />
     <Compile Include="Assets\Scripts\Manager\UIManager.cs" />
     <Compile Include="Assets\Scripts\UI\GameSlotMenu.cs" />
+    <Compile Include="Assets\Scripts\Manager\EventManager.cs" />
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Demo\Scripts\VFX Library\PEButtonScript.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Manager\GraphicManager.cs" />
