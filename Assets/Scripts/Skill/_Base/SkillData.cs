@@ -1,31 +1,18 @@
 using UnityEngine;
 
-public enum SkillType
-{
-    Melee,
-    Ranged,
-    SingleTarget,
-    AreaOfEffect,
-    Buff,
-    Debuff
-}
-
-public enum DamageType
-{
-    Physical,
-    Magical,
-    True
-}
-
-[CreateAssetMenu(fileName = "SkillData", menuName = "Skill/SkillData")]
+[CreateAssetMenu(fileName = "New Skill", menuName = "Skill/SkillData")]
 public class SkillData : ScriptableObject
 {
     public string skillName;
+    public SkillCategory skillCategory; // 스킬 대분류 추가
     public SkillType[] types;
     public DamageType damageType;
-    public float[] cooldowns; // Cooldowns for each level
-    public float baseDamage; // Base damage multiplier
-    public float damagePerLevel; // Damage multiplier increase per level
+    public float baseDamage;
+    public float damagePerLevel;
+    public float[] cooldowns;
+    public float[] manaCosts;
+    public float range;
+    public float areaRadius;
     public ParticleSystem effect;
     public string animationTrigger;
     public KeyCode key;
@@ -33,17 +20,18 @@ public class SkillData : ScriptableObject
     public int maxLevel;
     public SkillData evolvedSkill;
 
-    public float GetCooldown()
-    {
-        if (level <= cooldowns.Length)
-        {
-            return cooldowns[level - 1];
-        }
-        return cooldowns[cooldowns.Length - 1];
-    }
-
     public float GetDamage()
     {
-        return baseDamage + (damagePerLevel * (level - 1));
+        return baseDamage + (level - 1) * damagePerLevel;
+    }
+
+    public float GetCooldown()
+    {
+        return cooldowns[level - 1];
+    }
+
+    public float GetManaCost()
+    {
+        return manaCosts[level - 1];
     }
 }

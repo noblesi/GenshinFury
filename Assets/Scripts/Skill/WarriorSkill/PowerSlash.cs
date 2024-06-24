@@ -5,12 +5,13 @@ public class PowerSlash : SkillData
 {
     private void OnEnable()
     {
-        skillName = "PowerSlash";
+        skillName = "Power Slash";
         types = new SkillType[] { SkillType.Melee, SkillType.SingleTarget };
         damageType = DamageType.Physical;
         baseDamage = 1.5f;
         damagePerLevel = 0.3f;
         cooldowns = new float[] { 4.0f, 3.5f, 3.0f };
+        manaCosts = new float[] { 20.0f, 22.0f, 24.0f };
         effect = null;  // Assign appropriate ParticleSystem
         animationTrigger = "Skill1";
         key = KeyCode.Q;

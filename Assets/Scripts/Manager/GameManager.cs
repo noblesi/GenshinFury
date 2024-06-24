@@ -1,12 +1,13 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum PlayerClass
 {
     None, Warrior, Archer, Wizard
 }
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -33,46 +34,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void StartGame()
     {
-        InitializeGame();
+        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void InitializeGame()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(currentGameData == null)
+        if (scene.name == "GameScene")
         {
-            Debug.LogError("No game data found. Please start a new game or load an existing one.");
-            return;
+            InstantiatePlayer();
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
-
-        if (isNewGame)
-        {
-            StartNewGame(currentGameData);
-        }
-        else
-        {
-            LoadExistingGame(currentGameData);
-        }
-
-        //InitializeGameSceneSettings();
     }
 
-
-    private void StartNewGame(GameData gameData)
+    private void InstantiatePlayer()
     {
-        InitializePlayer(gameData);
-    }
+        GameObject playerPrefab = null;  // playerPrefab을 조건문 외부에서 선언
 
-    private void LoadExistingGame(GameData gameData)
-    {
-        InitializePlayer(gameData);
-    }
-
-    private void InitializePlayer(GameData gameData)
-    {
-        GameObject playerPrefab = null;
-        switch (gameData.playerClass)
+        switch (currentGameData.playerClass)
         {
             case PlayerClass.Warrior:
                 playerPrefab = warriorPrefab;
@@ -90,17 +71,17 @@ public class GameManager : MonoBehaviour
 
         if (playerPrefab != null && playerSpawnPoint != null)
         {
-            GameObject player = Instantiate(playerPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation);
-            Player playerComponent = player.GetComponent<Player>();
+            GameObject playerObject = Instantiate(playerPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation);
+            Player player = playerObject.GetComponent<Player>();
 
-            if (playerComponent != null)
+            if (player != null)
             {
-                playerComponent.Initialize(gameData);
+                player.Initialize(currentGameData);  // InitializePlayer -> Initialize로 변경
             }
         }
         else
         {
-            Debug.LogError("PlayerPrefab or PlayerSpawnPoint is not set in the GameManager.");
+            Debug.LogError("Player prefab or spawn point not set in GameManager.");
         }
     }
 

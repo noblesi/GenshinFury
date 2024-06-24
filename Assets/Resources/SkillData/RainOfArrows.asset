@@ -11,8 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2765d72c789646245909a64ead3ff932, type: 3}
   m_Name: RainOfArrows
-  m_EditorClassIdentifier: 
-  skillName: RainOfArrows
+  m_EditorClassIdentifier: RainOfArrows, Assembly-CSharp
+  skillName: Rain of Arrows
   types: 0100000003000000
   damageType: 0
   cooldowns:
@@ -23,6 +23,12 @@ MonoBehaviour:
   - 8
   baseDamage: 0.8
   damagePerLevel: 0.1
+  manaCosts:
+  - 20
+  - 22
+  - 24
+  - 26
+  - 28
   effect: {fileID: 0}
   animationTrigger: Skill2
   key: 119

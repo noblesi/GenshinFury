@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ef2bd180468ab2469d0cc96e64715af, type: 3}
   m_Name: Whirlwind
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Whirlwind, Assembly-CSharp
   skillName: Whirlwind
   types: 0000000003000000
   damageType: 0
@@ -23,6 +23,12 @@ MonoBehaviour:
   - 6
   baseDamage: 0.8
   damagePerLevel: 0.1
+  manaCosts:
+  - 20
+  - 22
+  - 24
+  - 26
+  - 28
   effect: {fileID: 0}
   animationTrigger: Skill2
   key: 119

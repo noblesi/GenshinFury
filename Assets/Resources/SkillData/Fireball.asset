@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5fc4a0544a61e243bcd4bb09e2bdf23, type: 3}
   m_Name: Fireball
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Fireball, Assembly-CSharp
   skillName: Fireball
   types: 0100000002000000
   damageType: 1
@@ -23,6 +23,12 @@ MonoBehaviour:
   - 4
   baseDamage: 1.2
   damagePerLevel: 0.3
+  manaCosts:
+  - 15
+  - 18
+  - 21
+  - 24
+  - 27
   effect: {fileID: 0}
   animationTrigger: Skill1
   key: 113

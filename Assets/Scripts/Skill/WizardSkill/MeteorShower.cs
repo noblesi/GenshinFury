@@ -11,6 +11,7 @@ public class MeteorShower : SkillData
         baseDamage = 2.0f;
         damagePerLevel = 0.5f;
         cooldowns = new float[] { 60.0f, 55.0f, 50.0f };
+        manaCosts = new float[] { 50.0f, 55.0f, 60.0f };
         effect = null;  // Assign appropriate ParticleSystem
         animationTrigger = "Skill4";
         key = KeyCode.R;

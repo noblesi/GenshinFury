@@ -11,6 +11,7 @@ public class Inferno : SkillData
         baseDamage = 1.5f;
         damagePerLevel = 0.4f;
         cooldowns = new float[] { 5.0f, 4.5f, 4.0f };
+        manaCosts = new float[] { 30.0f, 33.0f, 36.0f };
         effect = null;  // Assign appropriate ParticleSystem
         animationTrigger = "Skill1";
         key = KeyCode.Q;

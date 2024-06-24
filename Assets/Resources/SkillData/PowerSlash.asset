@@ -11,8 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abdd3950c1923184482ae4d4aa2f8a41, type: 3}
   m_Name: PowerSlash
-  m_EditorClassIdentifier: 
-  skillName: PowerSlash
+  m_EditorClassIdentifier: PowerSlash, Assembly-CSharp
+  skillName: Power Slash
   types: 0000000002000000
   damageType: 0
   cooldowns:
@@ -21,6 +21,10 @@ MonoBehaviour:
   - 3
   baseDamage: 1.5
   damagePerLevel: 0.3
+  manaCosts:
+  - 20
+  - 22
+  - 24
   effect: {fileID: 0}
   animationTrigger: Skill1
   key: 113

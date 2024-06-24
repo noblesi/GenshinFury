@@ -7,6 +7,7 @@ public class BasePlayerClass : ScriptableObject
     public string className;
     public List<SkillData> skillBook;
     public int skillPoints;
+    public PlayerStats stats;
 
     public void AddSkillPoint()
     {
@@ -30,5 +31,14 @@ public class BasePlayerClass : ScriptableObject
             return true;
         }
         return false;
+    }
+
+    public void ApplyLevelUp(ref int health, ref int mana, ref int strength, ref int agility, ref int intelligence)
+    {
+        health += stats.healthPerLevel;
+        mana += stats.manaPerLevel;
+        strength += stats.strengthPerLevel;
+        agility += stats.agilityPerLevel;
+        intelligence += stats.intelligencePerLevel;
     }
 }

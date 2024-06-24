@@ -223,7 +223,11 @@ public class UIManager : MonoBehaviour
 
         if (Utility.IsValidNickname(nickname))
         {
-            GameData newGameData = new GameData(nickname, 1, DateTime.Now, selectedClass);
+            GameData newGameData = new GameData
+            {
+                playerClass = selectedClass
+                // 나머지 데이터 필드들도 초기화 필요
+            };
             HideNicknamePopup();
             LoadGameScene(newGameData, true);
         }

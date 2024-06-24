@@ -11,8 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 352699bd614bdab439c1eac131d23267, type: 3}
   m_Name: ArrowShot
-  m_EditorClassIdentifier: 
-  skillName: ArrowShot
+  m_EditorClassIdentifier: ArrowShot, Assembly-CSharp
+  skillName: Arrow Shot
   types: 0100000002000000
   damageType: 0
   cooldowns:
@@ -23,6 +23,12 @@ MonoBehaviour:
   - 2
   baseDamage: 1
   damagePerLevel: 0.2
+  manaCosts:
+  - 10
+  - 12
+  - 14
+  - 16
+  - 18
   effect: {fileID: 0}
   animationTrigger: Skill1
   key: 113

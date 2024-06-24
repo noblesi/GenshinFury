@@ -11,11 +11,12 @@ public class Slash : SkillData
         baseDamage = 1.0f;
         damagePerLevel = 0.2f;
         cooldowns = new float[] { 5.0f, 4.5f, 4.0f, 3.5f, 3.0f };
+        manaCosts = new float[] { 10.0f, 12.0f, 14.0f, 16.0f, 18.0f };
         effect = null;  // Assign appropriate ParticleSystem
         animationTrigger = "Skill1";
         key = KeyCode.Q;
         level = 1;
         maxLevel = 5;
-        evolvedSkill = Resources.Load<SkillData>("SkillData/PowerSlash"); // Load the evolved skill
+        evolvedSkill = Resources.Load<SkillData>("SkillData/PowerSlash");
     }
 }
