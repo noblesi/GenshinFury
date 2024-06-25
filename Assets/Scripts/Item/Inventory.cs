@@ -275,4 +275,22 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+    public void SeparateAmount(int index1, int index2, int amount)
+    {
+        if (!IsValidIndex(index1)) return;
+        if (!IsValidIndex(index2)) return;
+
+        Item item1 = items[index1];
+        Item item2 = items[index2];
+
+        CountableItem countableItem1 = item1 as CountableItem;
+
+        if(countableItem1 != null && item2 == null)
+        {
+            items[index2] = countableItem1.SeperateAndClone(amount);
+
+            UpdateSlot(index1, index2);
+        }
+    }
 }

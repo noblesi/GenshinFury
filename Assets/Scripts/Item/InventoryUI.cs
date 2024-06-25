@@ -40,8 +40,10 @@ public class InventoryUI : MonoBehaviour
     private void Update()
     {
         pointerEventData.position = Input.mousePosition;
-
         OnPointerEnterAndExit();
+
+        ShowOrHideItemTooltip();
+
         OnPointerDown();
         OnPointerDrag();
         OnPointerUp();
@@ -93,6 +95,23 @@ public class InventoryUI : MonoBehaviour
         void OnPreviousExit()
         {
             previousSlot.Highlight(false);
+        }
+    }
+
+    private void ShowOrHideItemTooltip()
+    {
+        bool isValid =
+            pointerOverSlot != null && pointerOverSlot.HasItem && pointerOverSlot.IsAccessible
+            && (pointerOverSlot != startDragSlot);
+
+        if (isValid)
+        {
+            UpdateTooltipUI(pointerOverSlot);
+            itemTooltip.Show();
+        }
+        else
+        {
+            itemTooltip.Hide();
         }
     }
 
@@ -208,12 +227,42 @@ public class InventoryUI : MonoBehaviour
 
         if(endDragSlot != null && endDragSlot.IsAccessible)
         {
-            TrySwapItems(startDragSlot, endDragSlot);
+            bool isSeparatable = 
+                (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftShift) &&
+                (inventory.IsCountableItem(startDragSlot.Index) && !inventory.HasItem(endDragSlot.Index));
+
+            bool isSeparation = false;
+            int currentAmount = 0;
+
+            if(isSeparatable)
+            {
+                currentAmount = inventory.GetCurrentAmount(startDragSlot.Index);
+                if(currentAmount > 1)
+                {
+                    isSeparation = true;
+                }
+            }
+
+            if (isSeparation)
+                TrySeparateAmount(startDragSlot.Index, endDragSlot.Index, currentAmount);
+            else
+                TrySwapItems(startDragSlot, endDragSlot);
+
+            UpdateTooltipUI(endDragSlot);
+            return;
         }
 
         if (!IsOverUI())
         {
-            TryRemoveItem(index);
+            int index = startDragSlot.Index;
+            string itemName = inventory.GetItemName(index);
+            int amount = inventory.GetCurrentAmount(index);
+
+            if (amount > 1)
+                itemName += $" x{amount}";
+
+
+            popup.OpenConfirmationPopup(() => TryRemoveItem(index), itemName);
         }
     }
 
@@ -222,12 +271,24 @@ public class InventoryUI : MonoBehaviour
         if (from == to) return;
 
         from.SwapOrMoveIcon(to);
-        Inventory.Swap(from.Index, to.Index);
+        inventory.Swap(from.Index, to.Index);
     }
 
     private void TryRemoveItem(int index)
     {
-        Inventory.Remove(index);
+        inventory.Remove(index);
+    }
+
+    private void TrySeparateAmount(int index1, int index2, int amount)
+    {
+        if (index1 == index2) return;
+
+        string itemName = inventory.GetItemName(index1);
+
+        popup.OpenAmountInputPopup(
+            amt = inventory.SeparateAmount(index1, index2, amt),
+            amount, itemName
+        );
     }
 
     private bool IsOverUI()
@@ -239,5 +300,12 @@ public class InventoryUI : MonoBehaviour
         {
             slotUIList[i].SetSlotAccessibleState(i < accessibleSlotCount);
         }
+    }
+
+    private void UpdateTooltipUI(ItemSlotUI slot)
+    {
+        itemTooltip.SetItemInfo(inventory.GetItemData(slot.Index));
+
+        itemTooltip.SetRectPosition(slot.SlotRect);
     }
 }
