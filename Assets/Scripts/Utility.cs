@@ -11,6 +11,5 @@ public static class Utility
             nickname.Length >= MinNicknameLength &&
             nickname.Length <= MaxNicknameLength &&
             Regex.IsMatch(nickname, "^[a-zA-Z0-9]+$");
-
     }
 }

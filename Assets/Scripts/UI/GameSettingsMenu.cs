@@ -15,6 +15,7 @@ public class GameSettingsMenu : MonoBehaviour
     private void OnEnable()
     {
         InitializeSettingsMenu();
+        LoadSettingsUI();
     }
 
     private void InitializeSettingsMenu()
@@ -64,6 +65,7 @@ public class GameSettingsMenu : MonoBehaviour
         SoundManager.Instance.SaveSettings(soundSettings);
 
         UIManager.Instance.CloseUI(UIType.GameSettingsMenu);
+        UIManager.Instance.OpenUI(UIType.MainMenu);
     }
 
     public void Cancel()

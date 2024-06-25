@@ -4,31 +4,54 @@ using System.Collections.Generic;
 
 public class GameSlotMenu : MonoBehaviour
 {
+    [SerializeField] private Button startGameButton;
+    [SerializeField] private Button cancelButton;
+    [SerializeField] private Text loggedInUsernameText;
+
     [SerializeField] private List<Button> gameSlotButtons;
     [SerializeField] private List<Text> gameSlotTexts;
-    [SerializeField] private Button startGameButton;
-    [SerializeField] private List<GameObject> defaultSlotObjects;
-    [SerializeField] private List<GameObject> selectedSlotObjects;
-    [SerializeField] private List<GameSlot> gameSlots = new List<GameSlot>();
+    [SerializeField] private List<Image> gameSlotImages;  // 각 슬롯의 이미지 컴포넌트
+    [SerializeField] private Sprite defaultSprite;  // 비선택 상태 스프라이트
+    [SerializeField] private Sprite selectedSprite;  // 선택 상태 스프라이트
+    [SerializeField] private Vector2 defaultTextPosition;
+    [SerializeField] private Vector2 selectedTextPosition;
+
+    private List<GameSlot> gameSlots;
     private int selectedSlotIndex = -1;
 
     private void OnEnable()
     {
         InitializeGameSlots();
+        EventManager.Instance.OnLoginSuccess += UpdateUsername;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnLoginSuccess -= UpdateUsername;
+    }
+
+    private void UpdateUsername(string username)
+    {
+        loggedInUsernameText.text = username;
     }
 
     private void InitializeGameSlots()
     {
+        gameSlots = new List<GameSlot>();
+
         for (int i = 0; i < gameSlotButtons.Count; i++)
         {
             gameSlots.Add(new GameSlot());
             UpdateGameSlotUI(i);
         }
+
         UpdateStartGameButtonState();
     }
 
     private void UpdateGameSlotUI(int slotIndex)
     {
+        if (slotIndex >= gameSlots.Count) return;  // 인덱스 범위를 벗어나는 경우 처리
+
         if (gameSlots[slotIndex].isEmpty)
         {
             gameSlotTexts[slotIndex].text = "Empty Slot";
@@ -39,6 +62,9 @@ public class GameSlotMenu : MonoBehaviour
                                              $"Player: {gameSlots[slotIndex].playerName}\n" +
                                              $"Level: {gameSlots[slotIndex].playerLevel}";
         }
+
+        gameSlotImages[slotIndex].sprite = defaultSprite;
+        gameSlotTexts[slotIndex].rectTransform.anchoredPosition = defaultTextPosition;
     }
 
     private void UpdateStartGameButtonState()
@@ -62,12 +88,14 @@ public class GameSlotMenu : MonoBehaviour
     {
         if (selectedSlotIndex != -1)
         {
-            DeselectGameSlot();
+            gameSlotImages[selectedSlotIndex].sprite = defaultSprite;
+            gameSlotTexts[selectedSlotIndex].rectTransform.anchoredPosition = defaultTextPosition;
         }
 
         selectedSlotIndex = slotIndex;
-        defaultSlotObjects[slotIndex].SetActive(false);
-        selectedSlotObjects[slotIndex].SetActive(true);
+        gameSlotImages[slotIndex].sprite = selectedSprite;
+        gameSlotTexts[slotIndex].rectTransform.anchoredPosition = selectedTextPosition;
+
         UpdateStartGameButtonState();
     }
 
@@ -75,10 +103,11 @@ public class GameSlotMenu : MonoBehaviour
     {
         if (selectedSlotIndex != -1)
         {
-            defaultSlotObjects[selectedSlotIndex].SetActive(true);
-            selectedSlotObjects[selectedSlotIndex].SetActive(false);
+            gameSlotImages[selectedSlotIndex].sprite = defaultSprite;
+            gameSlotTexts[selectedSlotIndex].rectTransform.anchoredPosition = defaultTextPosition;
+            selectedSlotIndex = -1;
         }
-        selectedSlotIndex = -1;
+
         UpdateStartGameButtonState();
     }
 

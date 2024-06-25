@@ -18,12 +18,13 @@ public class PlayerSettingsPopup : MonoBehaviour
     private void OnEnable()
     {
         ResetUI();
-    }
+    } 
 
     private void ResetUI()
     {
         nicknameInputField.text = string.Empty;
         nicknameErrorText.text = string.Empty;
+        classErrorText.text = string.Empty;
         classToggleGroup.SetAllTogglesOff();
     }
 
@@ -39,7 +40,7 @@ public class PlayerSettingsPopup : MonoBehaviour
         else
         {
             // 닉네임이 유효하지 않은 경우
-            nicknameErrorText.text = $"Invalid nickname. Please enter a nickname between {Utility.MinNicknameLength} and {Utility.MaxNicknameLength} characters long, containing only letters and numbers.";
+            nicknameErrorText.text = "Invalid Nickname!\nPlease check nickname.";
         }
     }
 
