@@ -23,12 +23,67 @@ public class InventoryPopupUI : MonoBehaviour
     [SerializeField] private Button amountInputCancelButton;
 
     private event Action OnConfirmationOK;
-
     private event Action<int> OnAmountInputOK;
 
     private int maxAmount;
 
     private void Awake()
+    {
+        InitUIEvents();
+        HidePanel();
+        HideConfirmationPopup();
+        HideAmountInputPopup();
+
+
+
+
+        
+    }
+
+    private void Update()
+    {
+        if (confirmationPopupObject.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                confirmationOKButton.onClick?.Invoke();
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                confirmationCancelButton.onClick?.Invoke();
+            }
+        }
+        else if(amountInputPopupObject.activeSelf)
+        {
+            if(Input.GetKeyDown(KeyCode.Return))
+            {
+                amountInputOKButton.onClick?.Invoke();
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                amountInputCancelButton.onClick?.Invoke();
+            }
+        }
+    }
+
+    public void OpenConfirmationPopup(Action okCallback, string itemName)
+    {
+        ShowPanel();
+        ShowConfirmationPopup(itemName);
+        SetConfirmationOKEvent(okCallback);
+    }
+
+    public void OpenAmountInputPopup(Action<int> okCallback, int currentAmount, string itemName)
+    {
+        maxAmount = currentAmount - 1;
+        amountInputField.text = "1";
+
+        ShowPanel();
+        ShowAmountInputPopup(itemName);
+        SetAmountInputOKEvent(okCallback);
+    }
+
+    private void InitUIEvents()
     {
         confirmationOKButton.onClick.AddListener(HidePanel);
         confirmationOKButton.onClick.AddListener(HideConfirmationPopup);
@@ -40,7 +95,7 @@ public class InventoryPopupUI : MonoBehaviour
         amountMinusButton.onClick.AddListener(() =>
         {
             int.TryParse(amountInputField.text, out int amount);
-            if(amount > 1)
+            if (amount > 1)
             {
                 int nextAmount = Input.GetKey(KeyCode.LeftShift) ? amount - 10 : amount - 1;
                 if (nextAmount < 1)
@@ -52,10 +107,10 @@ public class InventoryPopupUI : MonoBehaviour
         amountPlusButton.onClick.AddListener(() =>
         {
             int.TryParse(amountInputField.text, out int amount);
-            if(amount < maxAmount)
+            if (amount < maxAmount)
             {
                 int nextAmount = Input.GetKey(KeyCode.LeftShift) ? amount + 10 : amount + 1;
-                if(nextAmount > maxAmount)
+                if (nextAmount > maxAmount)
                     nextAmount = maxAmount;
                 amountInputField.text = nextAmount.ToString();
             }
@@ -90,30 +145,15 @@ public class InventoryPopupUI : MonoBehaviour
         confirmationItemNameText.text = itemName;
         confirmationPopupObject.SetActive(true);
     }
-
     private void HideConfirmationPopup() => confirmationPopupObject.SetActive(false);
-    private void SetConfirmationOKEvent(Action handler) => OnConfirmationOK = handler;
-
-    public void OpenConfirmationPopup(Action okCallback, string itemName)
-    {
-        ShowPanel();
-        ShowConfirmationPopup(itemName);
-        OnConfirmationOK = okCallback;
-    }
-
-    public void OpenAmountInputPopup(Action<int> okCallback, int currentAmount, string itemName)
-    {
-        maxAmount = currentAmount - 1;
-        amountInputField.text = "1";
-
-        ShowPanel();
-        ShowAmountInputPopup(itemName);
-        OnAmountInputOK = okCallback;
-    }
 
     private void ShowAmountInputPopup(string itemName)
     {
         amountInputItemNameText.text = itemName;
         amountInputPopupObject.SetActive(true);
     }
+
+    private void HideAmountInputPopup() => amountInputPopupObject.SetActive(false);
+    private void SetConfirmationOKEvent(Action handler) => OnConfirmationOK = handler;
+    private void SetAmountInputOKEvent(Action<int> handler) => OnAmountInputOK = handler;
 }

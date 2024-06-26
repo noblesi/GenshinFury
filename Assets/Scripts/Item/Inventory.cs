@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,10 +19,31 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private Item[] items;
 
+    private readonly HashSet<int> indexSetForUpdate = new HashSet<int>();
+
+    private readonly static Dictionary<Type, int> sortWeightDictionary = new Dictionary<Type, int>
+    {
+        {typeof(PotionItemData), 10000 },
+        {typeof(WeaponItemData), 20000 },
+        {typeof(ArmorItemData), 30000 }
+    };
+
+    private class ItemComparer : IComparer<Item>
+    {
+        public int Compare(Item x, Item y)
+        {
+            return (x.Data.ID + sortWeightDictionary[x.Data.GetType()])
+                - (y.Data.ID + sortWeightDictionary[y.Data.GetType()]);
+        }
+    }
+
+    private static readonly ItemComparer itemComparer = new ItemComparer();
+
     private void Awake()
     {
         items = new Item[maxCapacity];
         Capacity = initialCapacity;
+        this.inventoryUI.SetInventoryReference(this);
     }
 
     private void Start()
@@ -62,11 +84,6 @@ public class Inventory : MonoBehaviour
         return -1;
     }
 
-    public void UpdateAccessibleStatesAll()
-    {
-        inventoryUI.SetAccessibleSlotRange(Capacity);
-    }
-
     public bool HasItem(int index)
     {
         return IsValidIndex(index) && items[index] != null;
@@ -105,87 +122,22 @@ public class Inventory : MonoBehaviour
         return items[index].Data.Name;
     }
 
-    public void UpdateSlot(int index)
+    public void ConnectUI(InventoryUI inventoryUI)
     {
-        if (!IsValidIndex(index)) return;
-
-        Item item = items[index];
-
-        if(item != null)
-        {
-            inventoryUI.SetItemIcon(index, item.Data.IconSprite);
-
-            if(item is CountableItem countableItem)
-            {
-                if (countableItem.IsEmpty)
-                {
-                    items[index] = null;
-                    RemoveIcon();
-                    return;
-                }
-                else
-                {
-                    inventoryUI.SetItemAmountText(index, countableItem.Amount);
-                }
-            }
-            else
-            {
-                RemoveIcon();
-            }
-
-            void RemoveIcon()
-            {
-                inventoryUI.RemoveItem(index);
-                inventoryUI.HideItemAmountText(index);
-            }
-        }
-    }
-
-    public void Swap(int index1, int index2)
-    {
-        if (!IsValidIndex(index1)) return;
-        if (!IsValidIndex(index2)) return;
-
-        Item item1 = items[index1];
-        Item item2 = items[index2];
-
-        if(item1 != null && item2 != null && 
-            item1.Data == item2.Data &&
-            item1 is CountableItem countableItem1 && item2 is CountableItem countableItem2)
-        {
-            int maxAmount = countableItem2.MaxAmount;
-            int sum = countableItem1.Amount + countableItem2.Amount;
-
-            if(sum <= maxAmount)
-            {
-                countableItem1.SetAmount(0);
-                countableItem2.SetAmount(sum);
-            }
-            else
-            {
-                countableItem1.SetAmount(sum - maxAmount);
-                countableItem2.SetAmount(maxAmount);
-            }
-        }
-        else
-        {
-            items[index1] = item1;
-            items[index2] = item2;
-        }
-
-        UpdateSlot(index1, index2);
+        this.inventoryUI = inventoryUI;
+        this.inventoryUI.SetInventoryReference(this);
     }
 
     public int Add(ItemData itemData, int amount = 1)
     {
         int index;
 
-        if(itemData is CountableItemData countableItemData)
+        if (itemData is CountableItemData countableItemData)
         {
             bool findNextCountable = true;
             index = -1;
 
-            while(amount > 0)
+            while (amount > 0)
             {
                 if (findNextCountable)
                 {
@@ -226,10 +178,10 @@ public class Inventory : MonoBehaviour
 
         else
         {
-            if(amount == 1)
+            if (amount == 1)
             {
                 index = FindEmptySlotIndex();
-                if(index != -1)
+                if (index != -1)
                 {
                     items[index] = itemData.CreateItem();
                     amount = 0;
@@ -239,26 +191,131 @@ public class Inventory : MonoBehaviour
             }
 
             index = -1;
-            for(; amount > 0; amount--)
+            for (; amount > 0; amount--)
             {
                 index = FindEmptySlotIndex(index + 1);
 
                 if (index != -1) break;
 
                 items[index] = itemData.CreateItem();
-                
+
                 UpdateSlot(index);
             }
         }
         return amount;
     }
 
+    public void UpdateSlot(int index)
+    {
+        if (!IsValidIndex(index)) return;
+
+        Item item = items[index];
+
+        if(item != null)
+        {
+            inventoryUI.SetItemIcon(index, item.Data.IconSprite);
+
+            if(item is CountableItem countableItem)
+            {
+                if (countableItem.IsEmpty)
+                {
+                    items[index] = null;
+                    RemoveIcon();
+                    return;
+                }
+                else
+                {
+                    inventoryUI.SetItemAmountText(index, countableItem.Amount);
+                }
+            }
+            else
+            {
+                RemoveIcon();
+            }
+
+            void RemoveIcon()
+            {
+                inventoryUI.RemoveItem(index);
+                inventoryUI.HideItemAmountText(index);
+            }
+        }
+    }
+
+    private void UpdateSlot(params int[] indices)
+    {
+        foreach(var i in indices)
+        {
+            UpdateSlot(i);
+        }
+    }
+
+    private void UpdateAllSlot()
+    {
+        for(int i = 0; i < Capacity; i++)
+        {
+            UpdateSlot(i);
+        }
+    }
+
     public void Remove(int index)
     {
-        if(!IsValidIndex(index)) return;
+        if (!IsValidIndex(index)) return;
 
         items[index] = null;
         UpdateSlot(index);
+    }
+
+    public void Swap(int index1, int index2)
+    {
+        if (!IsValidIndex(index1)) return;
+        if (!IsValidIndex(index2)) return;
+
+        Item item1 = items[index1];
+        Item item2 = items[index2];
+
+        if(item1 != null && item2 != null && 
+            item1.Data == item2.Data &&
+            item1 is CountableItem countableItem1 && item2 is CountableItem countableItem2)
+        {
+            int maxAmount = countableItem2.MaxAmount;
+            int sum = countableItem1.Amount + countableItem2.Amount;
+
+            if(sum <= maxAmount)
+            {
+                countableItem1.SetAmount(0);
+                countableItem2.SetAmount(sum);
+            }
+            else
+            {
+                countableItem1.SetAmount(sum - maxAmount);
+                countableItem2.SetAmount(maxAmount);
+            }
+        }
+        else
+        {
+            items[index1] = item1;
+            items[index2] = item2;
+        }
+
+        UpdateSlot(index1, index2);
+    }
+
+    public void SeparateAmount(int index1, int index2, int amount)
+    {
+        if (!IsValidIndex(index1)) return;
+        if (!IsValidIndex(index2)) return;
+
+        Item item1 = items[index1];
+        Item item2 = items[index2];
+
+        CountableItem countableItem1 = item1 as CountableItem;
+
+        if (countableItem1 != null && item2 == null)
+        {
+            items[index2] = countableItem1.SeperateAndClone(amount);
+
+            UpdateSlot(index1, index2);
+        }
     }
 
     public void Use(int index)
@@ -276,21 +333,64 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void SeparateAmount(int index1, int index2, int amount)
+    public void UpdateAccessibleStatesAll()
     {
-        if (!IsValidIndex(index1)) return;
-        if (!IsValidIndex(index2)) return;
+        inventoryUI.SetAccessibleSlotRange(Capacity);
+    }
 
-        Item item1 = items[index1];
-        Item item2 = items[index2];
+    public void TrimAll()
+    {
+        indexSetForUpdate.Clear();
 
-        CountableItem countableItem1 = item1 as CountableItem;
+        int i = -1;
+        while (items[++i] != null) ;
+        int j = i;
 
-        if(countableItem1 != null && item2 == null)
+        while (true)
         {
-            items[index2] = countableItem1.SeperateAndClone(amount);
+            while (++j < Capacity && items[j] == null) ;
 
-            UpdateSlot(index1, index2);
+            if (j == Capacity) break;
+
+            indexSetForUpdate.Add(i);
+            indexSetForUpdate.Add(j);
+
+            items[i] = items[j];
+            items[j] = null;
+            i++;
         }
+
+        foreach(var index in indexSetForUpdate)
+        {
+            UpdateSlot(index);
+        }
+
+        inventoryUI.UpdateAllSlotFilters();
+    }
+
+    public void SortAll()
+    {
+        int i = -1;
+        while (items[++i] != null) ;
+        int j = i;
+
+        while (true)
+        {
+            while (++j < Capacity && items[j] == null) ;
+
+            if (j == Capacity) break;
+
+            indexSetForUpdate.Add(i);
+            indexSetForUpdate.Add(j);
+
+            items[i] = items[j];
+            items[j] = null;
+            i++;
+        }
+
+        Array.Sort(items, 0, i, itemComparer);
+
+        UpdateAllSlot();
+        inventoryUI.UpdateAllSlotFilters();
     }
 }

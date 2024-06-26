@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class ItemSlotUI : MonoBehaviour
 {
+    [Tooltip("슬롯 내에서 아이콘과 슬롯 사이의 여백")]
+    [SerializeField] private float padding = 1f;
+
     [Tooltip("아이템 아이콘 이미지")]
     [SerializeField] private Image iconImage;
 
@@ -16,6 +19,7 @@ public class ItemSlotUI : MonoBehaviour
     [Tooltip("슬롯이 포커스될 때 나타나는 하이라이트 이미지")]
     [SerializeField] private Image highlightImage;
 
+    [Space]
     [Tooltip("하이라이트 이미지 알파 값")]
     [SerializeField] private float highlightAlpha = 0.5f;
 
@@ -50,6 +54,49 @@ public class ItemSlotUI : MonoBehaviour
 
     private static readonly Color InaccessibleSlotcolor = new Color(0.2f, 0.2f, 0.2f);
     private static readonly Color InaccessibleIconColor = new Color(0.5f, 0.5f, 0.5f);
+
+    private void Awake()
+    {
+        InitComponents();
+        InitValues();
+    }
+
+    private void InitComponents()
+    {
+        inventoryUI = GetComponentInParent<InventoryUI>();
+
+        slotRect = GetComponent<RectTransform>();
+        iconRect = iconImage.rectTransform;
+        highlightRect = highlightImage.rectTransform;
+
+        iconGameObject = iconRect.gameObject;
+        textGameObject = amountText.gameObject;
+        highlightGameObject = highlightImage.gameObject;
+
+        slotImage = GetComponent<Image>();
+    }
+
+    private void InitValues()
+    {
+        iconRect.pivot = new Vector2(0.5f, 0.5f);
+        IconRect.anchorMin = Vector2.zero;
+        IconRect.anchorMax = Vector2.one;
+
+        iconRect.offsetMin = Vector2.one * padding;
+        iconRect.offsetMax = Vector2.one * padding;
+
+        highlightRect.pivot = iconRect.pivot;
+        highlightRect.anchorMin = iconRect.anchorMin;
+        highlightRect.anchorMax = iconRect.anchorMax;
+        highlightRect.offsetMin = iconRect.offsetMin;
+        highlightRect.offsetMax = iconRect.offsetMax;
+
+        iconImage.raycastTarget = false;
+        highlightImage.raycastTarget = false;
+
+        HideIcon();
+        highlightGameObject.SetActive(false);
+    }
 
     private void ShowIcon() => iconGameObject.SetActive(true);
     private void HideIcon() => iconGameObject.SetActive(false);
@@ -149,10 +196,20 @@ public class ItemSlotUI : MonoBehaviour
 
     public void Highlight(bool show)
     {
+        if (!this.IsAccessible) return;
+
         if (show)
             StartCoroutine(nameof(HighlightFadeInRoutine));
         else
             StartCoroutine(nameof(HighlightFadeOutRoutine));
+    }
+
+    public void SetHighlightOnTop(bool value)
+    {
+        if (value)
+            highlightRect.SetAsLastSibling();
+        else
+            highlightRect.SetAsFirstSibling();
     }
 
     private IEnumerator HighlightFadeInRoutine()
@@ -181,7 +238,7 @@ public class ItemSlotUI : MonoBehaviour
 
         float unit = highlightAlpha / highlightFadeDuration;
 
-        for (; currentHighlightAlpha <= highlightAlpha; currentHighlightAlpha += unit * Time.deltaTime)
+        for (; currentHighlightAlpha <= highlightAlpha; currentHighlightAlpha -= unit * Time.deltaTime)
         {
             highlightImage.color = new Color(
                 highlightImage.color.r,

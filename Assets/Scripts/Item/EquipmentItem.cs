@@ -1,15 +1,17 @@
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "New Equipment Item", menuName = "Equipment/Item")]
-public class EquipmentItem : ScriptableObject
+public class EquipmentItem : Item
 {
-    public string itemName;
-    public EquipmentType equipmentType;
-    public WeaponType weaponType; // Only applicable if equipmentType is Weapon
-    public int attackPower;
-    public int defensePower;
-    public int agility;
-    public int intelligence;
-    public ItemRarity rarity; // 아이템 등급 추가
-    public Sprite icon;
+    public EquipmentType EquipmentType { get; }
+    public int AttackPower { get; }
+    public int DefensePower { get; }
+    public int Agility { get; }
+    public int Intelligence { get; }
+
+    public EquipmentItem(EquipmentItemData data) : base(data)
+    {
+        EquipmentType = data.EquipmentType;
+        AttackPower = data.AttackPower;
+        DefensePower = data.DefensePower;
+        Agility = data.Agility;
+        Intelligence = data.Intelligence;
+    }
 }
