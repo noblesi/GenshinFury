@@ -126,41 +126,29 @@ public class Player : MonoBehaviour
         currentIntelligence = baseIntelligence;
 
         // Apply equipment bonuses
-        if (helmet != null)
-        {
-            currentHealth += helmet.defensePower;
-            currentStrength += helmet.attackPower;
-            currentAgility += helmet.agility;
-            currentIntelligence += helmet.intelligence;
-        }
-        if (armor != null)
-        {
-            currentHealth += armor.defensePower;
-            currentStrength += armor.attackPower;
-            currentAgility += armor.agility;
-            currentIntelligence += armor.intelligence;
-        }
-        if (gloves != null)
-        {
-            currentHealth += gloves.defensePower;
-            currentStrength += gloves.attackPower;
-            currentAgility += gloves.agility;
-            currentIntelligence += gloves.intelligence;
-        }
-        if (boots != null)
-        {
-            currentHealth += boots.defensePower;
-            currentStrength += boots.attackPower;
-            currentAgility += boots.agility;
-            currentIntelligence += boots.intelligence;
-        }
-        if (weapon != null)
-        {
-            currentHealth += weapon.defensePower;
-            currentStrength += weapon.attackPower;
-            currentAgility += weapon.agility;
-            currentIntelligence += weapon.intelligence;
-        }
+        ApplyEquipmentStats(helmet);
+        ApplyEquipmentStats(armor);
+        ApplyEquipmentStats(gloves);
+        ApplyEquipmentStats(boots);
+        ApplyEquipmentStats(weapon);
+    }
+
+    void ApplyEquipmentStats(EquipmentItem equipment)
+    {
+        if (equipment == null) return;
+
+        currentHealth += equipment.BaseHealth;
+        currentMana += equipment.BaseAttack; // Weapons provide attack power
+        currentStrength += equipment.BaseAttack; // Weapons provide attack power
+        currentAgility += equipment.BaseAgility;
+        currentIntelligence += equipment.BaseIntelligence;
+
+        // Apply random stats
+        currentHealth += equipment.GetStat(StatType.Health);
+        currentMana += equipment.GetStat(StatType.Mana);
+        currentStrength += equipment.GetStat(StatType.Strength);
+        currentAgility += equipment.GetStat(StatType.Agility);
+        currentIntelligence += equipment.GetStat(StatType.Intelligence);
     }
 
     void LoadCommonSkills()

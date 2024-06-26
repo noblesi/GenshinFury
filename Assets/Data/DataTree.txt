@@ -1,0 +1,9 @@
+Item -> CountableItem, Equipment, Weapon
+
+CountableItem -> Potion, Scroll, Other
+
+CountableItem_Type -> Healing, Enhancement
+
+Equipment -> Helmet, Armor, Glove, Shoes
+
+Weapon -> Sword, Bow, Staff
