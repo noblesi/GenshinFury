@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public enum UIType
 {
-    NotificationPopup,
     PlayerSettingsPopup,
     RegisterPopup,
     LoginMenu,
@@ -76,9 +75,6 @@ public class UIManager : MonoBehaviour
         string path = string.Empty;
         switch (uiType)
         {
-            case UIType.NotificationPopup:
-                path = "Prefabs/UI/NotificationPopup";
-                break;
             case UIType.PlayerSettingsPopup:
                 path = "Prefabs/UI/PlayerSettingsPopup";
                 break;
@@ -101,9 +97,10 @@ public class UIManager : MonoBehaviour
         return path;
     }
 
-    public void LoadGameScene(GameData gameData, bool isNewGame)
+    public void StartGame(GameData gameData, bool isNewGame, Vector3 spawnPosition, Quaternion spawnRotation)
     {
         GameManager.Instance.SetGameData(gameData, isNewGame);
-        SceneManager.LoadScene("GameScene");
+        GameManager.Instance.SetSpawnPoint(spawnPosition, spawnRotation);
+        GameManager.Instance.StartGame();
     }
 }

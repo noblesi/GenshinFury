@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Skill\WarriorSkill\Slash.cs" />
+    <Compile Include="Assets\Scripts\PlayerCameraController.cs" />
     <Compile Include="Assets\Scripts\Character\Enemy\EnemyChaseState.cs" />
     <Compile Include="Assets\Resources\Effect\Archer Pack\AP_Demo\AP_Scripts\AP_Demo.cs" />
     <Compile Include="Assets\Resources\Effect\Hovl Studio\Wizard spells pack\Demo scene\Demo scene files\HS_MovementInput.cs" />

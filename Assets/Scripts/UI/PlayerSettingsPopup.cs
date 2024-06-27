@@ -61,12 +61,16 @@ public class PlayerSettingsPopup : MonoBehaviour
         classErrorText.text = string.Empty;
 
         UIManager.Instance.CloseUI(UIType.PlayerSettingsPopup);
-        UIManager.Instance.LoadGameScene(new GameData
+
+        Vector3 spawnPosition = new Vector3(-13.14f, 0, 22.63f); // 스폰 위치 설정
+        Quaternion spawnRotation = Quaternion.identity; // 스폰 회전 설정
+
+        UIManager.Instance.StartGame(new GameData
         {
             playerClass = selectedClass,
-            //playerName = PlayerSettings.Instance.Nickname
+            name = PlayerSettings.Instance.Nickname
             // 나머지 데이터 필드들도 초기화 필요
-        }, true);
+        }, true, spawnPosition, spawnRotation);
     }
 
     public void Cancel()

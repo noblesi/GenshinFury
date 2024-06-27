@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private bool isDead = false;
     [SerializeField] private ParticleSystem clickEffect;
-    [SerializeField] private PlayerSkills playerSkills;
+    //[SerializeField] private PlayerSkills playerSkills;
 
     private bool isAttacking = false;
 
@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         animator = GetComponent<Animator>();
-        playerSkills = GetComponent<PlayerSkills>();
+        //playerSkills = GetComponent<PlayerSkills>();
     }
 
     void Update()
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
             UpdateAnimation();
             UpdateRotation();
             UpdateStopping();
-            playerSkills.HandleSkillInput();
+            //playerSkills.HandleSkillInput();
         }
     }
 
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
 
     void UpdateRotation()
     {
-        if (agent.remainingDistance > agent.stoppingDistance)
+        if (!isAttacking && agent.remainingDistance > agent.stoppingDistance)
         {
             Vector3 direction = agent.steeringTarget - transform.position;
             direction.y = 0;
@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * agent.angularSpeed / 10);
         }
     }
+
 
     void UpdateAnimation()
     {
@@ -116,10 +117,13 @@ public class PlayerController : MonoBehaviour
         if (!isAttacking)
         {
             isAttacking = true;
+            agent.isStopped = true;
+            agent.ResetPath();
             Vector3 direction = targetPosition - transform.position;
             direction.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f);
+            transform.rotation = targetRotation;
+            //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f);
             animator.SetTrigger("Attack");
             Invoke("ResetAttack", 1.0f);
         }
@@ -128,5 +132,7 @@ public class PlayerController : MonoBehaviour
     void ResetAttack()
     {
         isAttacking = false;
+        agent.isStopped = false;
+        animator.SetFloat("Speed", 0);
     }
 }

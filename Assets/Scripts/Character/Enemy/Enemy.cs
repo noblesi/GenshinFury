@@ -10,8 +10,6 @@ public class Enemy : MonoBehaviour
     private float debuffDuration;
     private float debuffStartTime;
 
-    public EquipmentDatabase equipmentDatabase; // Equipment database reference
-
     void Start()
     {
         currentHealth = maxHealth;
@@ -56,26 +54,6 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Debug.Log("Enemy died.");
-        DropLoot();
         Destroy(gameObject);
-    }
-
-    private void DropLoot()
-    {
-        // Check if an item should drop
-        if (Random.value <= equipmentDatabase.itemDropChance)
-        {
-            // Example: Drop a random equipment item
-            EquipmentItem droppedItem = equipmentDatabase.GetRandomEquipment(EquipmentType.Weapon, WeaponType.Sword);
-            if (droppedItem != null)
-            {
-                Debug.Log($"Dropped item: {droppedItem.itemName} ({droppedItem.rarity})");
-                // Implement logic to instantiate and show the dropped item in the game world
-            }
-        }
-        else
-        {
-            Debug.Log("No item dropped.");
-        }
     }
 }

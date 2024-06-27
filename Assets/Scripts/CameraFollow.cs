@@ -8,6 +8,11 @@ public class CameraFollow : MonoBehaviour
 
     void LateUpdate()
     {
+        if (target == null)
+        {
+            return;
+        }
+
         // 원하는 카메라 위치 계산
         Vector3 desiredPosition = target.position + offset;
         // 부드러운 카메라 이동
@@ -16,5 +21,10 @@ public class CameraFollow : MonoBehaviour
 
         // 항상 플레이어를 바라보도록 회전
         transform.LookAt(target);
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
     }
 }

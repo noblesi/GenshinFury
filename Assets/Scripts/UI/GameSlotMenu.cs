@@ -122,7 +122,9 @@ public class GameSlotMenu : MonoBehaviour
             }
             else
             {
-                UIManager.Instance.LoadGameScene(gameData, false);
+                Vector3 spawnPosition = new Vector3(0, 0, 0); // 스폰 위치 설정
+                Quaternion spawnRotation = Quaternion.identity; // 스폰 회전 설정
+                UIManager.Instance.StartGame(gameData, false, spawnPosition, spawnRotation);
             }
         }
     }
