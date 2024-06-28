@@ -77,11 +77,11 @@ public class PlayerController : MonoBehaviour
 
     void UpdateRotation()
     {
-        if (!isAttacking && agent.remainingDistance > agent.stoppingDistance)
+        if (agent.velocity.sqrMagnitude > Mathf.Epsilon)
         {
-            Vector3 direction = agent.steeringTarget - transform.position;
+            Vector3 direction = agent.velocity.normalized;
             direction.y = 0;
-            if (direction != Vector3.zero)
+            if (direction.sqrMagnitude > Mathf.Epsilon)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * agent.angularSpeed / 10);
@@ -132,13 +132,11 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator RotateAndAttack(Quaternion targetRotation)
     {
-        isRotating = true;
         while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * agent.angularSpeed / 10);
             yield return null;
         }
-        isRotating = false;
         animator.SetTrigger("Attack");
         Invoke("ResetAttack", 1.0f);
     }
