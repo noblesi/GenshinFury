@@ -6,21 +6,21 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Animator animator;
 
-    private BasePlayerClass currentClass;
-    private Dictionary<KeyCode, float> skillCooldownTimers = new Dictionary<KeyCode, float>();
+    protected BasePlayerClass currentClass;
+    protected Dictionary<KeyCode, float> skillCooldownTimers = new Dictionary<KeyCode, float>();
 
     // Current stats
-    private int baseHealth;
-    private int baseMana;
-    private int baseStrength;
-    private int baseAgility;
-    private int baseIntelligence;
-    private int currentHealth;
-    private int currentMana;
-    private int currentStrength;
-    private int currentAgility;
-    private int currentIntelligence;
-    private int currentLevel = 1;
+    protected int baseHealth;
+    protected int baseMana;
+    protected int baseStrength;
+    protected int baseAgility;
+    protected int baseIntelligence;
+    protected int currentHealth;
+    protected int currentMana;
+    protected int currentStrength;
+    protected int currentAgility;
+    protected int currentIntelligence;
+    protected int currentLevel = 1;
 
     // Equipment slots
     public EquipmentItem helmet;
@@ -30,40 +30,13 @@ public class Player : MonoBehaviour
     public EquipmentItem weapon;
 
     // Skill books
-    public List<SkillData> commonSkills;
-    public List<SkillData> warriorSkills;
-    public List<SkillData> archerSkills;
-    public List<SkillData> wizardSkills;
+    public List<SkillData> commonSkills = new List<SkillData>();
 
-    public void Initialize(GameData gameData)
+    public virtual void Initialize(GameData gameData)
     {
-        BasePlayerClass playerClass = null;
-        switch (gameData.playerClass)
-        {
-            case PlayerClass.Warrior:
-                playerClass = Resources.Load<BasePlayerClass>("PlayerClass/WarriorSkills");
-                warriorSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Skills/Warrior"));
-                break;
-            case PlayerClass.Archer:
-                playerClass = Resources.Load<BasePlayerClass>("PlayerClass/ArcherSkills");
-                archerSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Skills/Archer"));
-                break;
-            case PlayerClass.Wizard:
-                playerClass = Resources.Load<BasePlayerClass>("PlayerClass/WizardSkills");
-                wizardSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Skills/Wizard"));
-                break;
-            default:
-                Debug.LogError("Invalid player class.");
-                return;
-        }
-
-        if (playerClass != null)
-        {
-            currentClass = playerClass;
-            InitializeStats();
-            InitializeCooldownTimers();
-        }
-
+        currentClass = null;
+        InitializeStats();
+        InitializeCooldownTimers();
         LoadCommonSkills();
     }
 
@@ -73,28 +46,16 @@ public class Player : MonoBehaviour
         HandleSkillInput();
     }
 
-    void InitializeCooldownTimers()
+    protected void InitializeCooldownTimers()
     {
         skillCooldownTimers.Clear();
         foreach (var skill in commonSkills)
         {
             skillCooldownTimers[skill.key] = 0f;
         }
-        foreach (var skill in warriorSkills)
-        {
-            skillCooldownTimers[skill.key] = 0f;
-        }
-        foreach (var skill in archerSkills)
-        {
-            skillCooldownTimers[skill.key] = 0f;
-        }
-        foreach (var skill in wizardSkills)
-        {
-            skillCooldownTimers[skill.key] = 0f;
-        }
     }
 
-    void UpdateCooldownTimers()
+    protected void UpdateCooldownTimers()
     {
         List<KeyCode> keys = new List<KeyCode>(skillCooldownTimers.Keys);
         foreach (var key in keys)
@@ -106,8 +67,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    void InitializeStats()
+    protected void InitializeStats()
     {
+        if (currentClass == null) return;
+
         baseHealth = currentClass.stats.initialHealth;
         baseMana = currentClass.stats.initialMana;
         baseStrength = currentClass.stats.initialStrength;
@@ -117,7 +80,7 @@ public class Player : MonoBehaviour
         UpdateStats();
     }
 
-    void UpdateStats()
+    protected void UpdateStats()
     {
         currentHealth = baseHealth;
         currentMana = baseMana;
@@ -125,7 +88,6 @@ public class Player : MonoBehaviour
         currentAgility = baseAgility;
         currentIntelligence = baseIntelligence;
 
-        // Apply equipment bonuses
         ApplyEquipmentStats(helmet);
         ApplyEquipmentStats(armor);
         ApplyEquipmentStats(gloves);
@@ -133,17 +95,16 @@ public class Player : MonoBehaviour
         ApplyEquipmentStats(weapon);
     }
 
-    void ApplyEquipmentStats(EquipmentItem equipment)
+    protected void ApplyEquipmentStats(EquipmentItem equipment)
     {
         if (equipment == null) return;
 
         currentHealth += equipment.BaseHealth;
-        currentMana += equipment.BaseAttack; // Weapons provide attack power
-        currentStrength += equipment.BaseAttack; // Weapons provide attack power
+        currentMana += equipment.BaseAttack;
+        currentStrength += equipment.BaseAttack;
         currentAgility += equipment.BaseAgility;
         currentIntelligence += equipment.BaseIntelligence;
 
-        // Apply random stats
         currentHealth += equipment.GetStat(StatType.Health);
         currentMana += equipment.GetStat(StatType.Mana);
         currentStrength += equipment.GetStat(StatType.Strength);
@@ -151,12 +112,12 @@ public class Player : MonoBehaviour
         currentIntelligence += equipment.GetStat(StatType.Intelligence);
     }
 
-    void LoadCommonSkills()
+    protected void LoadCommonSkills()
     {
         commonSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Skills/Common"));
     }
 
-    public void HandleSkillInput()
+    public virtual void HandleSkillInput()
     {
         foreach (var skill in commonSkills)
         {
@@ -165,41 +126,16 @@ public class Player : MonoBehaviour
                 UseSkill(skill);
             }
         }
-
-        if (currentClass.className == "Warrior")
-        {
-            foreach (var skill in warriorSkills)
-            {
-                if (Input.GetKeyDown(skill.key) && skillCooldownTimers[skill.key] <= 0)
-                {
-                    UseSkill(skill);
-                }
-            }
-        }
-        else if (currentClass.className == "Archer")
-        {
-            foreach (var skill in archerSkills)
-            {
-                if (Input.GetKeyDown(skill.key) && skillCooldownTimers[skill.key] <= 0)
-                {
-                    UseSkill(skill);
-                }
-            }
-        }
-        else if (currentClass.className == "Wizard")
-        {
-            foreach (var skill in wizardSkills)
-            {
-                if (Input.GetKeyDown(skill.key) && skillCooldownTimers[skill.key] <= 0)
-                {
-                    UseSkill(skill);
-                }
-            }
-        }
     }
 
-    void UseSkill(SkillData skill)
+    protected void UseSkill(SkillData skill)
     {
+        if (currentMana < skill.GetManaCost())
+        {
+            Debug.Log("Not enough mana!");
+            return;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
@@ -208,7 +144,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void ExecuteSkill(Vector3 targetPosition, SkillData skill)
+    protected void ExecuteSkill(Vector3 targetPosition, SkillData skill)
     {
         Vector3 direction = targetPosition - transform.position;
         direction.y = 0;
@@ -228,12 +164,11 @@ public class Player : MonoBehaviour
         ApplySkillEffects(targetPosition, skill);
     }
 
-    void ApplySkillEffects(Vector3 targetPosition, SkillData skill)
+    protected void ApplySkillEffects(Vector3 targetPosition, SkillData skill)
     {
         float damage = skill.GetDamage();
         float manaCost = skill.GetManaCost();
 
-        // Check if player has enough mana
         if (currentMana < manaCost)
         {
             Debug.Log("Not enough mana!");
@@ -242,7 +177,6 @@ public class Player : MonoBehaviour
 
         currentMana -= (int)manaCost;
 
-        // Add your skill effect logic here based on skill types and damage type
         foreach (var type in skill.types)
         {
             switch (type)
@@ -269,96 +203,81 @@ public class Player : MonoBehaviour
         }
     }
 
-    void ApplyMeleeAttack(Vector3 targetPosition, SkillData skill)
+    protected void ApplyMeleeAttack(Vector3 targetPosition, SkillData skill)
     {
-        // Implement melee attack logic with range and damage
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, skill.range);
         foreach (var hitCollider in hitColliders)
         {
-            // Assuming enemies have a tag "Enemy"
             if (hitCollider.CompareTag("Enemy"))
             {
-                // Apply damage to the enemy
                 hitCollider.GetComponent<Enemy>().TakeDamage((int)skill.GetDamage(), skill.damageType);
-                break; // Melee attack hits the first enemy in range
+                break;
             }
         }
     }
 
-    void ApplyRangedAttack(Vector3 targetPosition, SkillData skill)
+    protected void ApplyRangedAttack(Vector3 targetPosition, SkillData skill)
     {
-        // Implement ranged attack logic with range and damage
         Ray ray = new Ray(transform.position, targetPosition - transform.position);
         if (Physics.Raycast(ray, out RaycastHit hitInfo, skill.range))
         {
             if (hitInfo.collider.CompareTag("Enemy"))
             {
-                // Apply damage to the enemy
                 hitInfo.collider.GetComponent<Enemy>().TakeDamage((int)skill.GetDamage(), skill.damageType);
             }
         }
     }
 
-    void ApplySingleTargetAttack(Vector3 targetPosition, SkillData skill)
+    protected void ApplySingleTargetAttack(Vector3 targetPosition, SkillData skill)
     {
-        // Implement single target logic with range and damage
         Ray ray = new Ray(transform.position, targetPosition - transform.position);
         if (Physics.Raycast(ray, out RaycastHit hitInfo, skill.range))
         {
             if (hitInfo.collider.CompareTag("Enemy"))
             {
-                // Apply damage to the enemy
                 hitInfo.collider.GetComponent<Enemy>().TakeDamage((int)skill.GetDamage(), skill.damageType);
             }
         }
     }
 
-    void ApplyAreaOfEffectAttack(Vector3 targetPosition, SkillData skill)
+    protected void ApplyAreaOfEffectAttack(Vector3 targetPosition, SkillData skill)
     {
-        // Implement area of effect logic with areaRadius and damage
         Collider[] hitColliders = Physics.OverlapSphere(targetPosition, skill.areaRadius);
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.CompareTag("Enemy"))
             {
-                // Apply damage to the enemy
                 hitCollider.GetComponent<Enemy>().TakeDamage((int)skill.GetDamage(), skill.damageType);
             }
         }
     }
 
-    void ApplyBuff(SkillData skill)
+    protected void ApplyBuff(SkillData skill)
     {
-        // Implement buff logic
-        // Example: Increase player stats for a duration
         StartCoroutine(ApplyBuffCoroutine(skill));
     }
 
-    IEnumerator ApplyBuffCoroutine(SkillData skill)
+    protected IEnumerator ApplyBuffCoroutine(SkillData skill)
     {
-        // Example buff effect: increase player's strength and agility
         int originalStrength = currentStrength;
         int originalAgility = currentAgility;
 
-        currentStrength += (int)(originalStrength * 0.2f); // Increase strength by 20%
-        currentAgility += (int)(originalAgility * 0.2f); // Increase agility by 20%
+        currentStrength += (int)(originalStrength * 0.2f);
+        currentAgility += (int)(originalAgility * 0.2f);
 
-        yield return new WaitForSeconds(10f); // Buff duration
+        yield return new WaitForSeconds(10f);
 
-        // Revert back to original stats
         currentStrength = originalStrength;
         currentAgility = originalAgility;
     }
 
-    void ApplyDebuff(Vector3 targetPosition, SkillData skill)
+    protected void ApplyDebuff(Vector3 targetPosition, SkillData skill)
     {
-        // Implement debuff logic
         Collider[] hitColliders = Physics.OverlapSphere(targetPosition, skill.areaRadius);
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.CompareTag("Enemy"))
             {
-                // Apply debuff to the enemy
                 hitCollider.GetComponent<Enemy>().ApplyDebuff(skill);
             }
         }

@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Skill\WarriorSkill\Slash.cs" />
-    <Compile Include="Assets\Scripts\PlayerCameraController.cs" />
     <Compile Include="Assets\Scripts\Character\Enemy\EnemyChaseState.cs" />
     <Compile Include="Assets\Resources\Effect\Archer Pack\AP_Demo\AP_Scripts\AP_Demo.cs" />
     <Compile Include="Assets\Resources\Effect\Hovl Studio\Wizard spells pack\Demo scene\Demo scene files\HS_MovementInput.cs" />
@@ -106,8 +105,10 @@
     <Compile Include="Assets\Scripts\Item\CountableItem.cs" />
     <Compile Include="Assets\Scripts\Skill\WarriorSkill\Berserk.cs" />
     <Compile Include="Assets\Scripts\UI\LoginMenu.cs" />
+    <Compile Include="Assets\Scripts\Character\Player\Archer.cs" />
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Scripts\ETFXRotation.cs" />
     <Compile Include="Assets\Resources\Effect\Archer Pack\AP_Demo\AP_Scripts\AP_CreateProjectiles.cs" />
+    <Compile Include="Assets\Scripts\Character\Player\Wizard.cs" />
     <Compile Include="Assets\Scripts\UI\GameSettingsMenu.cs" />
     <Compile Include="Assets\Scripts\Skill\ArcherSkill\ArcherSkills.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
@@ -117,18 +118,15 @@
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Status\WarriorStats.cs" />
     <Compile Include="Assets\Scripts\Skill\WarriorSkill\WarriorSkills.cs" />
-    <Compile Include="Assets\CameraRotator.cs" />
     <Compile Include="Assets\Resources\Effect\Hovl Studio\Wizard spells pack\Scripts\TargetProjectile.cs" />
     <Compile Include="Assets\Resources\Effect\Archer Pack\AP_Demo\AP_Scripts\AP_Projectiles.cs" />
     <Compile Include="Assets\Resources\Effect\Hovl Studio\Wizard spells pack\Scripts\FrontAttack.cs" />
     <Compile Include="Assets\Scripts\Manager\DataManager.cs" />
     <Compile Include="Assets\Scripts\Item\EquipmentRarity.cs" />
     <Compile Include="Assets\Scripts\Manager\UserManager.cs" />
-    <Compile Include="Assets\CameraTarget.cs" />
     <Compile Include="Assets\Scripts\Character\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Item\PotionItem.cs" />
     <Compile Include="Assets\Scripts\Item\WeaponItemData.cs" />
-    <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Resources\Effect\Hovl Studio\Epic toon VFX 3\Scripts\CellExplosion.cs" />
     <Compile Include="Assets\Scripts\Item\PotionType.cs" />
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Demo\Scripts\ETFXSceneManager.cs" />
@@ -145,11 +143,11 @@
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Demo\Scripts\VFX Library\UICanvasManager.cs" />
     <Compile Include="Assets\Resources\UI\Fantasy Wooden GUI  Package\Script\FontPressed.cs" />
     <Compile Include="Assets\Scripts\Inventory\ItemTooltipUI.cs" />
-    <Compile Include="Assets\Scripts\Skill\_Base\PlayerSkills.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryPopupUI.cs" />
     <Compile Include="Assets\Scripts\Skill\WarriorSkill\PowerSlash.cs" />
     <Compile Include="Assets\Resources\Effect\Hovl Studio\Wizard spells pack\Scripts\ParticleCollisionInstance.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Character\Player\Warrior.cs" />
     <Compile Include="Assets\Scripts\Skill\ArcherSkill\Haste.cs" />
     <Compile Include="Assets\Scripts\Character\Enemy\EnemyIdleState.cs" />
     <Compile Include="Assets\Scripts\Inventory\MovableHeaderUI.cs" />

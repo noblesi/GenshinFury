@@ -84,16 +84,8 @@ public class GameManager : MonoBehaviour
                 player.Initialize(currentGameData);
 
                 CinemachineVirtualCamera virtualCamera = Instantiate(virtualCameraPrefab);
-                PlayerCameraController cameraController = playerObject.GetComponent<PlayerCameraController>();
 
-                if (cameraController != null)
-                {
-                    cameraController.virtualCamera = virtualCamera;
-                }
-                else
-                {
-                    Debug.LogError("PlayerCameraController not found on player prefab.");
-                }
+                virtualCamera.Follow = playerObject.transform;
             }
         }
         else

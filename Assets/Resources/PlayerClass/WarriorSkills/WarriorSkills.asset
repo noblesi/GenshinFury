@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185eedec71547a94a9d5da12aef57fd9, type: 3}
+  m_Name: WarriorSkills
+  m_EditorClassIdentifier: WarriorSkills, Assembly-CSharp
+  className: Warrior
+  skillBook:
+  - {fileID: 11400000, guid: 88f18e23ceaee224290e0eb6c6633134, type: 2}
+  - {fileID: 11400000, guid: 0937c3dfef7c87046819420a77823071, type: 2}
+  - {fileID: 11400000, guid: 24fdc7954ce28d5489c51b7dc93b3d33, type: 2}
+  - {fileID: 11400000, guid: 87253fead03ec3a41b69109c4c7c6a4c, type: 2}
+  skillPoints: 0
+  stats: {fileID: 11400000, guid: 1b952b345347e4942a9936ef0e50a91e, type: 2}

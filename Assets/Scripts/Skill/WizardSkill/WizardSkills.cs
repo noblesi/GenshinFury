@@ -9,8 +9,10 @@ public class WizardSkills : BasePlayerClass
         className = "Wizard";
         skillBook = new List<SkillData>
         {
-            Resources.Load<SkillData>("SkillData/Fireball"),
-            Resources.Load<SkillData>("SkillData/Blizzard")
+            Resources.Load<SkillData>("Skills/Wizard/Fireball"),
+            Resources.Load<SkillData>("Skills/Wizard/Blizzard"),
+            Resources.Load<SkillData>("Skills/Wizard/Curse"),
+            Resources.Load<SkillData>("Skills/Wizard/MeteorShower")
         };
     }
 }

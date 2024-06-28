@@ -1338,11 +1338,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8049921811203205066}
   - component: {fileID: 6527278986697078494}
+  - component: {fileID: 3188662429983780699}
+  - component: {fileID: 6147441701681865877}
   - component: {fileID: 1160417896629536211}
   - component: {fileID: 3535976837094802760}
   - component: {fileID: 2944022428932533912}
-  - component: {fileID: 2944559609180146319}
-  - component: {fileID: 6147441701681865877}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Untagged
@@ -1379,7 +1379,7 @@ Animator:
   m_GameObject: {fileID: 4640428992605068208}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b04406949810a0a46b21e74416b63350, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4c10388cd3e5f3147b5afa336f817a19, type: 2}
+  m_Controller: {fileID: 22100000, guid: 0c7ca7542b88d89459e8521dec210a5d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1390,6 +1390,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3188662429983780699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640428992605068208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c5d77499fbb7a14c9c4b137ce910118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Warrior, Assembly-CSharp
+  animator: {fileID: 6527278986697078494}
+  commonSkills: []
+  warriorSkills: []
+--- !u!114 &6147441701681865877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640428992605068208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f47fafdf15da749a37c8ecd841b3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PlayerController, Assembly-CSharp
+  agent: {fileID: 0}
+  animator: {fileID: 0}
+  isDead: 0
+  clickEffect: {fileID: 1074647795051532279, guid: 5e47a555fb7962345bfdfcd69aea02d7, type: 3}
 --- !u!195 &1160417896629536211
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1462,39 +1493,6 @@ CapsuleCollider:
   m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 0.8, z: 0}
---- !u!114 &2944559609180146319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4640428992605068208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b351c6dec785ff441af1754c4c806476, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Player, Assembly-CSharp
-  animator: {fileID: 6527278986697078494}
-  commonSkills: []
-  warriorSkills: []
-  archerSkills: []
-  wizardSkills: []
---- !u!114 &6147441701681865877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4640428992605068208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0f47fafdf15da749a37c8ecd841b3e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: PlayerController, Assembly-CSharp
-  agent: {fileID: 0}
-  animator: {fileID: 0}
-  isDead: 0
-  clickEffect: {fileID: 1074647795051532279, guid: 5e47a555fb7962345bfdfcd69aea02d7, type: 3}
 --- !u!1 &4661434468767517180
 GameObject:
   m_ObjectHideFlags: 0

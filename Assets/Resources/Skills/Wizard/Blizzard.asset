@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0f7aef15d6147469a87ce1db782555, type: 3}
+  m_Name: Blizzard
+  m_EditorClassIdentifier: Blizzard, Assembly-CSharp
+  skillName: Blizzard
+  skillCategory: 3
+  types: 0100000003000000
+  damageType: 1
+  baseDamage: 0.9
+  damagePerLevel: 0.2
+  cooldowns:
+  - 12
+  - 11.5
+  - 11
+  - 10.5
+  - 10
+  manaCosts:
+  - 25
+  - 28
+  - 31
+  - 34
+  - 37
+  range: 0
+  areaRadius: 0
+  effect: {fileID: 0}
+  animationTrigger: Skill2
+  key: 119
+  level: 1
+  maxLevel: 5
+  evolvedSkill: {fileID: 0}

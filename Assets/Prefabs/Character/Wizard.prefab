@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4685966840584487047}
   - component: {fileID: 8210114786046111948}
+  - component: {fileID: 8216756643462148552}
+  - component: {fileID: 5326635590207469844}
   - component: {fileID: 7330798473772799511}
   - component: {fileID: 6182178163029502893}
   - component: {fileID: 7342656303953046788}
@@ -28,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20957500045688506}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.06, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -49,7 +51,7 @@ Animator:
   m_GameObject: {fileID: 20957500045688506}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f43bfeff8479d304688a2a16c6c570ce, type: 3}
-  m_Controller: {fileID: 9100000, guid: 232a11d6ef2750f4e8278eee6c64c37d, type: 2}
+  m_Controller: {fileID: 22100000, guid: 33c4fc01d2d41bf408d3f11cb14dcafd, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -60,6 +62,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8216756643462148552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20957500045688506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0150a1bbde32a024891e4561e924b6aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Wizard, Assembly-CSharp
+  animator: {fileID: 8210114786046111948}
+  commonSkills: []
+  wizardSkills: []
+--- !u!114 &5326635590207469844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20957500045688506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f47fafdf15da749a37c8ecd841b3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PlayerController, Assembly-CSharp
+  agent: {fileID: 0}
+  animator: {fileID: 0}
+  isDead: 0
+  clickEffect: {fileID: 1074647795051532279, guid: 5e47a555fb7962345bfdfcd69aea02d7, type: 3}
 --- !u!195 &7330798473772799511
 NavMeshAgent:
   m_ObjectHideFlags: 0

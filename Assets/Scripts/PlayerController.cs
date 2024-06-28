@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,16 +8,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private bool isDead = false;
     [SerializeField] private ParticleSystem clickEffect;
-    //[SerializeField] private PlayerSkills playerSkills;
+    [SerializeField] private Player playerSkills;
 
     private bool isAttacking = false;
+    private bool isRotating = false;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         animator = GetComponent<Animator>();
-        //playerSkills = GetComponent<PlayerSkills>();
+        playerSkills = GetComponent<Player>();
     }
 
     void Update()
@@ -27,7 +29,7 @@ public class PlayerController : MonoBehaviour
             UpdateAnimation();
             UpdateRotation();
             UpdateStopping();
-            //playerSkills.HandleSkillInput();
+            playerSkills.HandleSkillInput();
         }
     }
 
@@ -79,11 +81,13 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 direction = agent.steeringTarget - transform.position;
             direction.y = 0;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * agent.angularSpeed / 10);
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * agent.angularSpeed / 10);
+            }
         }
     }
-
 
     void UpdateAnimation()
     {
@@ -122,11 +126,21 @@ public class PlayerController : MonoBehaviour
             Vector3 direction = targetPosition - transform.position;
             direction.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = targetRotation;
-            //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f);
-            animator.SetTrigger("Attack");
-            Invoke("ResetAttack", 1.0f);
+            StartCoroutine(RotateAndAttack(targetRotation));
         }
+    }
+
+    private IEnumerator RotateAndAttack(Quaternion targetRotation)
+    {
+        isRotating = true;
+        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * agent.angularSpeed / 10);
+            yield return null;
+        }
+        isRotating = false;
+        animator.SetTrigger("Attack");
+        Invoke("ResetAttack", 1.0f);
     }
 
     void ResetAttack()

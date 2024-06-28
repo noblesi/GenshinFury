@@ -9,10 +9,10 @@ public class WarriorSkills : BasePlayerClass
         className = "Warrior";
         skillBook = new List<SkillData>
         {
-            Resources.Load<SkillData>("SkillData/Slash"),
-            Resources.Load<SkillData>("SkillData/Whirlwind"),
-            Resources.Load<SkillData>("SkillData/BattleShout"),
-            Resources.Load<SkillData>("SkillData/Berserk")
+            Resources.Load<SkillData>("Skills/Warrior/Slash"),
+            Resources.Load<SkillData>("Skills/Warrior/Whirlwind"),
+            Resources.Load<SkillData>("Skills/Warrior/BattleShout"),
+            Resources.Load<SkillData>("Skills/Warrior/Berserk")
         };
     }
 }
