@@ -2780,7 +2780,6 @@ GameObject:
   - component: {fileID: 1934612847043094844}
   - component: {fileID: 6087936821449941495}
   - component: {fileID: 8791198910573767265}
-  - component: {fileID: 7248782361670926344}
   - component: {fileID: 3538830376553621235}
   m_Layer: 0
   m_Name: Archer
@@ -2788,7 +2787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9213944547340854952
 Transform:
   m_ObjectHideFlags: 0
@@ -2797,7 +2796,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8337011082263363898}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2919,19 +2918,6 @@ CapsuleCollider:
   m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 0.8, z: 0}
---- !u!114 &7248782361670926344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8337011082263363898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44ecff28516a48a4d9300d63ee5aeb9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: PlayerCameraController, Assembly-CSharp
-  virtualCamera: {fileID: 5914645525494685039, guid: 83be8504b0079ea4d840ce3c91908ef4, type: 3}
 --- !u!114 &3538830376553621235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2943,7 +2929,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b351c6dec785ff441af1754c4c806476, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Player, Assembly-CSharp
   animator: {fileID: 7468617517894948240}
   commonSkills: []
   warriorSkills: []
