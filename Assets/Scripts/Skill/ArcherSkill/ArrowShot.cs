@@ -17,6 +17,6 @@ public class ArrowShot : SkillData
         key = KeyCode.Q;
         level = 1;
         maxLevel = 5;
-        evolvedSkill = Resources.Load<SkillData>("SkillData/PowerArrowShot");
+        evolvedSkill = Resources.Load<SkillData>("Data/SkillData/PowerArrowShot");
     }
 }

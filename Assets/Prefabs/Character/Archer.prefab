@@ -2861,6 +2861,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   isDead: 0
   clickEffect: {fileID: 1074647795051532279, guid: 5e47a555fb7962345bfdfcd69aea02d7, type: 3}
+  playerSkills: {fileID: 0}
 --- !u!195 &1934612847043094844
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2930,9 +2931,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.38
-  m_Height: 1.6
+  m_Height: 1.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!1 &8358284445517136319
 GameObject:
   m_ObjectHideFlags: 0

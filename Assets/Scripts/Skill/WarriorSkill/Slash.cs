@@ -17,6 +17,6 @@ public class Slash : SkillData
         key = KeyCode.Q;
         level = 1;
         maxLevel = 5;
-        evolvedSkill = Resources.Load<SkillData>("SkillData/PowerSlash");
+        evolvedSkill = Resources.Load<SkillData>("Data/SkillData/PowerSlash");
     }
 }

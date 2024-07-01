@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
 
     protected void LoadCommonSkills()
     {
-        commonSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Skills/Common"));
+        commonSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Data/Skills/Common"));
     }
 
     public virtual void HandleSkillInput()

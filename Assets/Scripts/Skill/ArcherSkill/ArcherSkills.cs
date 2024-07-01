@@ -9,10 +9,10 @@ public class ArcherSkills : BasePlayerClass
         className = "Archer";
         skillBook = new List<SkillData>
         {
-            Resources.Load<SkillData>("Skills/Archer/ArrowShot"),
-            Resources.Load<SkillData>("Skills/Archer/RainOfArrows"),
-            Resources.Load<SkillData>("Skills/Archer/Haste"),
-            Resources.Load<SkillData>("Skills/Archer/PiercingArrow")
+            Resources.Load<SkillData>("Data/Skills/Archer/ArrowShot"),
+            Resources.Load<SkillData>("Data/Skills/Archer/RainOfArrows"),
+            Resources.Load<SkillData>("Data/Skills/Archer/Haste"),
+            Resources.Load<SkillData>("Data/Skills/Archer/PiercingArrow")
         };
     }
 }

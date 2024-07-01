@@ -7,8 +7,8 @@ public class Wizard : Player
 
     public override void Initialize(GameData gameData)
     {
-        currentClass = Resources.Load<BasePlayerClass>("PlayerClass/WizardSkills");
-        wizardSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Skills/Wizard"));
+        currentClass = Resources.Load<BasePlayerClass>("Data/PlayerClass/WizardSkills");
+        wizardSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Data/Skills/Wizard"));
         base.Initialize(gameData);
     }
 

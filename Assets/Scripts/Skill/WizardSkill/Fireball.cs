@@ -17,6 +17,6 @@ public class Fireball : SkillData
         key = KeyCode.Q;
         level = 1;
         maxLevel = 5;
-        evolvedSkill = Resources.Load<SkillData>("SkillData/Inferno");
+        evolvedSkill = Resources.Load<SkillData>("Data/SkillData/Inferno");
     }
 }

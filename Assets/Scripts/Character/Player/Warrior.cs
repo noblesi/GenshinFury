@@ -7,8 +7,8 @@ public class Warrior : Player
 
     public override void Initialize(GameData gameData)
     {
-        currentClass = Resources.Load<BasePlayerClass>("PlayerClass/WarriorSkills");
-        warriorSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Skills/Warrior"));
+        currentClass = Resources.Load<BasePlayerClass>("Data/PlayerClass/WarriorSkills");
+        warriorSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Data/Skills/Warrior"));
         base.Initialize(gameData);
     }
 

@@ -7,8 +7,8 @@ public class Archer : Player
 
     public override void Initialize(GameData gameData)
     {
-        currentClass = Resources.Load<BasePlayerClass>("PlayerClass/ArcherSkills");
-        archerSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Skills/Archer"));
+        currentClass = Resources.Load<BasePlayerClass>("Data/PlayerClass/ArcherSkills");
+        archerSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Data/Skills/Archer"));
         base.Initialize(gameData);
     }
 

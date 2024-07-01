@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec85b35819264e1449d40e671bfc5c2e, type: 3}
+  m_Name: OrcData_Chieftain
+  m_EditorClassIdentifier: OrcData, Assembly-CSharp
+  enemyName: Chieftain
+  enemyType: 0
+  detectionRange: 12
+  attackRange: 2.5
+  attackCooldown: 2
+  idleAnimations:
+  - {fileID: -203655887218126122, guid: 13018c31964e75a459c735fe3e92aeb0, type: 3}
+  - {fileID: -203655887218126122, guid: 2eabe7302e36d61499162d87acc4ffe9, type: 3}
+  attackAnimations:
+  - {fileID: -203655887218126122, guid: 7a82e160a65ff044d8e1f5435062b3a1, type: 3}
+  - {fileID: -203655887218126122, guid: 0f5537b6210a04d428ecf2c6ad141a32, type: 3}
+  - {fileID: -203655887218126122, guid: 5b20f222a6602d840a170bc03d204802, type: 3}
+  - {fileID: -203655887218126122, guid: 03176e3e40d16e244acf79142fb4f4a8, type: 3}
+  orcType: 2
