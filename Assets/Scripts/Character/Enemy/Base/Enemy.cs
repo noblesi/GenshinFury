@@ -2,56 +2,77 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : BaseCharacter
 {
-    public int maxHealth;
-    private int currentHealth;
-    private bool isDebuffed;
-    private float debuffDuration;
-    private float debuffStartTime;
+    public float detectionRange = 10f;
+    public float attackRange = 2f;
+    public float attackCooldown = 1.5f;
+    protected float lastAttackTime;
+    protected Transform player;
+    protected MonsterState currentState;
 
-    void Start()
+    protected override void Start()
     {
-        currentHealth = maxHealth;
+        base.Start();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        currentState = MonsterState.Patrol;
     }
 
-    public void TakeDamage(int damage, DamageType damageType)
+    protected virtual void Update()
     {
-        currentHealth -= damage;
-        Debug.Log($"Enemy took {damage} {damageType} damage. Current health: {currentHealth}");
-
-        if (currentHealth <= 0)
+        switch(currentState)
         {
-            Die();
+            case MonsterState.Patrol:
+                Patrol();
+                break;
+            case MonsterState.Chase:
+                Chase();
+                break;
+            case MonsterState.Attack:
+                Attack();
+                break;
         }
     }
 
-    public void ApplyDebuff(SkillData debuffSkill)
+    protected virtual void Patrol()
     {
-        if (!isDebuffed)
+        if (Vector3.Distance(transform.position, player.position) <= detectionRange)
         {
-            StartCoroutine(ApplyDebuffCoroutine(debuffSkill));
+            currentState = MonsterState.Chase;
         }
     }
 
-    private IEnumerator ApplyDebuffCoroutine(SkillData debuffSkill)
+    protected virtual void Chase()
     {
-        isDebuffed = true;
-        debuffDuration = debuffSkill.GetCooldown(); // assuming debuff duration is stored in cooldowns
-
-        // Example debuff: decrease enemy stats
-        // You can add different types of debuffs here based on your game design
-        float originalSpeed = GetComponent<NavMeshAgent>().speed;
-        GetComponent<NavMeshAgent>().speed *= 0.5f; // Decrease speed by 50%
-
-        yield return new WaitForSeconds(debuffDuration);
-
-        // Revert back to original stats
-        GetComponent<NavMeshAgent>().speed = originalSpeed;
-        isDebuffed = false;
+        agent.SetDestination(player.position);
+        if (Vector3.Distance(transform.position, player.position) <= attackRange)
+        {
+            currentState = MonsterState.Attack;
+        }
+        else if (Vector3.Distance(transform.position, player.position) > detectionRange)
+        {
+            currentState = MonsterState.Patrol;
+        }
     }
 
-    private void Die()
+    protected virtual void Attack()
+    {
+        agent.SetDestination(transform.position);
+        if (Time.time - lastAttackTime > attackCooldown)
+        {
+            PerformAttack();
+            lastAttackTime = Time.time;
+        }
+
+        if (Vector3.Distance(transform.position, player.position) > attackRange)
+        {
+            currentState = MonsterState.Chase;
+        }
+    }
+
+    protected abstract void PerformAttack();
+
+    protected override void Die()
     {
         Debug.Log("Enemy died.");
         Destroy(gameObject);

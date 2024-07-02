@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Player playerSkills;
 
     private bool isAttacking = false;
-    private bool isRotating = false;
 
     void Start()
     {

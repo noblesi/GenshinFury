@@ -5,11 +5,11 @@ public class Warrior : Player
 {
     public List<SkillData> warriorSkills = new List<SkillData>();
 
-    public override void Initialize(GameData gameData)
+    public override void Initialize()
     {
         currentClass = Resources.Load<BasePlayerClass>("Data/PlayerClass/WarriorSkills");
         warriorSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Data/Skills/Warrior"));
-        base.Initialize(gameData);
+        base.Initialize();
     }
 
     public override void HandleSkillInput()

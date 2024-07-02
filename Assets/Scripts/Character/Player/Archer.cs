@@ -5,11 +5,11 @@ public class Archer : Player
 {
     public List<SkillData> archerSkills = new List<SkillData>();
 
-    public override void Initialize(GameData gameData)
+    public override void Initialize()
     {
         currentClass = Resources.Load<BasePlayerClass>("Data/PlayerClass/ArcherSkills");
         archerSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Data/Skills/Archer"));
-        base.Initialize(gameData);
+        base.Initialize();
     }
 
     public override void HandleSkillInput()

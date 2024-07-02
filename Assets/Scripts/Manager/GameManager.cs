@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
 
             if (player != null)
             {
-                player.Initialize(currentGameData);
+                player.Initialize();
 
                 CinemachineVirtualCamera virtualCamera = Instantiate(virtualCameraPrefab);
 

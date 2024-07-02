@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : BaseCharacter
 {
     [SerializeField] private Animator animator;
 
@@ -10,12 +10,10 @@ public class Player : MonoBehaviour
     protected Dictionary<KeyCode, float> skillCooldownTimers = new Dictionary<KeyCode, float>();
 
     // Current stats
-    protected int baseHealth;
     protected int baseMana;
     protected int baseStrength;
     protected int baseAgility;
     protected int baseIntelligence;
-    protected int currentHealth;
     protected int currentMana;
     protected int currentStrength;
     protected int currentAgility;
@@ -32,7 +30,15 @@ public class Player : MonoBehaviour
     // Skill books
     public List<SkillData> commonSkills = new List<SkillData>();
 
-    public virtual void Initialize(GameData gameData)
+    private const float BuffDuration = 10f;
+
+    protected override void Start()
+    {
+        base.Start();
+        Initialize();
+    }
+
+    public virtual void Initialize()
     {
         currentClass = null;
         InitializeStats();
@@ -57,7 +63,7 @@ public class Player : MonoBehaviour
 
     protected void UpdateCooldownTimers()
     {
-        List<KeyCode> keys = new List<KeyCode>(skillCooldownTimers.Keys);
+        var keys = new List<KeyCode>(skillCooldownTimers.Keys);
         foreach (var key in keys)
         {
             if (skillCooldownTimers[key] > 0)
@@ -71,7 +77,7 @@ public class Player : MonoBehaviour
     {
         if (currentClass == null) return;
 
-        baseHealth = currentClass.stats.initialHealth;
+        maxHealth = currentClass.stats.initialHealth;
         baseMana = currentClass.stats.initialMana;
         baseStrength = currentClass.stats.initialStrength;
         baseAgility = currentClass.stats.initialAgility;
@@ -82,7 +88,7 @@ public class Player : MonoBehaviour
 
     protected void UpdateStats()
     {
-        currentHealth = baseHealth;
+        currentHealth = maxHealth;
         currentMana = baseMana;
         currentStrength = baseStrength;
         currentAgility = baseAgility;
@@ -136,8 +142,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo))
         {
             Vector3 targetPosition = hitInfo.point;
             ExecuteSkill(targetPosition, skill);
@@ -146,16 +151,11 @@ public class Player : MonoBehaviour
 
     protected void ExecuteSkill(Vector3 targetPosition, SkillData skill)
     {
-        Vector3 direction = targetPosition - transform.position;
-        direction.y = 0;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f);
+        RotateTowards(targetPosition);
 
         if (skill.effect != null)
         {
-            ParticleSystem effect = Instantiate(skill.effect, targetPosition, Quaternion.identity);
-            effect.Play();
-            Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
+            PlaySkillEffect(targetPosition, skill.effect);
         }
 
         animator.SetTrigger(skill.animationTrigger);
@@ -164,11 +164,24 @@ public class Player : MonoBehaviour
         ApplySkillEffects(targetPosition, skill);
     }
 
+    private void RotateTowards(Vector3 targetPosition)
+    {
+        Vector3 direction = targetPosition - transform.position;
+        direction.y = 0;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f);
+    }
+
+    private void PlaySkillEffect(Vector3 targetPosition, ParticleSystem effect)
+    {
+        ParticleSystem instantiatedEffect = Instantiate(effect, targetPosition, Quaternion.identity);
+        instantiatedEffect.Play();
+        Destroy(instantiatedEffect.gameObject, instantiatedEffect.main.duration + instantiatedEffect.main.startLifetime.constantMax);
+    }
+
     protected void ApplySkillEffects(Vector3 targetPosition, SkillData skill)
     {
-        float damage = skill.GetDamage();
         float manaCost = skill.GetManaCost();
-
         if (currentMana < manaCost)
         {
             Debug.Log("Not enough mana!");
@@ -182,7 +195,7 @@ public class Player : MonoBehaviour
             switch (type)
             {
                 case SkillType.Melee:
-                    ApplyMeleeAttack(targetPosition, skill);
+                    ApplyMeleeAttack(skill);
                     break;
                 case SkillType.Ranged:
                     ApplyRangedAttack(targetPosition, skill);
@@ -203,7 +216,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    protected void ApplyMeleeAttack(Vector3 targetPosition, SkillData skill)
+    protected void ApplyMeleeAttack(SkillData skill)
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, skill.range);
         foreach (var hitCollider in hitColliders)
@@ -265,7 +278,7 @@ public class Player : MonoBehaviour
         currentStrength += (int)(originalStrength * 0.2f);
         currentAgility += (int)(originalAgility * 0.2f);
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(BuffDuration);
 
         currentStrength = originalStrength;
         currentAgility = originalAgility;
@@ -281,6 +294,11 @@ public class Player : MonoBehaviour
                 hitCollider.GetComponent<Enemy>().ApplyDebuff(skill);
             }
         }
+    }
+
+    protected override void Die()
+    {
+        Debug.Log("Player Died");
     }
 
     public bool LevelUpSkill(string skillName)
