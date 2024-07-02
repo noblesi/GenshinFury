@@ -1345,7 +1345,7 @@ GameObject:
   - component: {fileID: 2944022428932533912}
   m_Layer: 0
   m_Name: Warrior
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1402,6 +1402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5d77499fbb7a14c9c4b137ce910118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Warrior, Assembly-CSharp
+  maxHealth: 0
   animator: {fileID: 6527278986697078494}
   commonSkills: []
   warriorSkills: []
