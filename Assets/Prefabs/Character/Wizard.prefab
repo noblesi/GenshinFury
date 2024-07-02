@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7342656303953046788}
   m_Layer: 0
   m_Name: Wizard
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0150a1bbde32a024891e4561e924b6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Wizard, Assembly-CSharp
+  maxHealth: 0
   animator: {fileID: 8210114786046111948}
   commonSkills: []
   wizardSkills: []
