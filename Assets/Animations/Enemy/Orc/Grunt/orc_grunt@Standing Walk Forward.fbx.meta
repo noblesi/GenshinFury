@@ -3,7 +3,12 @@ guid: bcd29556300d2d74697b39b8d6e0d249
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: orc_grunt_mat
+    second: {fileID: 2100000, guid: 2f8d18810f938274082f3d2a12e8b23e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

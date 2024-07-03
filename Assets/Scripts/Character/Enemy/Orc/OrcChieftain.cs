@@ -4,6 +4,7 @@ using UnityEngine;
 public class OrcChieftain : OrcBase
 {
     private int idleIndex = 0;
+    private bool isAttacking = false;
 
     protected override void Start()
     {
@@ -51,11 +52,15 @@ public class OrcChieftain : OrcBase
 
     private IEnumerator PerformAttack(System.Action attack)
     {
+        if (isAttacking) yield break;
+
+        isAttacking = true;
         currentState = MonsterState.Attack;
         attack.Invoke();
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         currentState = MonsterState.Patrol;
         UpdateAnimationState();
+        isAttacking = false;
     }
 
     private void MeleeAttack()
