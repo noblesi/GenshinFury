@@ -10,6 +10,7 @@ public enum UIType
     MainMenu,
     GameSlotMenu,
     GameSettingsMenu,
+    DungeonInfoUI
 }
 
 public class UIManager : MonoBehaviour
@@ -92,6 +93,9 @@ public class UIManager : MonoBehaviour
                 break;
             case UIType.GameSettingsMenu:
                 path = "Prefabs/UI/GameSettingsMenu";
+                break;
+            case UIType.DungeonInfoUI:
+                path = "Prefabs/UI/DungeonInfoUI";
                 break;
         }
         return path;
