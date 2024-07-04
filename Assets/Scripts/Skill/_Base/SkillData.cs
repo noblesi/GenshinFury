@@ -16,9 +16,10 @@ public class SkillData : ScriptableObject
     public ParticleSystem effect;
     public string animationTrigger;
     public KeyCode key;
-    public int level;
-    public int maxLevel;
+    public int level = 1;
+    public int maxLevel = 5;
     public SkillData evolvedSkill;
+    public Sprite skillIcon;
 
     public float GetDamage()
     {
@@ -34,4 +35,50 @@ public class SkillData : ScriptableObject
     {
         return manaCosts[level - 1];
     }
+
+    public void LevelUp()
+    {
+        if (level < maxLevel)
+        {
+            level++;
+        }
+    }
+
+    public bool CanEvolve()
+    {
+        return level == maxLevel && evolvedSkill != null;
+    }
+
+    public SkillData Evolve()
+    {
+        if (CanEvolve())
+        {
+            return evolvedSkill;
+        }
+        return this;
+    }
+}
+
+public enum SkillCategory
+{
+    Offensive,
+    Defensive,
+    Utility
+}
+
+public enum SkillType
+{
+    Melee,
+    Ranged,
+    SingleTarget,
+    AreaOfEffect,
+    Buff,
+    Debuff
+}
+
+public enum DamageType
+{
+    Physical,
+    Magical,
+    TrueDamage
 }

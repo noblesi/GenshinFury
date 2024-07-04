@@ -10,7 +10,11 @@ public enum UIType
     MainMenu,
     GameSlotMenu,
     GameSettingsMenu,
-    DungeonInfoUI
+    DungeonInfoUI,
+    PlayerHUD,
+    Minimap,
+    SkillWindow,
+    QuickSlotsManager
 }
 
 public class UIManager : MonoBehaviour
@@ -96,6 +100,18 @@ public class UIManager : MonoBehaviour
                 break;
             case UIType.DungeonInfoUI:
                 path = "Prefabs/UI/DungeonInfoUI";
+                break;
+            case UIType.PlayerHUD:
+                path = "Prefabs/UI/PlayerHUD";
+                break;
+            case UIType.Minimap:
+                path = "Prefabs/UI/Minimap";
+                break;
+            case UIType.SkillWindow:
+                path = "Prefabs/UI/SkillWindow";
+                break;
+            case UIType.QuickSlotsManager:
+                path = "Prefabs/UI/QuickSlotsManager";
                 break;
         }
         return path;

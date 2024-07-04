@@ -10,15 +10,15 @@ public class Player : BaseCharacter
     protected Dictionary<KeyCode, float> skillCooldownTimers = new Dictionary<KeyCode, float>();
 
     // Current stats
-    protected int baseMana;
     protected int baseStrength;
     protected int baseAgility;
     protected int baseIntelligence;
-    protected int currentMana;
     protected int currentStrength;
     protected int currentAgility;
     protected int currentIntelligence;
     protected int currentLevel = 1;
+
+    public int skillPoints = 0; // 스킬 포인트
 
     // Equipment slots
     public EquipmentItem helmet;
@@ -27,10 +27,19 @@ public class Player : BaseCharacter
     public EquipmentItem boots;
     public EquipmentItem weapon;
 
+    // Quick slots
+    public ItemData[] quickItemSlots = new ItemData[4];
+    public SkillData[] quickSkillSlots = new SkillData[4];
+
     // Skill books
     public List<SkillData> commonSkills = new List<SkillData>();
 
     private const float BuffDuration = 10f;
+
+    public int MaxHealth => maxHealth;
+    public int CurrentHealth => currentHealth;
+    public int MaxMana => maxMana;
+    public int CurrentMana => currentMana;
 
     protected override void Start()
     {
@@ -50,14 +59,18 @@ public class Player : BaseCharacter
     {
         UpdateCooldownTimers();
         HandleSkillInput();
+        HandleItemInput();
     }
 
     protected void InitializeCooldownTimers()
     {
         skillCooldownTimers.Clear();
-        foreach (var skill in commonSkills)
+        foreach (var skill in quickSkillSlots)
         {
-            skillCooldownTimers[skill.key] = 0f;
+            if (skill != null)
+            {
+                skillCooldownTimers[skill.key] = 0f;
+            }
         }
     }
 
@@ -78,7 +91,7 @@ public class Player : BaseCharacter
         if (currentClass == null) return;
 
         maxHealth = currentClass.stats.initialHealth;
-        baseMana = currentClass.stats.initialMana;
+        maxMana = currentClass.stats.initialMana;
         baseStrength = currentClass.stats.initialStrength;
         baseAgility = currentClass.stats.initialAgility;
         baseIntelligence = currentClass.stats.initialIntelligence;
@@ -89,7 +102,7 @@ public class Player : BaseCharacter
     protected void UpdateStats()
     {
         currentHealth = maxHealth;
-        currentMana = baseMana;
+        currentMana = maxMana;
         currentStrength = baseStrength;
         currentAgility = baseAgility;
         currentIntelligence = baseIntelligence;
@@ -125,11 +138,24 @@ public class Player : BaseCharacter
 
     public virtual void HandleSkillInput()
     {
-        foreach (var skill in commonSkills)
+        for (int i = 0; i < quickSkillSlots.Length; i++)
         {
-            if (Input.GetKeyDown(skill.key) && skillCooldownTimers[skill.key] <= 0)
+            var skill = quickSkillSlots[i];
+            if (skill != null && Input.GetKeyDown(skill.key) && skillCooldownTimers[skill.key] <= 0)
             {
                 UseSkill(skill);
+            }
+        }
+    }
+
+    public virtual void HandleItemInput()
+    {
+        for (int i = 0; i < quickItemSlots.Length; i++)
+        {
+            var item = quickItemSlots[i];
+            if (item != null && Input.GetKeyDown((KeyCode)item.ID))
+            {
+                UseItem(item);
             }
         }
     }
@@ -146,7 +172,14 @@ public class Player : BaseCharacter
         {
             Vector3 targetPosition = hitInfo.point;
             ExecuteSkill(targetPosition, skill);
+            ChangeMana(currentMana - (int)skill.GetManaCost()); // Mana 변경 및 이벤트 호출
         }
+    }
+
+    protected void UseItem(ItemData item)
+    {
+        // 아이템 사용 로직
+        Debug.Log($"Used item: {item.Name}");
     }
 
     protected void ExecuteSkill(Vector3 targetPosition, SkillData skill)
@@ -303,17 +336,49 @@ public class Player : BaseCharacter
 
     public bool LevelUpSkill(string skillName)
     {
-        return currentClass.LevelUpSkill(skillName);
+        SkillData skill = commonSkills.Find(s => s.skillName == skillName);
+        if (skill != null && skillPoints > 0 && skill.level < skill.maxLevel)
+        {
+            skill.LevelUp();
+            skillPoints--;
+            OnSkillsChanged?.Invoke();
+            return true;
+        }
+        return false;
     }
 
     public void AddSkillPoint()
     {
-        currentClass.AddSkillPoint();
+        skillPoints++;
     }
 
     public void LevelUp()
     {
         currentLevel++;
-        currentClass.ApplyLevelUp(ref currentHealth, ref currentMana, ref currentStrength, ref currentAgility, ref currentIntelligence);
+        currentHealth = currentClass.stats.initialHealth;
+        currentMana = currentClass.stats.initialMana;
+        currentStrength = currentClass.stats.initialStrength;
+        currentAgility = currentClass.stats.initialAgility;
+        currentIntelligence = currentClass.stats.initialIntelligence;
+        AddSkillPoint(); // 레벨업 시 스킬 포인트 추가
     }
+
+    public void SwapQuickSlots(int slot1, int slot2, QuickSlotType slotType)
+    {
+        if (slotType == QuickSlotType.Item)
+        {
+            ItemData temp = quickItemSlots[slot1];
+            quickItemSlots[slot1] = quickItemSlots[slot2];
+            quickItemSlots[slot2] = temp;
+        }
+        else if (slotType == QuickSlotType.Skill)
+        {
+            SkillData temp = quickSkillSlots[slot1];
+            quickSkillSlots[slot1] = quickSkillSlots[slot2];
+            quickSkillSlots[slot2] = temp;
+        }
+        OnSkillsChanged?.Invoke();
+    }
+
+    public event System.Action OnSkillsChanged;
 }
