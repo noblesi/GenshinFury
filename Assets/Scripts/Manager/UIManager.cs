@@ -14,7 +14,8 @@ public enum UIType
     PlayerHUD,
     Minimap,
     SkillWindow,
-    QuickSlotsManager
+    QuickSlotsManager,
+    InventoryPopup
 }
 
 public class UIManager : MonoBehaviour
@@ -112,6 +113,9 @@ public class UIManager : MonoBehaviour
                 break;
             case UIType.QuickSlotsManager:
                 path = "Prefabs/UI/QuickSlotsManager";
+                break;
+            case UIType.InventoryPopup:
+                path = "Prefabs/UI/InventoryPopup";
                 break;
         }
         return path;

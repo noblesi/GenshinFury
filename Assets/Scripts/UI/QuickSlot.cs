@@ -47,7 +47,7 @@ public class QuickSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             if (targetSlot.slotType == slotType)
             {
                 Player player = FindObjectOfType<Player>();
-                player.SwapQuickSlots(slotIndex, targetSlot.slotIndex, slotType);
+                //player.SwapQuickSlots(slotIndex, targetSlot.slotIndex, slotType);
             }
         }
 
