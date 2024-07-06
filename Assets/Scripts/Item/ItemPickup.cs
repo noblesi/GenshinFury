@@ -21,7 +21,10 @@ public class ItemPickup : MonoBehaviour
     {
         var inventory = other.transform.GetComponent<InventoryHolder>();
 
-        if(!inventory) return;
+        if (!inventory)
+        {
+            return;
+        }
 
         if (inventory.InventorySystem.AddToInventory(itemData, 1))
         {
