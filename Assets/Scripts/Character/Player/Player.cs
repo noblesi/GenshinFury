@@ -28,7 +28,7 @@ public class Player : BaseCharacter
     //public EquipmentItem weapon;
 
     // Quick slots
-    //public ItemData[] quickItemSlots = new ItemData[4];
+    public InventoryItemData[] quickItemSlots = new InventoryItemData[4];
     public SkillData[] quickSkillSlots = new SkillData[4];
 
     // Skill books
@@ -59,7 +59,7 @@ public class Player : BaseCharacter
     {
         UpdateCooldownTimers();
         HandleSkillInput();
-        //HandleItemInput();
+        HandleItemInput();
     }
 
     protected void InitializeCooldownTimers()
@@ -107,29 +107,29 @@ public class Player : BaseCharacter
         currentAgility = baseAgility;
         currentIntelligence = baseIntelligence;
 
-        //ApplyEquipmentStats(helmet);
-        //ApplyEquipmentStats(armor);
-        //ApplyEquipmentStats(gloves);
-        //ApplyEquipmentStats(boots);
-        //ApplyEquipmentStats(weapon);
+        // ApplyEquipmentStats(helmet);
+        // ApplyEquipmentStats(armor);
+        // ApplyEquipmentStats(gloves);
+        // ApplyEquipmentStats(boots);
+        // ApplyEquipmentStats(weapon);
     }
 
-    //protected void ApplyEquipmentStats(EquipmentItem equipment)
-    //{
-    //    if (equipment == null) return;
+    // protected void ApplyEquipmentStats(EquipmentItem equipment)
+    // {
+    //     if (equipment == null) return;
 
-    //    currentHealth += equipment.BaseHealth;
-    //    currentMana += equipment.BaseAttack;
-    //    currentStrength += equipment.BaseAttack;
-    //    currentAgility += equipment.BaseAgility;
-    //    currentIntelligence += equipment.BaseIntelligence;
+    //     currentHealth += equipment.BaseHealth;
+    //     currentMana += equipment.BaseAttack;
+    //     currentStrength += equipment.BaseAttack;
+    //     currentAgility += equipment.BaseAgility;
+    //     currentIntelligence += equipment.BaseIntelligence;
 
-    //    currentHealth += equipment.GetStat(StatType.Health);
-    //    currentMana += equipment.GetStat(StatType.Mana);
-    //    currentStrength += equipment.GetStat(StatType.Strength);
-    //    currentAgility += equipment.GetStat(StatType.Agility);
-    //    currentIntelligence += equipment.GetStat(StatType.Intelligence);
-    //}
+    //     currentHealth += equipment.GetStat(StatType.Health);
+    //     currentMana += equipment.GetStat(StatType.Mana);
+    //     currentStrength += equipment.GetStat(StatType.Strength);
+    //     currentAgility += equipment.GetStat(StatType.Agility);
+    //     currentIntelligence += equipment.GetStat(StatType.Intelligence);
+    // }
 
     protected void LoadCommonSkills()
     {
@@ -148,17 +148,17 @@ public class Player : BaseCharacter
         }
     }
 
-    //public virtual void HandleItemInput()
-    //{
-    //    for (int i = 0; i < quickItemSlots.Length; i++)
-    //    {
-    //        var item = quickItemSlots[i];
-    //        if (item != null && Input.GetKeyDown((KeyCode)item.ID))
-    //        {
-    //            UseItem(item);
-    //        }
-    //    }
-    //}
+    public virtual void HandleItemInput()
+    {
+        for (int i = 0; i < quickItemSlots.Length; i++)
+        {
+            var item = quickItemSlots[i];
+            if (item != null && Input.GetKeyDown((KeyCode)item.ID))
+            {
+                UseItem(item);
+            }
+        }
+    }
 
     protected void UseSkill(SkillData skill)
     {
@@ -176,11 +176,30 @@ public class Player : BaseCharacter
         }
     }
 
-    //protected void UseItem(ItemData item)
-    //{
-    //    // 아이템 사용 로직
-    //    Debug.Log($"Used item: {item.Name}");
-    //}
+    protected void UseItem(InventoryItemData item)
+    {
+        // 아이템 사용 로직
+        Debug.Log($"Used item: {item.DisplayName}");
+        if (item.Type == ItemType.Consumable)
+        {
+            // 예: HP 또는 MP 회복 아이템 사용 로직
+            ApplyItemEffects(item);
+        }
+        quickItemSlots[System.Array.IndexOf(quickItemSlots, item)] = null; // 퀵슬롯에서 아이템 제거
+    }
+
+    protected void ApplyItemEffects(InventoryItemData item)
+    {
+        // 예: 아이템 효과 적용 로직
+        // if (item.ID == someHpRecoveryItemID)
+        // {
+        //     currentHealth = Mathf.Min(maxHealth, currentHealth + item.recoveryAmount);
+        // }
+        // else if (item.ID == someMpRecoveryItemID)
+        // {
+        //     currentMana = Mathf.Min(maxMana, currentMana + item.recoveryAmount);
+        // }
+    }
 
     protected void ExecuteSkill(Vector3 targetPosition, SkillData skill)
     {
@@ -363,22 +382,22 @@ public class Player : BaseCharacter
         AddSkillPoint(); // 레벨업 시 스킬 포인트 추가
     }
 
-    //public void SwapQuickSlots(int slot1, int slot2, QuickSlotType slotType)
-    //{
-    //    if (slotType == QuickSlotType.Item)
-    //    {
-    //        ItemData temp = quickItemSlots[slot1];
-    //        quickItemSlots[slot1] = quickItemSlots[slot2];
-    //        quickItemSlots[slot2] = temp;
-    //    }
-    //    else if (slotType == QuickSlotType.Skill)
-    //    {
-    //        SkillData temp = quickSkillSlots[slot1];
-    //        quickSkillSlots[slot1] = quickSkillSlots[slot2];
-    //        quickSkillSlots[slot2] = temp;
-    //    }
-    //    OnSkillsChanged?.Invoke();
-    //}
+    // public void SwapQuickSlots(int slot1, int slot2, QuickSlotType slotType)
+    // {
+    //     if (slotType == QuickSlotType.Item)
+    //     {
+    //         ItemData temp = quickItemSlots[slot1];
+    //         quickItemSlots[slot1] = quickItemSlots[slot2];
+    //         quickItemSlots[slot2] = temp;
+    //     }
+    //     else if (slotType == QuickSlotType.Skill)
+    //     {
+    //         SkillData temp = quickSkillSlots[slot1];
+    //         quickSkillSlots[slot1] = quickSkillSlots[slot2];
+    //         quickSkillSlots[slot2] = temp;
+    //     }
+    //     OnSkillsChanged?.Invoke();
+    // }
 
     public event System.Action OnSkillsChanged;
 }

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3543740580231018176}
   - component: {fileID: 1538246215949123195}
   - component: {fileID: 5489574775668174472}
-  - component: {fileID: 219376405774024867}
+  - component: {fileID: 328928549583649155}
   m_Layer: 5
-  m_Name: QuickSlotItem
+  m_Name: InventorySlotItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &219376405774024867
+--- !u!114 &328928549583649155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,14 +132,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6321349923298453892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de48df7adac14d04f8c4478aacf5932e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c474edd8089b4f44a0f177a6a3ce7fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 4123586462565322801}
   itemCount: {fileID: 9016353813074085462}
-  assignedQuickSlot:
+  assignedInventorySlot:
     itemData: {fileID: 0}
-    itemCount: 0
+    stackSize: -1
 --- !u!1 &6592798634572359695
 GameObject:
   m_ObjectHideFlags: 0
