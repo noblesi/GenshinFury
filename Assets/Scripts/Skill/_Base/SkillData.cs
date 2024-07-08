@@ -1,83 +1,131 @@
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Skill", menuName = "Skill/SkillData")]
 public class SkillData : ScriptableObject
 {
-    public string skillName;
-    public SkillCategory skillCategory; // 스킬 대분류 추가
-    public SkillType[] types;
-    public DamageType damageType;
-    public float baseDamage;
-    public float damagePerLevel;
-    public float[] cooldowns;
-    public float[] manaCosts;
-    public float range;
-    public float areaRadius;
-    public ParticleSystem effect;
-    public string animationTrigger;
-    public KeyCode key;
-    public int level = 1;
-    public int maxLevel = 5;
-    public SkillData evolvedSkill;
-    public Sprite skillIcon;
+    public List<TypeData> TypeData;
+    public string SkillName;
+    public bool OverwriteDescription;
+    [TextArea(1, 4)] public string SkillDescription;
+    public Sprite SkillIcon;
+    public List<SkillData> SkillPrerequisites = new List<SkillData>();
+    public int RequiredLevel;
+    public int UpgradeCost;
+    public int SkillTier;
+    public PlayerClass RequiredClass;
+    public SkillType SkillType;
+    public DamageType DamageType;
+    public int BaseDamage;
+    public int DamagePerLevel;
+    public float[] Cooldowns;
+    public int[] ManaCosts;
+    public float Range;
+    public float AreaRadius;
+    public ParticleSystem Effect;
+    public KeyCode Key;
+    public string AnimationTrigger;
+    public int SkillLevel;
+    public int MaxSkillLevel;
 
-    public float GetDamage()
+    private void OnValidate()
     {
-        return baseDamage + (level - 1) * damagePerLevel;
+        if (TypeData.Count == 0) return;
+        if (OverwriteDescription) return;
+        if (SkillName == string.Empty) SkillName = name;
+
+        GenerateDescription();
+    }
+
+    private void GenerateDescription()
+    {
+        if (SkillType == SkillType.Passive)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{SkillName} increases ");
+            for (int i = 0; i < TypeData.Count; i++)
+            {
+                sb.Append(TypeData[i].StatType.ToString());
+                sb.Append(" by ");
+                sb.Append(TypeData[i].SkillIncreaseAmount.ToString());
+                sb.Append(TypeData[i].IsPercentage ? "%" : " point(s)");
+                if (i == TypeData.Count - 2) sb.Append(" and ");
+                else sb.Append(i < TypeData.Count - 1 ? ", " : ".");
+            }
+            SkillDescription = sb.ToString();
+        }
+        else
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{SkillName} is an active skill that ");
+            switch (SkillType)
+            {
+                case SkillType.Buff:
+                    sb.Append("provides a buff.");
+                    break;
+                case SkillType.Debuff:
+                    sb.Append("applies a debuff.");
+                    break;
+                case SkillType.Attack:
+                    sb.Append($"deals {DamageType.ToString().ToLower()} damage.");
+                    break;
+            }
+            SkillDescription = sb.ToString();
+        }
+    }
+
+    public int GetDamage()
+    {
+        return BaseDamage + (SkillLevel - 1) * DamagePerLevel;
     }
 
     public float GetCooldown()
     {
-        return cooldowns[level - 1];
+        return Cooldowns[SkillLevel - 1];
     }
 
-    public float GetManaCost()
+    public int GetManaCost()
     {
-        return manaCosts[level - 1];
+        return ManaCosts[SkillLevel - 1];
     }
 
-    public void LevelUp()
+    public void SkillLevelUp()
     {
-        if (level < maxLevel)
+        if (SkillLevel < MaxSkillLevel)
         {
-            level++;
+            SkillLevel++;
         }
-    }
-
-    public bool CanEvolve()
-    {
-        return level == maxLevel && evolvedSkill != null;
-    }
-
-    public SkillData Evolve()
-    {
-        if (CanEvolve())
-        {
-            return evolvedSkill;
-        }
-        return this;
     }
 }
 
-public enum SkillCategory
+[System.Serializable]
+public class TypeData
 {
-    Offensive,
-    Defensive,
-    Utility
+    public StatType StatType;
+    public int SkillIncreaseAmount;
+    public bool IsPercentage;
+}
+
+public enum StatType
+{
+    None,
+    Strength,
+    Dexterity,
+    Intelligence
 }
 
 public enum SkillType
 {
-    Melee,
-    Ranged,
-    SingleTarget,
-    AreaOfEffect,
+    Passive,
     Buff,
-    Debuff
+    Debuff,
+    Attack
 }
 
 public enum DamageType
 {
+    None,
     Physical,
     Magical,
     TrueDamage

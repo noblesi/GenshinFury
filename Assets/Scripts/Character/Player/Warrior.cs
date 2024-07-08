@@ -5,23 +5,15 @@ public class Warrior : Player
 {
     public List<SkillData> warriorSkills = new List<SkillData>();
 
-    public override void Initialize()
+    protected override void Start()
     {
-        currentClass = Resources.Load<BasePlayerClass>("Data/PlayerClass/WarriorSkills");
-        warriorSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Data/Skills/Warrior"));
-        base.Initialize();
+        base.Start();
+        // 추가적인 초기화가 필요한 경우 여기에 추가
     }
 
-    public override void HandleSkillInput()
+    public override void Initialize(PlayerData playerData)
     {
-        base.HandleSkillInput();
-
-        foreach (var skill in warriorSkills)
-        {
-            if (Input.GetKeyDown(skill.key) && skillCooldownTimers[skill.key] <= 0)
-            {
-                UseSkill(skill);
-            }
-        }
+        base.Initialize(playerData);
+        warriorSkills = LoadSkillsFromLibraries(playerData.SkillLibrary);
     }
 }

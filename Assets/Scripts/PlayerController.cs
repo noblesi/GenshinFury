@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
             UpdateAnimation();
             UpdateRotation();
             UpdateStopping();
-            playerSkills.HandleSkillInput();
+            //playerSkills.HandleSkillInput();
         }
     }
 

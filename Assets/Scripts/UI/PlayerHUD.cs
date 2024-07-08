@@ -43,8 +43,8 @@ public class PlayerHUD : MonoBehaviour
     {
         if (player != null)
         {
-            mpSlider.value = player.currentMana / (float)player.MaxMana;
-            mpText.text = $"{player.currentMana} / {player.MaxMana}";
+            mpSlider.value = player.currentMana / (float)player.maxMana;
+            mpText.text = $"{player.currentMana} / {player.maxMana}";
         }
     }
 

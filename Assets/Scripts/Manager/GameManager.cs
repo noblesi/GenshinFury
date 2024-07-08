@@ -1,7 +1,5 @@
 using Cinemachine;
-using System;
 using System.Collections;
-using System.Web;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +17,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject archerPrefab;
     [SerializeField] private GameObject wizardPrefab;
     [SerializeField] private CinemachineVirtualCamera virtualCameraPrefab;
+
+    [Header("===Player Data===")]
+    [SerializeField] private PlayerData warriorData;
+    [SerializeField] private PlayerData archerData;
+    [SerializeField] private PlayerData wizardData;
 
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
@@ -47,7 +50,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator LoadSceneAsync(string sceneName)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-        while(!asyncLoad.isDone)
+        while (!asyncLoad.isDone)
         {
             yield return null;
         }
@@ -57,17 +60,21 @@ public class GameManager : MonoBehaviour
     private void InstantiatePlayer()
     {
         GameObject playerPrefab = null;
+        PlayerData playerData = null;
 
         switch (currentGameData.playerClass)
         {
             case PlayerClass.Warrior:
                 playerPrefab = warriorPrefab;
+                playerData = warriorData;
                 break;
             case PlayerClass.Archer:
                 playerPrefab = archerPrefab;
+                playerData = archerData;
                 break;
             case PlayerClass.Wizard:
                 playerPrefab = wizardPrefab;
+                playerData = wizardData;
                 break;
             default:
                 Debug.LogError("Invalid player class.");
@@ -79,12 +86,11 @@ public class GameManager : MonoBehaviour
             GameObject playerObject = Instantiate(playerPrefab, spawnPosition, spawnRotation);
             Player player = playerObject.GetComponent<Player>();
 
-            if (player != null)
+            if (player != null && playerData != null)
             {
-                player.Initialize();
+                player.Initialize(playerData);
 
                 CinemachineVirtualCamera virtualCamera = Instantiate(virtualCameraPrefab);
-
                 virtualCamera.Follow = playerObject.transform;
             }
         }

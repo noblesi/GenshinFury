@@ -5,23 +5,15 @@ public class Archer : Player
 {
     public List<SkillData> archerSkills = new List<SkillData>();
 
-    public override void Initialize()
+    protected override void Start()
     {
-        currentClass = Resources.Load<BasePlayerClass>("Data/PlayerClass/ArcherSkills");
-        archerSkills = new List<SkillData>(Resources.LoadAll<SkillData>("Data/Skills/Archer"));
-        base.Initialize();
+        base.Start();
+        // 추가적인 초기화가 필요한 경우 여기에 추가
     }
 
-    public override void HandleSkillInput()
+    public override void Initialize(PlayerData playerData)
     {
-        base.HandleSkillInput();
-
-        foreach (var skill in archerSkills)
-        {
-            if (Input.GetKeyDown(skill.key) && skillCooldownTimers[skill.key] <= 0)
-            {
-                UseSkill(skill);
-            }
-        }
+        base.Initialize(playerData);
+        archerSkills = LoadSkillsFromLibraries(playerData.SkillLibrary);
     }
 }
