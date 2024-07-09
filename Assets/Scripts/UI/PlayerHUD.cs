@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,9 @@ public class PlayerHUD : MonoBehaviour
 
     private void Start()
     {
-        player = FindObjectOfType<Player>();
+        var players = FindObjectsOfType<Player>();
+        player = players.FirstOrDefault(p => p is Archer || p is Warrior || p is Wizard);
+
         if (player == null)
         {
             Debug.LogError("Player object not found.");

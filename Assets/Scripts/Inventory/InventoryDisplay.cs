@@ -66,7 +66,6 @@ public abstract class InventoryDisplay : MonoBehaviour
         {
             clickedUISlot.AssignedInventorySlot.AssignItem(mouseInventoryItem.AssignedInventorySlot);
             clickedUISlot.UpdateUISlot();
-
             mouseInventoryItem.ClearSlot();
             return;
         }
@@ -75,31 +74,28 @@ public abstract class InventoryDisplay : MonoBehaviour
         {
             bool isSameItem = clickedUISlot.AssignedInventorySlot.ItemData == mouseInventoryItem.AssignedInventorySlot.ItemData;
 
-            if (isSameItem && clickedUISlot.AssignedInventorySlot.RoomLeftInStack(mouseInventoryItem.AssignedInventorySlot.StackSize))
+            if (isSameItem)
             {
-                clickedUISlot.AssignedInventorySlot.AssignItem(mouseInventoryItem.AssignedInventorySlot);
-                clickedUISlot.UpdateUISlot();
-
-                mouseInventoryItem.ClearSlot();
-                return;
-            }
-            else if (isSameItem && !clickedUISlot.AssignedInventorySlot.RoomLeftInStack(mouseInventoryItem.AssignedInventorySlot.StackSize, out int leftInStack))
-            {
-                if (leftInStack < 1) SwapSlots(clickedUISlot);
+                if (clickedUISlot.AssignedInventorySlot.RoomLeftInStack(mouseInventoryItem.AssignedInventorySlot.StackSize))
+                {
+                    clickedUISlot.AssignedInventorySlot.AddToStack(mouseInventoryItem.AssignedInventorySlot.StackSize);
+                    clickedUISlot.UpdateUISlot();
+                    mouseInventoryItem.ClearSlot();
+                    return;
+                }
                 else
                 {
-                    int remainingOnMouse = mouseInventoryItem.AssignedInventorySlot.StackSize - leftInStack;
+                    int remainingOnMouse = mouseInventoryItem.AssignedInventorySlot.StackSize - (clickedUISlot.AssignedInventorySlot.ItemData.MaxStackSize - clickedUISlot.AssignedInventorySlot.StackSize);
+                    int addableAmount = clickedUISlot.AssignedInventorySlot.ItemData.MaxStackSize - clickedUISlot.AssignedInventorySlot.StackSize;
 
-                    clickedUISlot.AssignedInventorySlot.AddToStack(leftInStack);
+                    clickedUISlot.AssignedInventorySlot.AddToStack(addableAmount);
                     clickedUISlot.UpdateUISlot();
 
-                    var newItem = new InventorySlot(mouseInventoryItem.AssignedInventorySlot.ItemData, remainingOnMouse);
-                    mouseInventoryItem.ClearSlot();
-                    mouseInventoryItem.UpdateMouseSlot(newItem.ItemData, newItem.StackSize);
+                    mouseInventoryItem.UpdateMouseSlot(mouseInventoryItem.AssignedInventorySlot.ItemData, remainingOnMouse);
                     return;
                 }
             }
-            else if (!isSameItem)
+            else
             {
                 SwapSlots(clickedUISlot);
                 return;
@@ -109,13 +105,13 @@ public abstract class InventoryDisplay : MonoBehaviour
 
     private void SwapSlots(InventorySlot_UI clickedUISlot)
     {
-        var clonedSlot = new InventorySlot(mouseInventoryItem.AssignedInventorySlot.ItemData, mouseInventoryItem.AssignedInventorySlot.StackSize);
+        var tempSlot = new InventorySlot(mouseInventoryItem.AssignedInventorySlot.ItemData, mouseInventoryItem.AssignedInventorySlot.StackSize);
         mouseInventoryItem.ClearSlot();
 
         mouseInventoryItem.UpdateMouseSlot(clickedUISlot.AssignedInventorySlot.ItemData, clickedUISlot.AssignedInventorySlot.StackSize);
 
         clickedUISlot.ClearSlot();
-        clickedUISlot.AssignedInventorySlot.AssignItem(clonedSlot);
+        clickedUISlot.AssignedInventorySlot.AssignItem(tempSlot);
         clickedUISlot.UpdateUISlot();
     }
 }

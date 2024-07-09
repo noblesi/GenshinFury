@@ -71,17 +71,18 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (assignedInventorySlot.ItemData != null)
+        if (assignedInventorySlot?.ItemData != null && MouseItemData.Instance != null)
         {
             MouseItemData.Instance.UpdateMouseSlot(assignedInventorySlot.ItemData, assignedInventorySlot.StackSize);
             ClearSlot();
             DraggedFromSlot = this;
+            Debug.Log($"Begin Drag: {assignedInventorySlot.ItemData.name}, StackSize: {assignedInventorySlot.StackSize}");
         }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (MouseItemData.Instance.AssignedInventorySlot.ItemData != null)
+        if (MouseItemData.Instance?.AssignedInventorySlot.ItemData != null)
         {
             MouseItemData.Instance.transform.position = eventData.position;
         }
@@ -89,33 +90,27 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (MouseItemData.Instance.AssignedInventorySlot.ItemData != null)
+        if (MouseItemData.Instance?.AssignedInventorySlot.ItemData != null)
         {
             var results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(eventData, results);
             foreach (var result in results)
             {
                 var slotUI = result.gameObject.GetComponent<InventorySlot_UI>();
-                var quickSlotUI = result.gameObject.GetComponent<QuickSlot_UI>();
-
                 if (slotUI != null)
                 {
-                    slotUI.AssignedInventorySlot.AssignItem(MouseItemData.Instance.AssignedInventorySlot);
-                    slotUI.UpdateUISlot();
-                    MouseItemData.Instance.ClearSlot();
-                    return;
-                }
-                else if (quickSlotUI != null)
-                {
-                    if (MouseItemData.Instance.AssignedInventorySlot.ItemData.Type == ItemType.Consumable)
+                    if (slotUI != this)
                     {
-                        quickSlotUI.OnDrop(eventData);
+                        SwapSlots(slotUI);
                     }
                     else
                     {
-                        quickSlotUI.ReturnItemToOriginalInventorySlot();
-                        MouseItemData.Instance.ClearSlot();
+                        slotUI.AssignedInventorySlot.AssignItem(MouseItemData.Instance.AssignedInventorySlot);
+                        slotUI.UpdateUISlot();
                     }
+
+                    MouseItemData.Instance.ClearSlot();
+                    Debug.Log($"End Drag: {slotUI.AssignedInventorySlot.ItemData?.name}, StackSize: {slotUI.AssignedInventorySlot.StackSize}");
                     return;
                 }
             }
@@ -126,7 +121,7 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (MouseItemData.Instance.AssignedInventorySlot.ItemData != null)
+        if (MouseItemData.Instance?.AssignedInventorySlot.ItemData != null)
         {
             AssignedInventorySlot.AssignItem(MouseItemData.Instance.AssignedInventorySlot);
             UpdateUISlot();
@@ -142,6 +137,22 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             DraggedFromSlot.UpdateUISlot();
             DraggedFromSlot = null;
         }
+    }
+
+    private void SwapSlots(InventorySlot_UI targetSlot)
+    {
+        Debug.Log($"Swapping Slots: {assignedInventorySlot.ItemData?.name} <-> {targetSlot.AssignedInventorySlot.ItemData?.name}");
+
+        var tempItemData = targetSlot.AssignedInventorySlot.ItemData;
+        var tempStackSize = targetSlot.AssignedInventorySlot.StackSize;
+
+        targetSlot.AssignedInventorySlot.UpdateInventorySlot(assignedInventorySlot.ItemData, assignedInventorySlot.StackSize);
+        assignedInventorySlot.UpdateInventorySlot(tempItemData, tempStackSize);
+
+        targetSlot.UpdateUISlot();
+        UpdateUISlot();
+
+        Debug.Log($"Swapped Slots: {assignedInventorySlot.ItemData?.name} <-> {targetSlot.AssignedInventorySlot.ItemData?.name}");
     }
 
     public void OnPointerClick(PointerEventData eventData)

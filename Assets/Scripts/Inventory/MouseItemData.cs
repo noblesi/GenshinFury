@@ -33,6 +33,7 @@ public class MouseItemData : MonoBehaviour
         ItemSprite.sprite = itemData.Icon;
         ItemCount.text = count > 1 ? count.ToString() : string.Empty;
         ItemSprite.color = Color.white;
+        Debug.Log($"UpdateMouseSlot: {itemData.name}, Count: {count}");
     }
 
     private void Update()
@@ -54,6 +55,7 @@ public class MouseItemData : MonoBehaviour
         ItemCount.text = string.Empty;
         ItemSprite.color = Color.clear;
         ItemSprite.sprite = null;
+        Debug.Log("ClearMouseSlot");
     }
 
     public static bool IsPointerOverUIObject()

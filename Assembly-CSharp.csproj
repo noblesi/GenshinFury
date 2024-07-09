@@ -73,7 +73,6 @@
     <Compile Include="Assets\Scripts\UI\InventoryPopup.cs" />
     <Compile Include="Assets\Resources\Effect\Epic Toon FX\Demo\Scripts\ETFXFireProjectile.cs" />
     <Compile Include="Assets\Scripts\PlayerData.cs" />
-    <Compile Include="Assets\Scripts\Inventory\PlayerInventory.cs" />
     <Compile Include="Assets\Scripts\Interface\IInteractable.cs" />
     <Compile Include="Assets\Scripts\UI\GameSlotMenu.cs" />
     <Compile Include="Assets\Scripts\Manager\EventManager.cs" />

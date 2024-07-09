@@ -78,6 +78,9 @@ public class DynamicInventoryDisplay : InventoryDisplay
 
     private void UpdateInventoryUI()
     {
-        RefreshDynamicInventory(inventorySystem);
+        foreach (var slot in slotDictionary.Keys)
+        {
+            slot.UpdateUISlot();
+        }
     }
 }

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d646c77fb6e744fa3b6c1a1ac9b539, type: 3}
+  m_Name: ArcherSkillBook
+  m_EditorClassIdentifier: SkillLibrary, Assembly-CSharp
+  PlayerSkillLibrary:
+  - {fileID: 11400000, guid: 20514742e7614ce4ebaeec5a2518bc77, type: 2}
+  - {fileID: 11400000, guid: 0f355990042eb7d49b8adbd4edc7f5a0, type: 2}
+  - {fileID: 11400000, guid: c93456854645057439dcb4bcbb1ef887, type: 2}

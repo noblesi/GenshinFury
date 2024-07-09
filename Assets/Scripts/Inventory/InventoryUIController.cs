@@ -12,12 +12,12 @@ public class InventoryUIController : MonoBehaviour
 
     private void OnEnable()
     {
-        InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
+        InventoryHolder.OnInventoryChanged += UpdateInventoryUI;
     }
 
     private void OnDisable()
     {
-        InventoryHolder.OnDynamicInventoryDisplayRequested -= DisplayInventory;
+        InventoryHolder.OnInventoryChanged -= UpdateInventoryUI;
     }
 
     private void Update()
@@ -41,14 +41,23 @@ public class InventoryUIController : MonoBehaviour
         }
         else
         {
-            var playerInventory = FindObjectOfType<Player>().GetComponent<InventoryHolder>().InventorySystem;
-            DisplayInventory(playerInventory);
+            DisplayInventory();
         }
     }
 
-    private void DisplayInventory(InventorySystem inventoryToDisplay)
+    private void DisplayInventory()
     {
+        var playerInventory = FindObjectOfType<Player>().GetComponent<InventoryHolder>().InventorySystem;
         inventoryPanel.gameObject.SetActive(true);
-        inventoryPanel.GetComponentInChildren<DynamicInventoryDisplay>().RefreshDynamicInventory(inventoryToDisplay);
+        inventoryPanel.GetComponentInChildren<DynamicInventoryDisplay>().RefreshDynamicInventory(playerInventory);
+    }
+
+    private void UpdateInventoryUI()
+    {
+        if (inventoryPanel.gameObject.activeInHierarchy)
+        {
+            var playerInventory = FindObjectOfType<Player>().GetComponent<InventoryHolder>().InventorySystem;
+            inventoryPanel.GetComponentInChildren<DynamicInventoryDisplay>().RefreshDynamicInventory(playerInventory);
+        }
     }
 }

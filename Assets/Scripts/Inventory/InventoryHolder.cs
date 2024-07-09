@@ -10,7 +10,6 @@ public class InventoryHolder : MonoBehaviour
     public InventorySystem InventorySystem => inventorySystem;
 
     public static UnityAction OnInventoryChanged;
-    public static UnityAction<InventorySystem> OnDynamicInventoryDisplayRequested;
 
     private void Awake()
     {
@@ -35,7 +34,6 @@ public class InventoryHolder : MonoBehaviour
 
     private void HandleInventorySlotChanged(InventorySlot slot)
     {
-        Debug.Log($"Inventory slot changed: {slot.ItemData?.name}, {slot.StackSize}");
         OnInventoryChanged?.Invoke();
     }
 }

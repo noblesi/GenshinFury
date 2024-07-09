@@ -16,5 +16,5 @@ MonoBehaviour:
   DisplayName: Test Item1
   Description: First Test Item
   Icon: {fileID: 21300000, guid: 08d200ffb5bf16041b1a87f3ba69091b, type: 3}
-  MaxStackSize: 99
+  MaxStackSize: 3
   Type: 0
