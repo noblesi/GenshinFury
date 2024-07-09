@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4909f624340c55f4b9b66b5c4b1b04a0, type: 3}
-  m_Name: WarriorStats
+  m_Name: WarriotStats
   m_EditorClassIdentifier: PlayerStats, Assembly-CSharp
-  maxHealth: 0
-  currentHealth: 0
-  maxMana: 0
-  currentMana: 0
-  strength: 0
-  dexterity: 0
-  intelligence: 0
-  skillPoints: 0
-  playerLevel: 0
+  currentHealth: 200
+  maxHealth: 200
+  currentMana: 50
+  maxMana: 50
+  strength: 15
+  dexterity: 10
+  intelligence: 5
+  skillPoints: 3
+  playerLevel: 1

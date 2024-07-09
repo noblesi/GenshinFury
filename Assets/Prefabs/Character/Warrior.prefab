@@ -1343,6 +1343,8 @@ GameObject:
   - component: {fileID: 1160417896629536211}
   - component: {fileID: 3535976837094802760}
   - component: {fileID: 2944022428932533912}
+  - component: {fileID: 7042037316094002866}
+  - component: {fileID: 2277434169912421684}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Player
@@ -1402,9 +1404,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5d77499fbb7a14c9c4b137ce910118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Warrior, Assembly-CSharp
-  maxHealth: 0
-  animator: {fileID: 6527278986697078494}
-  commonSkills: []
+  skillManager: {fileID: 0}
+  playerData: {fileID: 11400000, guid: 03480c78d29bd6f43b4d693cae3dfb61, type: 2}
   warriorSkills: []
 --- !u!114 &6147441701681865877
 MonoBehaviour:
@@ -1495,6 +1496,36 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.85, z: 0}
+--- !u!114 &7042037316094002866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640428992605068208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2441c71cef5eff540914b68755dab5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InventoryHolder, Assembly-CSharp
+  inventorySize: 36
+  inventorySystem:
+    inventorySlots: []
+--- !u!114 &2277434169912421684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640428992605068208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f15b3b562ac68947af62e8c1786b132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: QuickSlotSystemHolder, Assembly-CSharp
+  quickSlotSize: 4
+  quickSlotSystem:
+    quickSlots: []
 --- !u!1 &4661434468767517180
 GameObject:
   m_ObjectHideFlags: 0

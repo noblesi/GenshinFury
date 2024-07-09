@@ -34,10 +34,16 @@ public abstract class BaseCharacter : MonoBehaviour, IDamageable
         }
     }
 
-    protected void ChangeMana(int mana)
+    public void ChangeMana(int mana)
     {
         currentMana = mana;
         OnManaChanged?.Invoke();
+    }
+
+    public void ChangeHealth(int health)
+    {
+        currentHealth = health;
+        OnHealthChanged?.Invoke();
     }
 
     public virtual void ApplyDebuff(SkillData debuffSkill)

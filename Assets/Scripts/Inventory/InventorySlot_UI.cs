@@ -7,17 +7,20 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 {
     [SerializeField] private Image itemSprite;
     [SerializeField] private Text itemCount;
-    [SerializeField] private InventorySlot assignedInventorySlot;
+    private InventorySlot assignedInventorySlot;
 
     private Button button;
 
-    public static InventorySlot_UI DraggedFromSlot { get; set; } // Changed to public set
+    public static InventorySlot_UI DraggedFromSlot { get; set; }
 
     public InventorySlot AssignedInventorySlot => assignedInventorySlot;
     public InventoryDisplay ParentDisplay { get; private set; }
 
+    private Player player;
+
     private void Awake()
     {
+        player = FindObjectOfType<Player>();
         ClearSlot();
 
         button = GetComponent<Button>();
@@ -72,7 +75,7 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         {
             MouseItemData.Instance.UpdateMouseSlot(assignedInventorySlot.ItemData, assignedInventorySlot.StackSize);
             ClearSlot();
-            DraggedFromSlot = this; // Store the original slot
+            DraggedFromSlot = this;
         }
     }
 
@@ -138,6 +141,16 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             DraggedFromSlot.AssignedInventorySlot.AssignItem(MouseItemData.Instance.AssignedInventorySlot);
             DraggedFromSlot.UpdateUISlot();
             DraggedFromSlot = null;
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right && assignedInventorySlot.ItemData is ConsumableItemData)
+        {
+            (assignedInventorySlot.ItemData as ConsumableItemData).ApplyEffect(player);
+            assignedInventorySlot.RemoveFromStack(1);
+            UpdateUISlot(assignedInventorySlot);
         }
     }
 }

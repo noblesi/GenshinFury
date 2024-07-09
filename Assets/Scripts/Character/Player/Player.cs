@@ -1,10 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : BaseCharacter
 {
     [SerializeField] private PlayerSkillManager skillManager;
     [SerializeField] private PlayerData playerData;
+    [SerializeField] private InventoryHolder inventoryHolder;
     protected List<SkillData> playerSkills = new List<SkillData>();
 
     public PlayerSkillManager SkillManager => skillManager;
@@ -18,6 +21,8 @@ public class Player : BaseCharacter
         {
             skillManager = gameObject.AddComponent<PlayerSkillManager>();
         }
+
+        inventoryHolder = GetComponent<InventoryHolder>();
     }
 
     public virtual void Initialize(PlayerData playerData)
@@ -76,4 +81,36 @@ public class Player : BaseCharacter
     {
         Debug.Log($"{gameObject.name} has died.");
     }
+
+    public void ApplyBuff(ConsumableItemData consumableItem)
+    {
+        StartCoroutine(ApplyBuffCoroutine(consumableItem));
+    }
+
+    protected IEnumerator ApplyBuffCoroutine(ConsumableItemData consumableItem)
+    {
+        int originalStrength = playerData.PlayerStats.strength;
+        int originalDexterity = playerData.PlayerStats.dexterity;
+
+        playerData.PlayerStats.strength += (int)(originalStrength * 0.2f);
+        playerData.PlayerStats.dexterity += (int)(originalDexterity * 0.2f);
+
+        yield return new WaitForSeconds(consumableItem.buffDuration);
+
+        playerData.PlayerStats.strength = originalStrength;
+        playerData.PlayerStats.dexterity = originalDexterity;
+    }
+
+    public void PickUpItem(InventoryItemData itemData, int amount)
+    {
+        if (inventoryHolder.InventorySystem.AddToInventory(itemData, amount))
+        {
+            Debug.Log($"Picked up {amount} of {itemData.name}");
+        }
+        else
+        {
+            Debug.Log("Inventory is full");
+        }
+    }
 }
+

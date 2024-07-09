@@ -26,6 +26,8 @@ public class InventorySystem
         if (itemToAdd == null) throw new System.ArgumentNullException(nameof(itemToAdd));
         if (amountToAdd <= 0) throw new System.ArgumentOutOfRangeException(nameof(amountToAdd));
 
+        Debug.Log($"Trying to add {amountToAdd} of {itemToAdd.name}");
+
         if (ContainsItem(itemToAdd, out List<InventorySlot> inventorySlot))
         {
             foreach (var slot in inventorySlot)
@@ -34,6 +36,7 @@ public class InventorySystem
                 {
                     slot.AddToStack(amountToAdd);
                     OnInventorySlotChanged?.Invoke(slot);
+                    Debug.Log($"Updated existing slot with {amountToAdd} of {itemToAdd.name}");
                     return true;
                 }
             }
@@ -43,9 +46,11 @@ public class InventorySystem
         {
             freeSlot.UpdateInventorySlot(itemToAdd, amountToAdd);
             OnInventorySlotChanged?.Invoke(freeSlot);
+            Debug.Log($"Added {amountToAdd} to new slot with {itemToAdd.name}");
             return true;
         }
 
+        Debug.Log("No free slots available");
         return false;
     }
 

@@ -28,7 +28,7 @@ public class InventorySlot
 
     public void AssignItem(InventorySlot inventorySlot)
     {
-        if(itemData == inventorySlot.ItemData) AddToStack(inventorySlot.stackSize);
+        if (itemData == inventorySlot.ItemData) AddToStack(inventorySlot.stackSize);
         else
         {
             itemData = inventorySlot.ItemData;
@@ -68,7 +68,7 @@ public class InventorySlot
 
     public bool SplitStack(out InventorySlot splitStack)
     {
-        if(stackSize <= 1)
+        if (stackSize <= 1)
         {
             splitStack = null;
             return false;
