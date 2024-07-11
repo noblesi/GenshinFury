@@ -4,5 +4,5 @@ UserSettings
 ProjectSettings
 Packages
 Logs
-Debug
+obj/Debug
 .vs
