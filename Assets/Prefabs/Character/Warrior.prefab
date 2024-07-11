@@ -1344,7 +1344,6 @@ GameObject:
   - component: {fileID: 3535976837094802760}
   - component: {fileID: 2944022428932533912}
   - component: {fileID: 7042037316094002866}
-  - component: {fileID: 2277434169912421684}
   - component: {fileID: 1712837920361036474}
   m_Layer: 0
   m_Name: Warrior
@@ -1513,21 +1512,6 @@ MonoBehaviour:
   inventorySize: 36
   inventorySystem:
     inventorySlots: []
---- !u!114 &2277434169912421684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4640428992605068208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f15b3b562ac68947af62e8c1786b132, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: QuickSlotSystemHolder, Assembly-CSharp
-  quickSlotSize: 4
-  quickSlotSystem:
-    quickSlots: []
 --- !u!114 &1712837920361036474
 MonoBehaviour:
   m_ObjectHideFlags: 0

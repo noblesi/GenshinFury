@@ -159,7 +159,8 @@ public class InventorySlot_UI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     {
         if (eventData.button == PointerEventData.InputButton.Right && assignedInventorySlot.ItemData is ConsumableItemData)
         {
-            (assignedInventorySlot.ItemData as ConsumableItemData).ApplyEffect(player);
+            ConsumableItemData consumable = assignedInventorySlot.ItemData as ConsumableItemData;
+            consumable.ApplyEffect(player);
             assignedInventorySlot.RemoveFromStack(1);
             UpdateUISlot(assignedInventorySlot);
         }

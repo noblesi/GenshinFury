@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,10 +10,19 @@ public class PlayerHUD : MonoBehaviour
 
     private Player player;
 
-    private void Start()
+    private void OnEnable()
     {
-        var players = FindObjectsOfType<Player>();
-        player = players.FirstOrDefault(p => p is Archer || p is Warrior || p is Wizard);
+        GameManager.Instance.OnPlayerCreated += OnPlayerCreated;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnPlayerCreated -= OnPlayerCreated;
+    }
+
+    private void OnPlayerCreated(Player createdPlayer)
+    {
+        player = createdPlayer;
 
         if (player == null)
         {
@@ -22,9 +30,9 @@ public class PlayerHUD : MonoBehaviour
             return;
         }
 
-        UpdateHUD();
         player.OnHealthChanged += UpdateHP; // 이벤트 등록
         player.OnManaChanged += UpdateMP; // 이벤트 등록
+        UpdateHUD();
     }
 
     private void UpdateHUD()

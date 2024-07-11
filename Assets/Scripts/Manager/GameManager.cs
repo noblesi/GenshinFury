@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     private GameData currentGameData;
     private bool isNewGame;
 
+    public delegate void PlayerCreated(Player player);
+    public event PlayerCreated OnPlayerCreated;
+
     private void Awake()
     {
         if (Instance == null)
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
+        yield return new WaitForEndOfFrame(); // UI 설정 전에 약간의 지연을 추가
         InstantiatePlayer();
     }
 
@@ -92,6 +96,8 @@ public class GameManager : MonoBehaviour
 
                 CinemachineVirtualCamera virtualCamera = Instantiate(virtualCameraPrefab);
                 virtualCamera.Follow = playerObject.transform;
+
+                OnPlayerCreated?.Invoke(player);
             }
         }
         else

@@ -48,6 +48,15 @@ public abstract class InventoryDisplay : MonoBehaviour
 
         if (clickedUISlot.AssignedInventorySlot.ItemData != null && mouseInventoryItem.AssignedInventorySlot.ItemData == null)
         {
+            if (Mouse.current.rightButton.wasPressedThisFrame && clickedUISlot.AssignedInventorySlot.ItemData is ConsumableItemData consumable)
+            {
+                var player = FindObjectOfType<Player>();
+                consumable.ApplyEffect(player);
+                clickedUISlot.AssignedInventorySlot.RemoveFromStack(1);
+                clickedUISlot.UpdateUISlot();
+                return;
+            }
+
             if (isShiftPressed && clickedUISlot.AssignedInventorySlot.SplitStack(out InventorySlot halfStackSlot))
             {
                 mouseInventoryItem.UpdateMouseSlot(halfStackSlot.ItemData, halfStackSlot.StackSize);

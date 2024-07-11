@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : BaseCharacter
 {
@@ -28,8 +27,10 @@ public class Player : BaseCharacter
     public virtual void Initialize(PlayerData playerData)
     {
         this.playerData = playerData;
-        playerData.PlayerStats.currentHealth = playerData.PlayerStats.maxHealth;
-        playerData.PlayerStats.currentHealth = playerData.PlayerStats.maxMana;
+        maxHealth = playerData.PlayerStats.maxHealth;
+        currentHealth = playerData.PlayerStats.maxHealth;
+        maxMana = playerData.PlayerStats.maxMana;
+        currentMana = playerData.PlayerStats.maxMana;
 
         skillManager.SetPlayerStats(playerData.PlayerStats);
         playerSkills = LoadSkillsFromLibraries(playerData.SkillLibrary);
@@ -113,4 +114,3 @@ public class Player : BaseCharacter
         }
     }
 }
-
