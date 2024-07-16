@@ -134,12 +134,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c474edd8089b4f44a0f177a6a3ce7fc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: InventorySlot_UI, Assembly-CSharp
   itemSprite: {fileID: 4123586462565322801}
   itemCount: {fileID: 9016353813074085462}
-  assignedInventorySlot:
-    itemData: {fileID: 0}
-    stackSize: -1
 --- !u!1 &6592798634572359695
 GameObject:
   m_ObjectHideFlags: 0
