@@ -7,7 +7,7 @@ public abstract class BaseCharacter : MonoBehaviour, IDamageable
     public int maxHealth { get; protected set; }
     public int currentHealth { get; protected set; }
     public int maxMana { get; protected set; }
-    public int currentMana {get; protected set; }
+    public int currentMana { get; protected set; }
     protected bool isDebuffed;
     protected float debuffDuration;
     protected NavMeshAgent agent;
@@ -19,12 +19,16 @@ public abstract class BaseCharacter : MonoBehaviour, IDamageable
     {
         currentHealth = maxHealth;
         agent = GetComponent<NavMeshAgent>();
+
+        // 캐릭터의 Collider와 Rigidbody 설정
+        EnsureComponent<Collider>(gameObject);
+        EnsureRigidbody(gameObject);
     }
 
     public virtual void TakeDamage(int damage, DamageType damageType)
     {
         currentHealth -= damage;
-        OnHealthChanged?.Invoke(); // 이벤트 호출
+        OnHealthChanged?.Invoke();
 
         Debug.Log($"{gameObject.name} took {damage} {damageType} damage. Current health: {currentHealth}");
 
@@ -66,6 +70,24 @@ public abstract class BaseCharacter : MonoBehaviour, IDamageable
 
         agent.speed = originalSpeed;
         isDebuffed = false;
+    }
+
+    protected void EnsureRigidbody(GameObject obj)
+    {
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = obj.AddComponent<Rigidbody>();
+            rb.isKinematic = true; // 물리 엔진의 영향을 받지 않도록 설정
+        }
+    }
+
+    protected void EnsureComponent<T>(GameObject obj) where T : Component
+    {
+        if (obj.GetComponent<T>() == null)
+        {
+            obj.AddComponent<T>();
+        }
     }
 
     protected abstract void Die();

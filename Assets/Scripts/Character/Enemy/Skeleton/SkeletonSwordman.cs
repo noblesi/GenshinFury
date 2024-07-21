@@ -1,35 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static SkillData;
 
 public class SkeletonSwordman : SkeletonBase
 {
-    protected override void InitializeAttackPatterns()
+    protected override void Start()
     {
-        attackPatterns.Add(() => BasicAttack());
-        attackPatterns.Add(() => SwordSlash());
-        attackPatterns.Add(() => ShieldBash());
+        base.Start();
+        detectionRange = 15f;
+        attackRange = 3f;
+        attackDamage = 10;
+        attackCooldown = 2f; // 예시로 추가한 공격 쿨다운 시간
+        maxHealth = 80; // 몬스터의 최대 체력 설정
+        currentHealth = maxHealth; // 현재 체력을 최대 체력으로 설정
     }
 
-    private void BasicAttack()
+    protected override void BasicAttack()
     {
         Debug.Log("Skeleton Swordman performs a basic attack!");
         animator.SetTrigger("BasicAttack");
-        player.GetComponent<IDamageable>().TakeDamage(7, DamageType.Physical);
-    }
-
-    private void SwordSlash()
-    {
-        Debug.Log("Skeleton Swordman performs a sword slash!");
-        animator.SetTrigger("SwordSlash");
-        player.GetComponent<IDamageable>().TakeDamage(12, DamageType.Physical);
-    }
-
-    private void ShieldBash()
-    {
-        Debug.Log("Skeleton Swordman performs a shield bash!");
-        animator.SetTrigger("ShieldBash");
-        player.GetComponent<IDamageable>().TakeDamage(10, DamageType.Physical);
+        if (player != null)
+        {
+            player.GetComponent<IDamageable>().TakeDamage(attackDamage, DamageType.Physical);
+        }
     }
 }

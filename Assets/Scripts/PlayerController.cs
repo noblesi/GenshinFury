@@ -35,10 +35,10 @@ public class PlayerController : MonoBehaviour
 
     void UpdateMouseInput()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+        //if (EventSystem.current.IsPointerOverGameObject())
+        //{
+        //    return;
+        //}
 
         if (Input.GetMouseButtonDown(1))
         {

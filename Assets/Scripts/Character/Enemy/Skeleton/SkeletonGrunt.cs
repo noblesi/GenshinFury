@@ -1,27 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static SkillData;
 
 public class SkeletonGrunt : SkeletonBase
 {
-    protected override void InitializeAttackPatterns()
+    protected override void Start()
     {
-        attackPatterns.Add(() => BasicAttack());
-        attackPatterns.Add(() => HeavySwing());
+        base.Start();
+        detectionRange = 10f;
+        attackRange = 2f;
+        attackDamage = 5;
+        attackCooldown = 1.5f; // 예시로 추가한 공격 쿨다운 시간
+        maxHealth = 50; // 몬스터의 최대 체력 설정
+        currentHealth = maxHealth; // 현재 체력을 최대 체력으로 설정
     }
 
-    private void BasicAttack()
+    protected override void BasicAttack()
     {
         Debug.Log("Skeleton Grunt performs a basic attack!");
         animator.SetTrigger("BasicAttack");
-        player.GetComponent<IDamageable>().TakeDamage(7, DamageType.Physical);
-    }
-
-    private void HeavySwing()
-    {
-        Debug.Log("Skeleton Grunt performs a heavy swing!");
-        animator.SetTrigger("HeavySwing");
-        player.GetComponent<IDamageable>().TakeDamage(12, DamageType.Physical);
+        if (player != null)
+        {
+            player.GetComponent<IDamageable>().TakeDamage(attackDamage, DamageType.Physical);
+        }
     }
 }

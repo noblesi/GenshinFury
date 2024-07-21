@@ -1,12 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public abstract class Enemy : BaseCharacter
 {
-    public float detectionRange = 10f;
-    public float attackRange = 2f;
-    public float attackCooldown = 1.5f;
+    public float detectionRange;
+    public float attackRange;
+    public float attackCooldown;
+    public int attackDamage;
     protected float lastAttackTime;
     protected Transform player;
     protected MonsterState currentState;
@@ -14,13 +15,15 @@ public abstract class Enemy : BaseCharacter
     protected override void Start()
     {
         base.Start();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        GameManager.Instance.OnPlayerCreated += OnPlayerCreated;
         currentState = MonsterState.Patrol;
     }
 
     protected virtual void Update()
     {
-        switch(currentState)
+        if (player == null) return;
+
+        switch (currentState)
         {
             case MonsterState.Patrol:
                 Patrol();
@@ -32,6 +35,11 @@ public abstract class Enemy : BaseCharacter
                 Attack();
                 break;
         }
+    }
+
+    protected virtual void OnPlayerCreated(Player player)
+    {
+        this.player = player.transform;
     }
 
     protected virtual void Patrol()
@@ -70,11 +78,19 @@ public abstract class Enemy : BaseCharacter
         }
     }
 
-    protected abstract void PerformAttack();
-
     protected override void Die()
     {
         Debug.Log("Enemy died.");
         Destroy(gameObject);
+    }
+
+    protected abstract void PerformAttack();
+
+    protected virtual void OnDestroy()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnPlayerCreated -= OnPlayerCreated;
+        }
     }
 }

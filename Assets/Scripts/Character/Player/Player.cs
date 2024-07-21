@@ -7,7 +7,10 @@ public class Player : BaseCharacter
     [SerializeField] private PlayerSkillManager skillManager;
     [SerializeField] private PlayerData playerData;
     [SerializeField] private InventoryHolder inventoryHolder;
+    [SerializeField] private Animator animator;
     protected List<SkillData> playerSkills = new List<SkillData>();
+    public float attackCooldown = 1f;
+    private float lastAttackTime;
 
     public PlayerSkillManager SkillManager => skillManager;
     public PlayerData PlayerData => playerData;
@@ -22,6 +25,23 @@ public class Player : BaseCharacter
         }
 
         inventoryHolder = GetComponent<InventoryHolder>();
+        EnsureComponents();
+
+        // Animator가 null인지 확인
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+            if (animator == null)
+            {
+                Debug.LogError($"{gameObject.name}에 Animator 컴포넌트가 없습니다.");
+            }
+        }
+    }
+
+    private void EnsureComponents()
+    {
+        EnsureComponent<Collider>(gameObject);
+        EnsureRigidbody(gameObject);
     }
 
     public virtual void Initialize(PlayerData playerData)
@@ -50,6 +70,7 @@ public class Player : BaseCharacter
     private void Update()
     {
         HandleSkillInput();
+        HandleAttackInput();
     }
 
     protected void HandleSkillInput()
@@ -61,6 +82,15 @@ public class Player : BaseCharacter
                 UseSkill(skill);
                 SkillManager.TriggerSkillCooldown(skill);
             }
+        }
+    }
+
+    protected void HandleAttackInput()
+    {
+        if (Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown)
+        {
+            PerformAttack();
+            lastAttackTime = Time.time;
         }
     }
 
@@ -111,6 +141,46 @@ public class Player : BaseCharacter
         else
         {
             Debug.Log("Inventory is full");
+        }
+    }
+
+    private void PerformAttack()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Enemy enemy = hit.collider.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                int damage = CalculateDamage();
+                enemy.TakeDamage(damage, DamageType.Physical);
+                Debug.Log($"{gameObject.name} attacked {enemy.gameObject.name} and dealt {damage} damage. Enemy health: {enemy.currentHealth}");
+
+                // 공격 애니메이션 트리거
+                if (animator != null)
+                {
+                    animator.SetTrigger("Attack");
+                }
+            }
+            else
+            {
+                Debug.Log($"{gameObject.name} missed the attack.");
+            }
+        }
+    }
+
+    public int CalculateDamage()
+    {
+        return (int)(playerData.PlayerStats.strength * 2) +
+               (int)(playerData.PlayerStats.dexterity * 1.5f) +
+               (int)(playerData.PlayerStats.intelligence * 1.2f);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            TakeDamage(other.GetComponent<Enemy>().attackDamage, DamageType.Physical);
         }
     }
 }

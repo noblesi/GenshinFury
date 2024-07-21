@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        OpenUI(UIType.LoginMenu);
     }
 
     public void OpenUI(UIType uiType)
