@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public enum ItemType
-{
-    Consumable,
-    Equipment,
-    Material
-}
+//public enum ItemType
+//{
+//    Consumable,
+//    Equipment,
+//    Material
+//}
 
 [CreateAssetMenu(menuName = "InventorySystem/Inventory Item")]
 public class InventoryItemData : ScriptableObject
