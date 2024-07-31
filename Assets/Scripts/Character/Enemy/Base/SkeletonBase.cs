@@ -1,20 +1,20 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class SkeletonBase : Enemy
 {
     protected Animator animator;
-
     private bool isAttacking;
+    [SerializeField] protected List<ItemDrop> itemDrops;
+    [SerializeField] private int experienceReward = 50;
 
     protected override void Start()
     {
         base.Start();
         animator = GetComponent<Animator>();
         EnsureComponents();
-
-        // 몬스터의 체력 설정
-        maxHealth = 50; // 기본 값
+        maxHealth = 50;
         currentHealth = maxHealth;
     }
 
@@ -68,20 +68,16 @@ public abstract class SkeletonBase : Enemy
 
     protected abstract void BasicAttack();
 
-    public override void TakeDamage(int damage, DamageType damageType)
+    public override void TakeDamage(int damage)
     {
-        base.TakeDamage(damage, damageType);
+        base.TakeDamage(damage);
         if (isAttacking)
         {
-            animator.ResetTrigger("BasicAttack"); // 공격 애니메이션 취소
+            animator.ResetTrigger("BasicAttack");
             isAttacking = false;
         }
         animator.SetTrigger("Hit");
 
-        // 디버그 메시지로 현재 체력 출력
-        Debug.Log($"{gameObject.name} took {damage} damage. Current health: {currentHealth}");
-
-        // 체력이 0 이하로 떨어지면 Die 메서드 호출
         if (currentHealth <= 0)
         {
             Die();
@@ -91,8 +87,38 @@ public abstract class SkeletonBase : Enemy
     protected override void Die()
     {
         Debug.Log("Enemy died.");
-        animator.SetTrigger("Die"); // 죽는 애니메이션 트리거
-        StartCoroutine(DestroyAfterDelay(2f)); // 2초 후 삭제
+        animator.SetTrigger("Die");
+        StartCoroutine(DestroyAfterDelay(2f));
+        DropItems();
+        if (Player.Instance != null)
+        {
+            Player.Instance.GainExperience(experienceReward);
+        }
+    }
+
+    private void DropItems()
+    {
+        foreach (ItemDrop itemDrop in itemDrops)
+        {
+            if (Random.value <= itemDrop.dropChance)
+            {
+                int amount = Random.Range(itemDrop.minAmount, itemDrop.maxAmount + 1);
+                for (int i = 0; i < amount; i++)
+                {
+                    Vector3 dropPosition = transform.position + new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+                    GameObject drop = Instantiate(itemDrop.item.itemPrefab, dropPosition, Quaternion.identity);
+
+                    Equipment equipment = itemDrop.item as Equipment;
+                    if (equipment != null)
+                    {
+                        equipment.AssignRandomStats();
+                    }
+
+                    drop.GetComponent<Loot>().item = itemDrop.item;
+                    drop.GetComponent<Loot>().amount = 1;
+                }
+            }
+        }
     }
 
     private IEnumerator DestroyAfterDelay(float delay)
@@ -123,7 +149,7 @@ public abstract class SkeletonBase : Enemy
     {
         if (other.CompareTag("Player"))
         {
-            TakeDamage(other.GetComponent<Player>().CalculateDamage(), DamageType.Physical);
+            TakeDamage(other.GetComponent<Player>().CalculateDamage());
         }
     }
 }

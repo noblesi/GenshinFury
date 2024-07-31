@@ -1,18 +1,21 @@
 using System;
 
 [Serializable]
-public class GameSlot 
+public class GameSlot
 {
-    public bool isEmpty = true;
-    public string playerName = "";
-    public int playerLevel = 0;
-    public DateTime savedTime;
+    public int slotID;
+    public Character character;
 
-    public GameSlot()
+    public GameSlot() { }
+
+    public GameSlot(int slotID)
     {
-        isEmpty = true;
-        savedTime = DateTime.MinValue;
-        playerName = string.Empty;
-        playerLevel = 1;
+        this.slotID = slotID;
+        this.character = null;
     }
+
+    public bool isEmpty => character == null;
+    public DateTime savedTime => character?.savedTime ?? DateTime.MinValue;
+    public string playerName => character?.name ?? "Unknown";
+    public int playerLevel => character?.level ?? 0;
 }

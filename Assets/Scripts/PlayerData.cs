@@ -1,9 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Player Data", menuName = "Player/Player Data")]
 public class PlayerData : ScriptableObject
 {
-    public PlayerStats PlayerStats;
-    public List<SkillLibrary> SkillLibrary;
+    public int maxHealth;
+    public int currentHealth;
+    public int maxMana;
+    public int currentMana;
+    public int strength;
+    public int dexterity;
+    public int intelligence;
 }

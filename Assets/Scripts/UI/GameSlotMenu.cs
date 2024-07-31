@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 public class GameSlotMenu : MonoBehaviour
 {
@@ -37,12 +38,19 @@ public class GameSlotMenu : MonoBehaviour
 
     private void InitializeGameSlots()
     {
-        gameSlots = new List<GameSlot>();
+        gameSlots = DataManager.Instance.LoadAllGameSlots();
 
         for (int i = 0; i < gameSlotButtons.Count; i++)
         {
-            gameSlots.Add(new GameSlot());
-            UpdateGameSlotUI(i);
+            if (i < gameSlots.Count)
+            {
+                UpdateGameSlotUI(i);
+            }
+            else
+            {
+                gameSlots.Add(new GameSlot(i));
+                UpdateGameSlotUI(i);
+            }
         }
 
         UpdateStartGameButtonState();
@@ -115,17 +123,22 @@ public class GameSlotMenu : MonoBehaviour
     {
         if (selectedSlotIndex != -1)
         {
+            GameSlot selectedSlot = gameSlots[selectedSlotIndex];
+            if (selectedSlot.isEmpty)
+            {
+                // 게임 데이터를 새로 생성
+                GameData newGameData = new GameData
+                {
+                    name = "New Player",
+                    level = 1,
+                    savedTime = DateTime.Now
+                };
+                DataManager.Instance.SaveGameData(selectedSlotIndex, newGameData);
+                selectedSlot.character = new Character(newGameData.name, newGameData.level, newGameData.savedTime);
+            }
             GameData gameData = DataManager.Instance.LoadGameData(selectedSlotIndex);
-            if (gameData == null)
-            {
-                UIManager.Instance.OpenUI(UIType.PlayerSettingsPopup);
-            }
-            else
-            {
-                Vector3 spawnPosition = new Vector3(0, 0, 0); // 스폰 위치 설정
-                Quaternion spawnRotation = Quaternion.identity; // 스폰 회전 설정
-                UIManager.Instance.StartGame(gameData, false, spawnPosition, spawnRotation);
-            }
+            DataManager.Instance.SetSelectedCharacter(selectedSlot.character);
+            UIManager.Instance.StartGame();
         }
     }
 

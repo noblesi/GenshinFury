@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,7 +8,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private bool isDead = false;
     [SerializeField] private ParticleSystem clickEffect;
-    [SerializeField] private Player playerSkills;
 
     private bool isAttacking = false;
 
@@ -18,7 +16,11 @@ public class PlayerController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         animator = GetComponent<Animator>();
-        playerSkills = GetComponent<Player>();
+
+        if (animator == null)
+        {
+            Debug.LogError($"{gameObject.name}에 Animator 컴포넌트가 없습니다.");
+        }
     }
 
     void Update()
@@ -29,17 +31,11 @@ public class PlayerController : MonoBehaviour
             UpdateAnimation();
             UpdateRotation();
             UpdateStopping();
-            //playerSkills.HandleSkillInput();
         }
     }
 
     void UpdateMouseInput()
     {
-        //if (EventSystem.current.IsPointerOverGameObject())
-        //{
-        //    return;
-        //}
-
         if (Input.GetMouseButtonDown(1))
         {
             HandleRightClick();

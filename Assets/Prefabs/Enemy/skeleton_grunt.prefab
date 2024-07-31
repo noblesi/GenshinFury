@@ -652,6 +652,11 @@ MonoBehaviour:
   attackRange: 2
   attackCooldown: 1.5
   attackDamage: 0
+  itemDrops:
+  - item: {fileID: 0}
+    minAmount: 0
+    maxAmount: 0
+    dropChance: 0
 --- !u!136 &3317260984690085007
 CapsuleCollider:
   m_ObjectHideFlags: 0

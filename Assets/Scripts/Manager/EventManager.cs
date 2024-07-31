@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    public static EventManager Instance { get; private set; }
+    public static EventManager Instance;
+
+    public event Action<string> OnLoginSuccess;
 
     private void Awake()
     {
@@ -17,8 +19,6 @@ public class EventManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    public event Action<string> OnLoginSuccess;
 
     public void LoginSuccess(string username)
     {

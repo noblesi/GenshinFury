@@ -4,18 +4,13 @@ using UnityEngine.SceneManagement;
 
 public enum UIType
 {
-    PlayerSettingsPopup,
     RegisterPopup,
     LoginMenu,
     MainMenu,
     GameSlotMenu,
     GameSettingsMenu,
-    DungeonInfoUI,
     PlayerHUD,
-    Minimap,
-    SkillWindow,
-    QuickSlotsManager,
-    InventoryPopup
+    Inventory
 }
 
 public class UIManager : MonoBehaviour
@@ -29,19 +24,30 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        OpenUI(UIType.LoginMenu);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("UIManager Instance set");
+            OpenUI(UIType.LoginMenu);
+        }
+        else
+        {
+            Destroy(gameObject);
+            Debug.Log("Duplicate UIManager instance destroyed");
+        }
     }
 
     public void OpenUI(UIType uiType)
     {
-        if (_openedUIDic.Contains(uiType) == false)
+        if (!_openedUIDic.Contains(uiType))
         {
             var uiObject = GetCreatedUI(uiType);
             if (uiObject != null)
             {
                 uiObject.SetActive(true);
                 _openedUIDic.Add(uiType);
+                Debug.Log($"Opened UI: {uiType}");
             }
         }
     }
@@ -53,12 +59,25 @@ public class UIManager : MonoBehaviour
             var uiObject = _createdUIDic[uiType];
             uiObject.SetActive(false);
             _openedUIDic.Remove(uiType);
+            Debug.Log($"Closed UI: {uiType}");
+        }
+    }
+
+    public void ToggleUI(UIType uiType)
+    {
+        if (_openedUIDic.Contains(uiType))
+        {
+            CloseUI(uiType);
+        }
+        else
+        {
+            OpenUI(uiType);
         }
     }
 
     public GameObject GetCreatedUI(UIType uiType)
     {
-        if (_createdUIDic.ContainsKey(uiType) == false)
+        if (!_createdUIDic.ContainsKey(uiType))
         {
             CreateUI(uiType);
         }
@@ -69,11 +88,16 @@ public class UIManager : MonoBehaviour
     private void CreateUI(UIType uiType)
     {
         string path = GetUIPath(uiType);
-        GameObject loadedObj = (GameObject)Resources.Load(path);
+        GameObject loadedObj = Resources.Load<GameObject>(path);
         GameObject gObj = Instantiate(loadedObj, UIRoot.transform);
         if (gObj != null)
         {
             _createdUIDic.Add(uiType, gObj);
+            Debug.Log($"Created UI: {uiType}");
+        }
+        else
+        {
+            Debug.LogError($"Failed to create UI: {uiType}");
         }
     }
 
@@ -82,9 +106,6 @@ public class UIManager : MonoBehaviour
         string path = string.Empty;
         switch (uiType)
         {
-            case UIType.PlayerSettingsPopup:
-                path = "Prefabs/UI/PlayerSettingsPopup";
-                break;
             case UIType.RegisterPopup:
                 path = "Prefabs/UI/RegisterPopup";
                 break;
@@ -100,32 +121,19 @@ public class UIManager : MonoBehaviour
             case UIType.GameSettingsMenu:
                 path = "Prefabs/UI/GameSettingsMenu";
                 break;
-            case UIType.DungeonInfoUI:
-                path = "Prefabs/UI/DungeonInfoUI";
-                break;
             case UIType.PlayerHUD:
                 path = "Prefabs/UI/PlayerHUD";
                 break;
-            case UIType.Minimap:
-                path = "Prefabs/UI/Minimap";
-                break;
-            case UIType.SkillWindow:
-                path = "Prefabs/UI/SkillWindow";
-                break;
-            case UIType.QuickSlotsManager:
-                path = "Prefabs/UI/QuickSlotsManager";
-                break;
-            case UIType.InventoryPopup:
-                path = "Prefabs/UI/InventoryPopup";
+            case UIType.Inventory:
+                path = "Prefabs/UI/Inventory";
                 break;
         }
         return path;
     }
 
-    public void StartGame(GameData gameData, bool isNewGame, Vector3 spawnPosition, Quaternion spawnRotation)
+    public void StartGame()
     {
-        GameManager.Instance.SetGameData(gameData, isNewGame);
-        GameManager.Instance.SetSpawnPoint(spawnPosition, spawnRotation);
+        CloseUI(UIType.GameSlotMenu); // ∞‘¿” ΩΩ∑‘ ∏ﬁ¥∫∏¶ ¥›¿Ω
         GameManager.Instance.StartGame();
     }
 }

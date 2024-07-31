@@ -1,33 +1,19 @@
 using Cinemachine;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public enum PlayerClass
-{
-    None, Warrior, Archer, Wizard
-}
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     [Header("===Player Settings===")]
-    [SerializeField] private GameObject warriorPrefab;
-    [SerializeField] private GameObject archerPrefab;
-    [SerializeField] private GameObject wizardPrefab;
+    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private CinemachineVirtualCamera virtualCameraPrefab;
-
-    [Header("===Player Data===")]
-    [SerializeField] private PlayerData warriorData;
-    [SerializeField] private PlayerData archerData;
-    [SerializeField] private PlayerData wizardData;
+    [SerializeField] private GameObject spawnPointPrefab; // SpawnPoint 프리팹 참조
 
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
-
-    private GameData currentGameData;
-    private bool isNewGame;
 
     public delegate void PlayerCreated(Player player);
     public event PlayerCreated OnPlayerCreated;
@@ -47,74 +33,84 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(LoadSceneAsync("GameScene"));
+        LoadScene("GameScene");
     }
 
-    private IEnumerator LoadSceneAsync(string sceneName)
+    private void LoadScene(string sceneName)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-        while (!asyncLoad.isDone)
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        StartCoroutine(WaitForSceneLoad(sceneName));
+    }
+
+    private IEnumerator WaitForSceneLoad(string sceneName)
+    {
+        while (SceneManager.GetActiveScene().name != sceneName)
         {
             yield return null;
         }
-        yield return new WaitForEndOfFrame(); // UI 설정 전에 약간의 지연을 추가
+
+        InstantiateSpawnPoint();
         InstantiatePlayer();
+    }
+
+    private void InstantiateSpawnPoint()
+    {
+        if (spawnPointPrefab != null)
+        {
+            GameObject spawnPointObject = Instantiate(spawnPointPrefab);
+            spawnPosition = spawnPointObject.transform.position;
+            spawnRotation = spawnPointObject.transform.rotation;
+        }
+        else
+        {
+            Debug.LogError("SpawnPoint prefab is not set in GameManager.");
+        }
     }
 
     private void InstantiatePlayer()
     {
-        GameObject playerPrefab = null;
-        PlayerData playerData = null;
+        Character selectedCharacter = DataManager.Instance.GetSelectedCharacter();
 
-        switch (currentGameData.playerClass)
+        if (playerPrefab == null)
         {
-            case PlayerClass.Warrior:
-                playerPrefab = warriorPrefab;
-                playerData = warriorData;
-                break;
-            case PlayerClass.Archer:
-                playerPrefab = archerPrefab;
-                playerData = archerData;
-                break;
-            case PlayerClass.Wizard:
-                playerPrefab = wizardPrefab;
-                playerData = wizardData;
-                break;
-            default:
-                Debug.LogError("Invalid player class.");
-                return;
+            Debug.LogError("Player prefab is not set in GameManager.");
+            return;
         }
 
-        if (playerPrefab != null)
+        if (selectedCharacter == null)
         {
-            GameObject playerObject = Instantiate(playerPrefab, spawnPosition, spawnRotation);
-            Player player = playerObject.GetComponent<Player>();
+            Debug.LogError("Selected character is not set in GameManager.");
+            return;
+        }
 
-            if (player != null && playerData != null)
-            {
-                player.Initialize(playerData);
+        Debug.Log("Instantiating player...");
 
-                CinemachineVirtualCamera virtualCamera = Instantiate(virtualCameraPrefab);
-                virtualCamera.Follow = playerObject.transform;
+        GameObject playerObject = Instantiate(playerPrefab, spawnPosition, spawnRotation);
+        Player player = playerObject.GetComponent<Player>();
 
-                OnPlayerCreated?.Invoke(player);
-            }
+        if (player != null)
+        {
+            Debug.Log("Player component found, initializing player...");
+
+            PlayerData playerData = ScriptableObject.CreateInstance<PlayerData>();
+            playerData.maxHealth = selectedCharacter.level * 10;  // 임의로 예제 값 설정
+            playerData.currentHealth = selectedCharacter.level * 10;
+            playerData.maxMana = selectedCharacter.level * 5;  // 임의로 예제 값 설정
+            playerData.currentMana = selectedCharacter.level * 5;
+            playerData.strength = selectedCharacter.level;  // 임의로 예제 값 설정
+            playerData.dexterity = selectedCharacter.level;  // 임의로 예제 값 설정
+            playerData.intelligence = selectedCharacter.level;  // 임의로 예제 값 설정
+
+            player.Initialize(playerData);
+
+            CinemachineVirtualCamera virtualCamera = Instantiate(virtualCameraPrefab);
+            virtualCamera.Follow = playerObject.transform;
+
+            OnPlayerCreated?.Invoke(player);
         }
         else
         {
-            Debug.LogError("Player prefab not set in GameManager.");
+            Debug.LogError("Player component not found on instantiated player prefab.");
         }
-    }
-
-    public void SetGameData(GameData gameData, bool isNewGame)
-    {
-        currentGameData = gameData;
-        this.isNewGame = isNewGame;
-    }
-
-    public void SetSpawnPoint(Vector3 position, Quaternion rotation)
-    {
-        spawnPosition = position;
-        spawnRotation = rotation;
     }
 }

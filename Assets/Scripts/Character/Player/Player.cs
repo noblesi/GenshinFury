@@ -1,33 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : BaseCharacter
 {
-    [SerializeField] private PlayerSkillManager skillManager;
+    public static Player Instance { get; private set; }
+
     [SerializeField] private PlayerData playerData;
-    [SerializeField] private InventoryHolder inventoryHolder;
     [SerializeField] private Animator animator;
-    protected List<SkillData> playerSkills = new List<SkillData>();
     public float attackCooldown = 1f;
     private float lastAttackTime;
 
-    public PlayerSkillManager SkillManager => skillManager;
     public PlayerData PlayerData => playerData;
+
+    private int experience;
+    private int level = 1;
+    private int experienceToNextLevel = 100;
+
+    public event System.Action<int> OnExperienceChanged;
+    public event System.Action<int> OnLevelChanged;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     protected override void Start()
     {
         base.Start();
-
-        if (skillManager == null)
-        {
-            skillManager = gameObject.AddComponent<PlayerSkillManager>();
-        }
-
-        inventoryHolder = GetComponent<InventoryHolder>();
         EnsureComponents();
-
-        // Animator가 null인지 확인
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -47,96 +54,50 @@ public class Player : BaseCharacter
     public virtual void Initialize(PlayerData playerData)
     {
         this.playerData = playerData;
-        maxHealth = playerData.PlayerStats.maxHealth;
-        currentHealth = playerData.PlayerStats.maxHealth;
-        maxMana = playerData.PlayerStats.maxMana;
-        currentMana = playerData.PlayerStats.maxMana;
-
-        skillManager.SetPlayerStats(playerData.PlayerStats);
-        playerSkills = LoadSkillsFromLibraries(playerData.SkillLibrary);
-        skillManager.SetSkills(playerSkills);
-    }
-
-    protected List<SkillData> LoadSkillsFromLibraries(List<SkillLibrary> skillLibraries)
-    {
-        List<SkillData> skills = new List<SkillData>();
-        foreach (var library in skillLibraries)
-        {
-            skills.AddRange(library.PlayerSkillLibrary);
-        }
-        return skills;
+        maxHealth = playerData.maxHealth;
+        currentHealth = playerData.maxHealth;
+        maxMana = playerData.maxMana;
+        currentMana = playerData.maxMana;
     }
 
     private void Update()
     {
-        HandleSkillInput();
-        HandleAttackInput();
+        HandleInventoryInput();
     }
 
-    protected void HandleSkillInput()
+    protected void HandleInventoryInput()
     {
-        foreach (var skill in playerSkills)
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            if (Input.GetKeyDown(skill.Key) && SkillManager.GetSkillCooldown(skill.Key) <= 0)
-            {
-                UseSkill(skill);
-                SkillManager.TriggerSkillCooldown(skill);
-            }
+            UIManager.Instance.ToggleUI(UIType.Inventory);
         }
     }
 
-    protected void HandleAttackInput()
+    public int CalculateDamage()
     {
-        if (Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown)
+        return (int)(playerData.strength * 2) +
+               (int)(playerData.dexterity * 1.5f) +
+               (int)(playerData.intelligence * 1.2f);
+    }
+
+    public void Heal(int amount)
+    {
+        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+        Debug.Log($"{gameObject.name} healed for {amount}. Current health: {currentHealth}");
+    }
+
+    public void RestoreMana(int amount)
+    {
+        currentMana = Mathf.Min(maxMana, currentMana + amount);
+        Debug.Log($"{gameObject.name} restored {amount} mana. Current mana: {currentMana}");
+    }
+
+    public void PickUpItem(Item item, int amount)
+    {
+        bool added = Inventory.Instance.AddItem(item, amount);
+        if (added)
         {
-            PerformAttack();
-            lastAttackTime = Time.time;
-        }
-    }
-
-    public void UseSkill(SkillData skill)
-    {
-        if (skillManager.IsSkillUnlocked(skill) && currentMana >= skill.GetManaCost())
-        {
-            ChangeMana(currentMana - skill.GetManaCost());
-            Debug.Log($"{gameObject.name} used skill: {skill.SkillName}");
-        }
-    }
-
-    public void SkillLevelUp(SkillData skill)
-    {
-        skill.SkillLevelUp();
-    }
-
-    protected override void Die()
-    {
-        Debug.Log($"{gameObject.name} has died.");
-    }
-
-    public void ApplyBuff(ConsumableItemData consumableItem)
-    {
-        StartCoroutine(ApplyBuffCoroutine(consumableItem));
-    }
-
-    protected IEnumerator ApplyBuffCoroutine(ConsumableItemData consumableItem)
-    {
-        int originalStrength = playerData.PlayerStats.strength;
-        int originalDexterity = playerData.PlayerStats.dexterity;
-
-        playerData.PlayerStats.strength += (int)(originalStrength * 0.2f);
-        playerData.PlayerStats.dexterity += (int)(originalDexterity * 0.2f);
-
-        yield return new WaitForSeconds(consumableItem.buffDuration);
-
-        playerData.PlayerStats.strength = originalStrength;
-        playerData.PlayerStats.dexterity = originalDexterity;
-    }
-
-    public void PickUpItem(InventoryItemData itemData, int amount)
-    {
-        if (inventoryHolder.InventorySystem.AddToInventory(itemData, amount))
-        {
-            Debug.Log($"Picked up {amount} of {itemData.name}");
+            Debug.Log($"Picked up {amount} of {item.itemName}");
         }
         else
         {
@@ -144,43 +105,38 @@ public class Player : BaseCharacter
         }
     }
 
-    private void PerformAttack()
+    public void GainExperience(int amount)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        experience += amount;
+        OnExperienceChanged?.Invoke(experience);
+        while (experience >= experienceToNextLevel)
         {
-            Enemy enemy = hit.collider.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                int damage = CalculateDamage();
-                enemy.TakeDamage(damage, DamageType.Physical);
-                Debug.Log($"{gameObject.name} attacked {enemy.gameObject.name} and dealt {damage} damage. Enemy health: {enemy.currentHealth}");
-
-                // 공격 애니메이션 트리거
-                if (animator != null)
-                {
-                    animator.SetTrigger("Attack");
-                }
-            }
-            else
-            {
-                Debug.Log($"{gameObject.name} missed the attack.");
-            }
+            LevelUp();
         }
     }
 
-    public int CalculateDamage()
+    private void LevelUp()
     {
-        return (int)(playerData.PlayerStats.strength * 2) +
-               (int)(playerData.PlayerStats.dexterity * 1.5f) +
-               (int)(playerData.PlayerStats.intelligence * 1.2f);
+        experience -= experienceToNextLevel;
+        level++;
+        experienceToNextLevel = Mathf.FloorToInt(experienceToNextLevel * 1.5f);
+        playerData.strength += 5;
+        playerData.dexterity += 5;
+        playerData.intelligence += 5;
+        OnLevelChanged?.Invoke(level);
+        Debug.Log($"Leveled up to level {level}!");
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            TakeDamage(other.GetComponent<Enemy>().attackDamage, DamageType.Physical);
+            TakeDamage(other.GetComponent<Enemy>().attackDamage);
         }
+    }
+
+    protected override void Die()
+    {
+        Debug.Log($"{gameObject.name} has died.");
     }
 }
