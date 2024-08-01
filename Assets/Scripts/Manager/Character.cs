@@ -4,7 +4,6 @@ using UnityEngine;
 [Serializable]
 public class Character
 {
-    public string characterName;
     public string name;  // name 필드 추가
     public int level;
     public SerializableVector3 position;
@@ -14,11 +13,10 @@ public class Character
 
     public Character(string characterName, int level, DateTime savedTime)
     {
-        this.characterName = characterName;
-        this.name = characterName;  // 기본적으로 characterName을 name 필드에 할당
+        name = characterName;  // 기본적으로 characterName을 name 필드에 할당
         this.level = level;
         this.savedTime = savedTime;
-        this.position = new SerializableVector3(Vector3.zero);  // 기본 위치 설정
+        position = new SerializableVector3(Vector3.zero);  // 기본 위치 설정
     }
 }
 

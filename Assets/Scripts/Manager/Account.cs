@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [Serializable]
 public class Account
@@ -8,15 +9,12 @@ public class Account
     public string password;
     public List<GameSlot> gameSlots;
 
-    public Account()
-    {
-        gameSlots = new List<GameSlot>();
-    }
+    public Account() { }
 
     public Account(string username, string password)
     {
         this.username = username;
         this.password = password;
-        gameSlots = new List<GameSlot>();
+        this.gameSlots = new List<GameSlot>();
     }
 }

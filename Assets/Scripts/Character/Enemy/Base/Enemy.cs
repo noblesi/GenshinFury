@@ -76,6 +76,19 @@ public abstract class Enemy : BaseCharacter
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Weapon"))
+        {
+            Player player = other.GetComponentInParent<Player>();
+            if (player != null && player.IsAttacking())
+            {
+                TakeDamage(player.CalculateDamage());
+                Debug.Log($"{gameObject.name} was hit by {player.name}");
+            }
+        }
+    }
+
     protected override void Die()
     {
         Debug.Log("Enemy died.");

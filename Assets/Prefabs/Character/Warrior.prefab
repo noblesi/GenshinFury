@@ -1338,7 +1338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8049921811203205066}
   - component: {fileID: 6527278986697078494}
-  - component: {fileID: 3188662429983780699}
+  - component: {fileID: 5141332322919282782}
   - component: {fileID: 6147441701681865877}
   - component: {fileID: 1160417896629536211}
   - component: {fileID: 3535976837094802760}
@@ -1391,7 +1391,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3188662429983780699
+--- !u!114 &5141332322919282782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1400,11 +1400,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4640428992605068208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c5d77499fbb7a14c9c4b137ce910118, type: 3}
+  m_Script: {fileID: 11500000, guid: b351c6dec785ff441af1754c4c806476, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Warrior, Assembly-CSharp
-  playerData: {fileID: 11400000, guid: b2300fd75f3647646b78f887d17fcefc, type: 2}
+  m_EditorClassIdentifier: Player, Assembly-CSharp
+  playerData: {fileID: 0}
   animator: {fileID: 6527278986697078494}
+  weaponCollider: {fileID: 4766503244835893492}
   attackCooldown: 1
 --- !u!114 &6147441701681865877
 MonoBehaviour:
@@ -1435,7 +1436,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 1080
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -1466,8 +1467,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -1872,9 +1873,11 @@ GameObject:
   - component: {fileID: 6777687013676354559}
   - component: {fileID: 4924943550542697960}
   - component: {fileID: 8298433569190814260}
+  - component: {fileID: 4766503244835893492}
+  - component: {fileID: 3206586208579597627}
   m_Layer: 0
   m_Name: Mesh_Warrior_WeaponSword
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1944,6 +1947,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4766503244835893492
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5651274836938714606}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 465406052684739010, guid: d4375c5f35e02f34caed8a6832e302b7, type: 3}
+--- !u!114 &3206586208579597627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5651274836938714606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d80fe5eca540f44ae06418553003f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Weapon, Assembly-CSharp
 --- !u!1 &5665827406992449619
 GameObject:
   m_ObjectHideFlags: 0

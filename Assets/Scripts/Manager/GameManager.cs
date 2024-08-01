@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("===Player Settings===")]
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private CinemachineVirtualCamera virtualCameraPrefab;
-    [SerializeField] private GameObject spawnPointPrefab; // SpawnPoint 프리팹 참조
+    [SerializeField] private GameObject spawnPointPrefab;
 
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
@@ -93,13 +93,14 @@ public class GameManager : MonoBehaviour
             Debug.Log("Player component found, initializing player...");
 
             PlayerData playerData = ScriptableObject.CreateInstance<PlayerData>();
-            playerData.maxHealth = selectedCharacter.level * 10;  // 임의로 예제 값 설정
-            playerData.currentHealth = selectedCharacter.level * 10;
-            playerData.maxMana = selectedCharacter.level * 5;  // 임의로 예제 값 설정
-            playerData.currentMana = selectedCharacter.level * 5;
-            playerData.strength = selectedCharacter.level;  // 임의로 예제 값 설정
-            playerData.dexterity = selectedCharacter.level;  // 임의로 예제 값 설정
-            playerData.intelligence = selectedCharacter.level;  // 임의로 예제 값 설정
+            playerData.level = selectedCharacter.level;
+            playerData.strength = selectedCharacter.level * 10;
+            playerData.dexterity = selectedCharacter.level * 10;
+            playerData.intelligence = selectedCharacter.level * 10;
+            playerData.maxHealth = CalculateMaxHealth(playerData);
+            playerData.currentHealth = playerData.maxHealth;
+            playerData.maxMana = CalculateMaxMana(playerData);
+            playerData.currentMana = playerData.maxMana;
 
             player.Initialize(playerData);
 
@@ -112,5 +113,15 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Player component not found on instantiated player prefab.");
         }
+    }
+
+    private int CalculateMaxHealth(PlayerData playerData)
+    {
+        return 100 + (playerData.strength * 2) + (int)(playerData.dexterity * 1.5f) + (playerData.level * 10);
+    }
+
+    private int CalculateMaxMana(PlayerData playerData)
+    {
+        return 50 + (playerData.intelligence * 2) + (playerData.level * 5);
     }
 }

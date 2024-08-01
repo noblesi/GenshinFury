@@ -8,6 +8,7 @@ public abstract class BaseCharacter : MonoBehaviour, IDamageable
     public int maxMana { get; protected set; }
     public int currentMana { get; protected set; }
     protected NavMeshAgent agent;
+    protected bool isDead = false;
 
     public event System.Action OnHealthChanged;
     public event System.Action OnManaChanged;
@@ -15,17 +16,19 @@ public abstract class BaseCharacter : MonoBehaviour, IDamageable
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        EnsureComponent<Collider>(gameObject);
+        EnsureRigidbody(gameObject);
     }
 
     protected virtual void Start()
     {
         currentHealth = maxHealth;
-        EnsureComponent<Collider>(gameObject);
-        EnsureRigidbody(gameObject);
     }
 
     public virtual void TakeDamage(int damage)
     {
+        if (isDead) return;
+
         currentHealth -= damage;
         OnHealthChanged?.Invoke();
 
@@ -67,5 +70,10 @@ public abstract class BaseCharacter : MonoBehaviour, IDamageable
         }
     }
 
-    protected abstract void Die();
+    protected virtual void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+        Debug.Log($"{gameObject.name} has died.");
+    }
 }

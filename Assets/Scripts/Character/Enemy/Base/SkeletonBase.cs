@@ -13,15 +13,8 @@ public abstract class SkeletonBase : Enemy
     {
         base.Start();
         animator = GetComponent<Animator>();
-        EnsureComponents();
         maxHealth = 50;
         currentHealth = maxHealth;
-    }
-
-    private void EnsureComponents()
-    {
-        EnsureComponent<Collider>(gameObject);
-        EnsureRigidbody(gameObject);
     }
 
     protected override void Update()
@@ -70,6 +63,8 @@ public abstract class SkeletonBase : Enemy
 
     public override void TakeDamage(int damage)
     {
+        if (isDead) return;
+
         base.TakeDamage(damage);
         if (isAttacking)
         {
@@ -86,10 +81,31 @@ public abstract class SkeletonBase : Enemy
 
     protected override void Die()
     {
+        if (isDead) return;
+
+        isDead = true;
         Debug.Log("Enemy died.");
+
+        Collider[] colliders = GetComponents<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = false;
+        }
+
+        if (agent != null)
+        {
+            agent.enabled = false;
+        }
+
         animator.SetTrigger("Die");
-        StartCoroutine(DestroyAfterDelay(2f));
+
         DropItems();
+
+        // 전투 종료 이벤트 호출
+        EventManager.Instance.BattleEnded();
+
+        StartCoroutine(DestroyAfterDelay(2f));
+
         if (Player.Instance != null)
         {
             Player.Instance.GainExperience(experienceReward);
@@ -98,26 +114,16 @@ public abstract class SkeletonBase : Enemy
 
     private void DropItems()
     {
+        LootManager lootManager = FindObjectOfType<LootManager>();
+        if (lootManager == null)
+        {
+            Debug.LogError("LootManager not found in the scene.");
+            return;
+        }
+
         foreach (ItemDrop itemDrop in itemDrops)
         {
-            if (Random.value <= itemDrop.dropChance)
-            {
-                int amount = Random.Range(itemDrop.minAmount, itemDrop.maxAmount + 1);
-                for (int i = 0; i < amount; i++)
-                {
-                    Vector3 dropPosition = transform.position + new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-                    GameObject drop = Instantiate(itemDrop.item.itemPrefab, dropPosition, Quaternion.identity);
-
-                    Equipment equipment = itemDrop.item as Equipment;
-                    if (equipment != null)
-                    {
-                        equipment.AssignRandomStats();
-                    }
-
-                    drop.GetComponent<Loot>().item = itemDrop.item;
-                    drop.GetComponent<Loot>().amount = 1;
-                }
-            }
+            lootManager.DropItem(transform.position, itemDrop);
         }
     }
 
@@ -149,7 +155,19 @@ public abstract class SkeletonBase : Enemy
     {
         if (other.CompareTag("Player"))
         {
-            TakeDamage(other.GetComponent<Player>().CalculateDamage());
+            Debug.Log($"{gameObject.name} collided with Player.");
+            Player playerComponent = other.GetComponent<Player>();
+            if (playerComponent != null && playerComponent.IsAttacking())
+            {
+                Debug.Log($"{gameObject.name} was hit by Player's attack.");
+                int damage = playerComponent.CalculateDamage();
+                Debug.Log($"Player deals {damage} damage to {gameObject.name}.");
+                TakeDamage(damage);
+            }
+            else
+            {
+                Debug.Log($"{gameObject.name} was collided with Player, but Player is not attacking.");
+            }
         }
     }
 }

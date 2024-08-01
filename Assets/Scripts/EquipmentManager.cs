@@ -13,6 +13,7 @@ public class EquipmentManager : MonoBehaviour
             Instance = this;
             int numSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
             currentEquipment = new Equipment[numSlots];
+            DontDestroyOnLoad(gameObject);  // 싱글톤 인스턴스 유지
         }
         else
         {
@@ -28,7 +29,7 @@ public class EquipmentManager : MonoBehaviour
         if (currentEquipment[slotIndex] != null)
         {
             oldItem = currentEquipment[slotIndex];
-            Inventory.Instance.AddItem(oldItem); // 기존 아이템을 인벤토리에 추가
+            Inventory.Instance.AddItem(oldItem, 1); // 'amount' 매개 변수를 추가
         }
 
         currentEquipment[slotIndex] = newItem;

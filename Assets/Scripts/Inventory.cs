@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,14 +6,17 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory Instance;
 
-    public int inventorySize = 20; // 인벤토리 슬롯 개수
+    public int inventorySize = 20;
     public List<InventorySlot> slots = new List<InventorySlot>();
+
+    public event Action OnInventoryChanged;  // UI 업데이트를 위한 이벤트
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);  // 싱글톤 인스턴스 유지
             InitializeSlots();
         }
         else
@@ -30,14 +34,15 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool AddItem(Item item, int amount = 1)
+    public void AddItem(Item item, int amount)
     {
         foreach (var slot in slots)
         {
             if (slot.item == item && slot.amount < item.maxStackSize)
             {
                 slot.amount += amount;
-                return true;
+                OnInventoryChanged?.Invoke();  // 아이템 추가 시 UI 업데이트 트리거
+                return;
             }
         }
 
@@ -47,12 +52,12 @@ public class Inventory : MonoBehaviour
             {
                 slot.item = item;
                 slot.amount = amount;
-                return true;
+                OnInventoryChanged?.Invoke();  // 아이템 추가 시 UI 업데이트 트리거
+                return;
             }
         }
 
         Debug.Log("Inventory is full");
-        return false;
     }
 
     public bool RemoveItem(Item item, int amount = 1)
@@ -67,6 +72,7 @@ public class Inventory : MonoBehaviour
                     slot.item = null;
                     slot.amount = 0;
                 }
+                OnInventoryChanged?.Invoke();  // 아이템 제거 시 UI 업데이트 트리거
                 return true;
             }
         }
@@ -74,11 +80,4 @@ public class Inventory : MonoBehaviour
         Debug.Log("Item not found in inventory");
         return false;
     }
-}
-
-[System.Serializable]
-public class InventorySlot
-{
-    public Item item;
-    public int amount;
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Loot : MonoBehaviour
+public class ItemCollector : MonoBehaviour
 {
     public Item item;
     public int amount = 1;
@@ -11,7 +11,7 @@ public class Loot : MonoBehaviour
         if (player != null)
         {
             player.PickUpItem(item, amount);
-            Destroy(gameObject);
+            Destroy(gameObject); // 아이템 획득 후 오브젝트 제거
         }
     }
 }

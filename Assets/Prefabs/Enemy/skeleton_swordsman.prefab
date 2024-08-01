@@ -1105,7 +1105,7 @@ GameObject:
   - component: {fileID: 436594519107582867}
   m_Layer: 0
   m_Name: skeleton_swordsman
-  m_TagString: Character
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1166,6 +1166,8 @@ MonoBehaviour:
   attackRange: 3
   attackCooldown: 1.5
   attackDamage: 0
+  itemDrops: []
+  experienceReward: 50
 --- !u!136 &6388341047406693559
 CapsuleCollider:
   m_ObjectHideFlags: 0

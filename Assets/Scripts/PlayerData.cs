@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Player Data", menuName = "Player/Player Data")]
 public class PlayerData : ScriptableObject
 {
+    public int level;
     public int maxHealth;
     public int currentHealth;
     public int maxMana;
