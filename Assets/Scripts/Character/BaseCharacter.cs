@@ -76,4 +76,20 @@ public abstract class BaseCharacter : MonoBehaviour, IDamageable
         isDead = true;
         Debug.Log($"{gameObject.name} has died.");
     }
+
+    protected void PlayAnimation(Animator animator, string triggerName)
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger(triggerName);
+        }
+    }
+
+    protected void ResetAnimationTrigger(Animator animator, string triggerName)
+    {
+        if (animator != null)
+        {
+            animator.ResetTrigger(triggerName);
+        }
+    }
 }

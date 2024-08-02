@@ -9,6 +9,11 @@ TagManager:
   - Canvas
   - Weapon
   - Loot
+  - Tooltip
+  - EquipmentSystem
+  - Slots
+  - Slot
+  - DraggingItem
   layers:
   - Default
   - TransparentFX
@@ -17,7 +22,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - Item
   - 
   - 
   - 

@@ -9,11 +9,13 @@ public abstract class Enemy : BaseCharacter
     protected float lastAttackTime;
     protected Transform player;
     protected MonsterState currentState;
+    protected Animator animator;
 
     protected override void Start()
     {
         base.Start();
         GameManager.Instance.OnPlayerCreated += OnPlayerCreated;
+        animator = GetComponent<Animator>();
         currentState = MonsterState.Patrol;
     }
 
@@ -91,7 +93,8 @@ public abstract class Enemy : BaseCharacter
 
     protected override void Die()
     {
-        Debug.Log("Enemy died.");
+        base.Die();
+        PlayAnimation(animator, "Die");
         Destroy(gameObject);
     }
 

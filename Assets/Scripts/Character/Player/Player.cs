@@ -91,7 +91,7 @@ public class Player : BaseCharacter
         if (Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown && !isAttacking)
         {
             Debug.Log("Player attacks.");
-            animator.SetTrigger("Attack");
+            PlayAnimation(animator, "Attack");
             lastAttackTime = Time.time;
             StartAttack();
         }
@@ -139,17 +139,12 @@ public class Player : BaseCharacter
 
     private void OnTriggerEnter(Collider other)
     {
-        // Loot를 ItemCollector로 대체하여 아이템 획득
-        if (other.CompareTag("Loot"))
-        {
-            ItemCollector loot = other.GetComponent<ItemCollector>();
-            if (loot != null)
-            {
-                PickUpItem(loot.item, loot.amount);
-                Destroy(other.gameObject);  // 아이템 획득 후 오브젝트 제거
-            }
-        }
-        else if (other.CompareTag("Enemy") && isAttacking && !hasDealtDamage)
+        HandleCollision(other);
+    }
+
+    private void HandleCollision(Collider other)
+    {
+        if (other.CompareTag("Enemy") && isAttacking && !hasDealtDamage)
         {
             int damage = CalculateDamage();
             other.GetComponent<IDamageable>().TakeDamage(damage);
@@ -157,22 +152,15 @@ public class Player : BaseCharacter
         }
     }
 
-    public void PickUpItem(Item item, int amount)
-    {
-        // Inventory의 AddItem이 void를 반환한다고 가정하고 수정
-        Inventory.Instance.AddItem(item, amount);
-        Debug.Log($"Picked up {amount} of {item.itemName}");
-    }
-
     public void Heal(int amount)
     {
-        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+        ChangeHealth(Mathf.Min(maxHealth, currentHealth + amount));
         Debug.Log($"{gameObject.name} healed for {amount}. Current health: {currentHealth}");
     }
 
     public void RestoreMana(int amount)
     {
-        currentMana = Mathf.Min(maxMana, currentMana + amount);
+        ChangeMana(Mathf.Min(maxMana, currentMana + amount));
         Debug.Log($"{gameObject.name} restored {amount} mana. Current mana: {currentMana}");
     }
 
@@ -221,6 +209,7 @@ public class Player : BaseCharacter
 
     protected override void Die()
     {
-        Debug.Log($"{gameObject.name} has died.");
+        base.Die();
+        PlayAnimation(animator, "Die");
     }
 }

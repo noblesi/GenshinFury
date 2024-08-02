@@ -1343,7 +1343,8 @@ GameObject:
   - component: {fileID: 1160417896629536211}
   - component: {fileID: 3535976837094802760}
   - component: {fileID: 2944022428932533912}
-  - component: {fileID: 7826117388651887708}
+  - component: {fileID: 556669606923620332}
+  - component: {fileID: -8272156022101319565}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Player
@@ -1495,7 +1496,7 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.85, z: 0}
---- !u!114 &7826117388651887708
+--- !u!114 &556669606923620332
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1504,51 +1505,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 4640428992605068208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4d196118992cea459eb86020e36020d, type: 3}
+  m_Script: {fileID: 11500000, guid: d845ede97d05e554ab2c46dd9f59f00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Inventory, Assembly-CSharp
-  inventorySize: 20
-  slots:
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
+--- !u!114 &-8272156022101319565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640428992605068208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa44f04abc714d349aff0a89c1f26e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PlayerInteraction, Assembly-CSharp
+  interactionRange: 2
+  itemLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  interactKey: 102
+  interactionText: {fileID: 4534406027848902189, guid: 8ba4a748477a2064e8cb580a0417801a, type: 3}
 --- !u!1 &4661434468767517180
 GameObject:
   m_ObjectHideFlags: 0

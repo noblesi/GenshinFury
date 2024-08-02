@@ -4,15 +4,12 @@ using UnityEngine;
 
 public abstract class SkeletonBase : Enemy
 {
-    protected Animator animator;
-    private bool isAttacking;
-    [SerializeField] protected List<ItemDrop> itemDrops;
     [SerializeField] private int experienceReward = 50;
+    private bool isAttacking;
 
     protected override void Start()
     {
         base.Start();
-        animator = GetComponent<Animator>();
         maxHealth = 50;
         currentHealth = maxHealth;
     }
@@ -20,33 +17,19 @@ public abstract class SkeletonBase : Enemy
     protected override void Update()
     {
         base.Update();
-        if (animator != null)
+        UpdateAnimationState();
+        if (player != null)
         {
-            UpdateAnimationState();
-            if (player != null)
-            {
-                CheckAttackRange();
-            }
+            CheckAttackRange();
         }
     }
 
     protected virtual void UpdateAnimationState()
     {
-        switch (currentState)
-        {
-            case MonsterState.Patrol:
-                animator.SetBool("isChasing", false);
-                animator.SetBool("isAttacking", false);
-                break;
-            case MonsterState.Chase:
-                animator.SetBool("isChasing", true);
-                animator.SetBool("isAttacking", false);
-                break;
-            case MonsterState.Attack:
-                animator.SetBool("isChasing", false);
-                animator.SetBool("isAttacking", true);
-                break;
-        }
+        if (animator == null) return;
+
+        animator.SetBool("isChasing", currentState == MonsterState.Chase);
+        animator.SetBool("isAttacking", currentState == MonsterState.Attack);
     }
 
     protected override void PerformAttack()
@@ -63,29 +46,18 @@ public abstract class SkeletonBase : Enemy
 
     public override void TakeDamage(int damage)
     {
-        if (isDead) return;
-
         base.TakeDamage(damage);
         if (isAttacking)
         {
-            animator.ResetTrigger("BasicAttack");
+            ResetAnimationTrigger(animator, "BasicAttack");
             isAttacking = false;
         }
-        animator.SetTrigger("Hit");
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        PlayAnimation(animator, "Hit");
     }
 
     protected override void Die()
     {
-        if (isDead) return;
-
-        isDead = true;
-        Debug.Log("Enemy died.");
-
+        base.Die();
         Collider[] colliders = GetComponents<Collider>();
         foreach (Collider collider in colliders)
         {
@@ -97,11 +69,6 @@ public abstract class SkeletonBase : Enemy
             agent.enabled = false;
         }
 
-        animator.SetTrigger("Die");
-
-        DropItems();
-
-        // 전투 종료 이벤트 호출
         EventManager.Instance.BattleEnded();
 
         StartCoroutine(DestroyAfterDelay(2f));
@@ -109,21 +76,6 @@ public abstract class SkeletonBase : Enemy
         if (Player.Instance != null)
         {
             Player.Instance.GainExperience(experienceReward);
-        }
-    }
-
-    private void DropItems()
-    {
-        LootManager lootManager = FindObjectOfType<LootManager>();
-        if (lootManager == null)
-        {
-            Debug.LogError("LootManager not found in the scene.");
-            return;
-        }
-
-        foreach (ItemDrop itemDrop in itemDrops)
-        {
-            lootManager.DropItem(transform.position, itemDrop);
         }
     }
 
@@ -155,18 +107,11 @@ public abstract class SkeletonBase : Enemy
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log($"{gameObject.name} collided with Player.");
             Player playerComponent = other.GetComponent<Player>();
             if (playerComponent != null && playerComponent.IsAttacking())
             {
-                Debug.Log($"{gameObject.name} was hit by Player's attack.");
                 int damage = playerComponent.CalculateDamage();
-                Debug.Log($"Player deals {damage} damage to {gameObject.name}.");
                 TakeDamage(damage);
-            }
-            else
-            {
-                Debug.Log($"{gameObject.name} was collided with Player, but Player is not attacking.");
             }
         }
     }

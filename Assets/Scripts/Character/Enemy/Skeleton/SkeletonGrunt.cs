@@ -12,44 +12,11 @@ public class SkeletonGrunt : SkeletonBase
         attackCooldown = 1.5f;
         maxHealth = 50;
         currentHealth = maxHealth;
-
-        itemDrops = new List<ItemDrop>
-        {
-            new ItemDrop
-            {
-                item = Resources.Load<Item>("Items/HealthPotion"),
-                minAmount = 1,
-                maxAmount = 3,
-                dropChance = 0.5f
-            },
-            new ItemDrop
-            {
-                item = Resources.Load<Item>("Items/Sword"),
-                minAmount = 1,
-                maxAmount = 1,
-                dropChance = 0.2f
-            },
-            new ItemDrop
-            {
-                item = Resources.Load<Item>("Items/Helmet"),
-                minAmount = 1,
-                maxAmount = 1,
-                dropChance = 0.15f
-            },
-            new ItemDrop
-            {
-                item = Resources.Load<Item>("Items/ChestArmor"),
-                minAmount = 1,
-                maxAmount = 1,
-                dropChance = 0.1f
-            }
-        };
     }
 
     protected override void BasicAttack()
     {
-        Debug.Log("Skeleton Grunt performs a basic attack!");
-        animator.SetTrigger("BasicAttack");
+        PlayAnimation(animator, "BasicAttack");
         if (player != null)
         {
             player.GetComponent<IDamageable>().TakeDamage(attackDamage);

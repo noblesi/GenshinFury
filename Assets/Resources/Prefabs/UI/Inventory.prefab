@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 307084463453610426}
   - component: {fileID: 7810457486440592756}
   - component: {fileID: 6852226988114007564}
-  - component: {fileID: 1115715931101420168}
+  - component: {fileID: 2865518099870971952}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1115715931101420168
+--- !u!114 &2865518099870971952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,13 +86,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 717673810762754482}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a004e0010702f44c8000171e3640745, type: 3}
+  m_Script: {fileID: 11500000, guid: cb04f742ba3a7f84b850399efcfabbd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: InventoryUI, Assembly-CSharp
-  slotsParent: {fileID: 6072669971862918531}
+  slotPanel: {fileID: 6072669971862918531}
   slotPrefab: {fileID: 8131366054121982831, guid: 8e702786d118fa048b51f36fa1eba418, type: 3}
-  inventory: {fileID: 7826117388651887708, guid: 1b0257a223bb0944eacd3c96f081f85f, type: 3}
-  tooltip: {fileID: 7111757459676026857, guid: d9832d56bf19c644b8fe16c036aaf040, type: 3}
+  slotCount: 20
+  inventory: {fileID: 556669606923620332, guid: 1b0257a223bb0944eacd3c96f081f85f, type: 3}
 --- !u!1 &6072669971862918531
 GameObject:
   m_ObjectHideFlags: 0
